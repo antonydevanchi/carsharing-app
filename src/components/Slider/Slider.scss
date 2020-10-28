@@ -1,0 +1,71 @@
+@import "../../scss/variables.scss";
+
+.slider {
+  width: calc((100% - 64px) / 2);
+  display: flex;
+  justify-content: space-between;
+  background-image: url(../../images/parking.png);
+  background-size: cover;
+  background-position: center center;
+}
+
+.slider__btn-container {
+  min-width: $large;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.slider__btn-container_prev {
+  margin: 0;
+}
+
+.slider__btn-container_next {
+  cursor: pointer;
+  background-color: $mainGreen;
+  opacity: 0.2;
+}
+
+.slider__btn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: $extraSmall;
+  height: 18px;
+  padding: 0;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.slider__btn_prev {
+  background-image: url("../../images/btn_prev.svg");
+}
+
+.slider__btn_next {
+  background-image: url("../../images/btn_next.svg");
+}
+
+.slider__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 $medium;
+}
+
+.slider__title {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 47px;
+  margin: 0;
+}
+
+.slider__text {
+  color: $lightGrey;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 90%;
+  margin: $extraSmall 0 0;
+}

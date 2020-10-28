@@ -1,0 +1,30 @@
+@import "../../scss/variables.scss";
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: $large;
+  min-height: 811px;
+  background-color: #151b1f;
+  padding: $medium $small;
+}
+.navbar__btn {
+  width: $medium;
+  height: $medium;
+  background-image: url(../../images/menu_btn.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  padding: $extraSmall 4px;
+}
+
+.navbar__language {
+  color: $mainGreen;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 15px;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}

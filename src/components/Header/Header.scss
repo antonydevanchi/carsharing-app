@@ -1,0 +1,32 @@
+@import "../../scss/variables.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: $medium $large;
+  align-items: center;
+}
+
+.header__logo {
+  color: $mainGreen;
+  font-size: 30px;
+  line-height: 35px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.header__place {
+  color: $darkGrey;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.header__place-icon {
+  width: 15px;
+  height: 18px;
+  margin-right: $extraSmall;
+}

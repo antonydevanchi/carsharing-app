@@ -1,0 +1,23 @@
+@import "../../scss/variables.scss";
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $medium $large;
+}
+
+.footer__contacts {
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  margin: 0;
+}
+
+.footer__contacts_copyright {
+  color: $darkGrey;
+}
+
+.footer__contacts_phone {
+  color: $mainBlack;
+}

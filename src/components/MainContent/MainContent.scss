@@ -1,0 +1,31 @@
+@import "../../scss/variables.scss";
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  padding: 0 $large;
+}
+
+.main-content__title {
+  font-weight: bold;
+  font-size: 70px;
+  line-height: 66px;
+  margin: 0;
+}
+
+.main-content__title_rus {
+  color: $mainBlack;
+}
+
+.main-content__title_en {
+  color: $mainGreen;
+  margin-top: 4px;
+}
+
+.main-content__text {
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 30px;
+  color: $darkGrey;
+  margin: $medium 0 0;
+}
