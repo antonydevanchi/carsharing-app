@@ -3,7 +3,16 @@
 .main-content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  height: 100%;
   padding: 0 $large;
+  @media screen and (max-width: $desktopMin) {
+    padding: 0 $medium;
+  }
+  @media screen and (max-width: $mobile) {
+    padding: $small 0;
+    justify-content: flex-start;
+  }
 }
 
 .main-content__title {
@@ -11,6 +20,14 @@
   font-size: 70px;
   line-height: 66px;
   margin: 0;
+  @media screen and (max-width: $desktopMin) {
+    line-height: 100%;
+  }
+  @media screen and (max-width: $mobile) {
+    font-size: 32px;
+    margin-right: $small;
+    margin-left: $small;
+  }
 }
 
 .main-content__title_rus {
@@ -28,4 +45,9 @@
   line-height: 30px;
   color: $darkGrey;
   margin: $medium 0 0;
+  @media screen and (max-width: $mobile) {
+    font-size: 18px;
+    line-height: 21px;
+    margin: $small $small;
+  }
 }

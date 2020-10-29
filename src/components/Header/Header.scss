@@ -5,6 +5,15 @@
   justify-content: space-between;
   padding: $medium $large;
   align-items: center;
+  @media screen and (max-width: $desktopMin) {
+    padding: $medium $medium;
+  }
+  @media screen and (max-width: $mobile) {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: $small $small $small $large;
+  }
 }
 
 .header__logo {
@@ -23,6 +32,10 @@
   display: flex;
   align-items: center;
   margin: 0;
+  cursor: pointer;
+  @media screen and (max-width: $mobile) {
+    margin-top: $extraSmall;
+  }
 }
 
 .header__place-icon {

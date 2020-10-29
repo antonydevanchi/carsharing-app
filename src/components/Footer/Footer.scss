@@ -5,6 +5,15 @@
   justify-content: space-between;
   align-items: center;
   padding: $medium $large;
+  @media screen and (max-width: $desktopMin) {
+    padding: $medium $medium;
+  }
+  @media screen and (max-width: $mobile) {
+    padding: $small $small;
+    background-color: $black;
+    flex-direction: column;
+    align-items: flex-end;
+  }
 }
 
 .footer__contacts {
@@ -16,8 +25,17 @@
 
 .footer__contacts_copyright {
   color: $darkGrey;
+  @media screen and (max-width: $mobile) {
+    color: $lightGrey;
+    order: 2;
+    margin-top: $extraSmall;
+  }
 }
 
 .footer__contacts_phone {
   color: $mainBlack;
+  @media screen and (max-width: $mobile) {
+    color: $mainGreen;
+    order: 1;
+  }
 }

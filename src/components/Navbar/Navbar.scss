@@ -7,8 +7,21 @@
   align-items: center;
   width: $large;
   min-height: 811px;
-  background-color: #151b1f;
+  background-color: $black;
   padding: $medium $small;
+  @media screen and (max-width: $tablet) {
+    width: 86px;
+  }
+  @media screen and (max-width: $mobile) {
+    width: $medium;
+    min-height: $medium;
+    max-height: $medium;
+    background-color: #ffffff;
+    position: absolute;
+    top: 24px;
+    left: 22px;
+    padding: 0;
+  }
 }
 .navbar__btn {
   width: $medium;
@@ -18,7 +31,12 @@
   background-repeat: no-repeat;
   background-color: transparent;
   border: none;
-  padding: $extraSmall 4px;
+  padding: $extraSmall $micro;
+  cursor: pointer;
+  @media screen and (max-width: $mobile) {
+    padding: 8px 6px;
+    background-image: url(../../images/menu_btn_mobile.svg);
+  }
 }
 
 .navbar__language {
@@ -27,4 +45,8 @@
   font-size: 13px;
   line-height: 15px;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  @media screen and (max-width: $mobile) {
+    display: none;
+  }
 }
