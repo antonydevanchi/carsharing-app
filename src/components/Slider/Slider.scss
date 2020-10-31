@@ -4,9 +4,22 @@
   width: calc((100% - 64px) / 2);
   display: flex;
   justify-content: space-between;
-  background-image: url(../../images/parking.png);
+  background-image: url(../../images/parking.jpg);
   background-size: cover;
   background-position: center center;
+  &::after {
+    content: "";
+    width: calc((100% - 64px) / 2);
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    mix-blend-mode: normal;
+    position: absolute;
+    top: 0;
+    right: 0;
+    @media screen and (max-width: $desktopMin) {
+      width: calc((100% - 64px) * 410 / 960);
+    }
+  }
   @media screen and (max-width: $desktopMin) {
     width: calc((100% - 64px) * 410 / 960);
   }
@@ -22,9 +35,9 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  z-index: 5;
   &::after {
     content: "";
-    display: block;
     width: 100%;
     height: 100%;
     background: $mainGreen;
@@ -44,12 +57,16 @@
     display: none;
     @media screen and (max-width: $desktopMin) {
       display: block;
+      cursor: pointer;
     }
   }
 }
 
 .slider__btn-container_next {
   cursor: pointer;
+  @media screen and (max-width: $desktopMin) {
+    cursor: default;
+  }
   &::after {
     @media screen and (max-width: $desktopMin) {
       display: none;
@@ -78,14 +95,16 @@
   background-image: url("../../images/btn_next.svg");
 }
 
-.slider__wrapper {
+.slider__content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: $medium $medium 4 * $medium;
+  padding: $small $medium 144px;
   position: relative;
+  z-index: 4;
   @media screen and (max-width: $desktopMin) {
     padding-bottom: $small;
+    padding-top: $medium;
   }
 }
 

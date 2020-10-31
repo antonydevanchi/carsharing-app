@@ -1,28 +1,44 @@
 @import "../../scss/variables.scss";
 
+@keyframes move {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
 .navbar {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: $large;
-  min-height: 811px;
-  background-color: $black;
-  padding: $medium $small;
-  @media screen and (max-width: $tablet) {
-    width: 86px;
-  }
   @media screen and (max-width: $mobile) {
-    width: $medium;
     min-height: $medium;
     max-height: $medium;
-    background-color: #ffffff;
     position: absolute;
     top: 24px;
     left: 22px;
     padding: 0;
   }
 }
+
+.navbar__hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: $large;
+  background-color: $black;
+  padding: $medium $extraSmall $small;
+  @media screen and (max-width: $tablet) {
+    width: 86px;
+  }
+  @media screen and (max-width: $mobile) {
+    width: $medium;
+    max-height: $medium;
+    background-color: #ffffff;
+  }
+}
+
 .navbar__btn {
   width: $medium;
   height: $medium;
@@ -33,10 +49,25 @@
   border: none;
   padding: $extraSmall $micro;
   cursor: pointer;
+  position: absolute;
+  top: $medium;
+  left: $small;
+  z-index: 10;
+  border: none;
+  outline: none;
+  @media screen and (max-width: $tablet) {
+    left: 24px;
+  }
   @media screen and (max-width: $mobile) {
     padding: 8px 6px;
     background-image: url(../../images/menu_btn_mobile.svg);
+    top: 0;
+    left: 0;
   }
+}
+
+.navbar__btn_close {
+  background-image: url(../../images/close.svg);
 }
 
 .navbar__language {
@@ -45,8 +76,139 @@
   font-size: 13px;
   line-height: 15px;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  position: relative;
   @media screen and (max-width: $mobile) {
     display: none;
   }
+  &:hover {
+    color: $lightGrey;
+    border-radius: 50%;
+    border: 1px solid $lightGrey;
+  }
+  &:active {
+    color: $mainGreen;
+    border: 1px solid $lightGrey;
+  }
+}
+
+.navbar__menu {
+  padding: 3 * $large 2 * $large 4 * $medium;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #111518;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc((100% / 2) + 32px);
+  height: 100%;
+  animation: move 0.7s ease-out;
+
+  z-index: 7;
+  &::after {
+    content: "";
+    width: calc((100% - 64px) / 2);
+    height: 100%;
+    background: rgba(21, 27, 31, 0.81);
+    border-left: 1px solid #111518;
+    position: fixed;
+    top: 0;
+    right: 0;
+    animation: move 0.7s ease-out;
+    @media screen and (max-width: $desktopMin) {
+      width: calc((100% - 64px) * 410 / 960);
+    }
+    @media screen and (max-width: $tablet) {
+      display: none;
+    }
+  }
+  @media screen and (max-width: $desktopMin) {
+    padding-left: 3 * $medium;
+    padding-right: 3 * $medium;
+    width: calc((100% * 550 / 960) + 32px);
+  }
+  @media screen and (max-width: $tablet) {
+    width: 100%;
+  }
+  @media screen and (max-width: $mobile) {
+    padding: 80px 28px 28px;
+    justify-content: flex-start;
+  }
+}
+
+.navbar__list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar__item {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 37px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: $small;
+  @media screen and (max-width: $tablet) {
+    font-size: 28px;
+    line-height: 33px;
+  }
+  @media screen and (max-width: $mobile) {
+    font-size: 22px;
+    line-height: 26px;
+    margin-bottom: $small;
+  }
+}
+
+.navbar__item:last-child {
+  margin-bottom: 0;
+}
+
+.navbar__item_active {
+  color: $mainGreen;
+}
+
+.navbar__social-media-list {
+  display: flex;
+  margin: $medium 0 0;
+  padding: 0;
+}
+
+.navbar__social-media {
+  width: $medium;
+  height: $medium;
+  margin-right: 24px;
+  border-radius: 50%;
+  position: relative;
+
+  &:hover::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    background: $mainGreen;
+  }
+}
+
+.navbar__social-media.navbar__social-media_telegram {
+  background-image: url(../../images/Telegram_white.svg);
+}
+
+.navbar__social-media_facebook {
+  background-image: url(../../images/Facebook_white.svg);
+}
+
+.navbar__social-media_instagram {
+  background-image: url(../../images/Instagram_white.svg);
 }

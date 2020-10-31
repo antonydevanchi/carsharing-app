@@ -5,9 +5,9 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding: 0 $large;
+  padding: $medium $large 3 * $medium;
   @media screen and (max-width: $desktopMin) {
-    padding: 0 $medium;
+    padding: $medium $medium 3 * $medium;
   }
   @media screen and (max-width: $mobile) {
     padding: $small 0;
@@ -36,7 +36,7 @@
 
 .main-content__title_en {
   color: $mainGreen;
-  margin-top: 4px;
+  margin-top: $micro;
 }
 
 .main-content__text {
@@ -48,6 +48,6 @@
   @media screen and (max-width: $mobile) {
     font-size: 18px;
     line-height: 21px;
-    margin: $small $small;
+    margin: $small $small 0;
   }
 }

@@ -34,6 +34,13 @@
 
 .footer__contacts_phone {
   color: $mainBlack;
+  text-decoration: none;
+  &:hover {
+    color: $mainGreen;
+  }
+  &:active {
+    color: $mainGreen;
+  }
   @media screen and (max-width: $mobile) {
     color: $mainGreen;
     order: 1;

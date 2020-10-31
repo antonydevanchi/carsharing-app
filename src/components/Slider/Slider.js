@@ -8,7 +8,7 @@ function Slider() {
       <div className="slider__btn-container slider__btn-container_prev">
         <button className="slider__btn slider__btn_prev" />        
       </div>
-      <div className="slider__wrapper">
+      <div className="slider__content">
         <h2 className="slider__title">Бесплатная парковка</h2>
         <p className="slider__text">Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а также в аэропортах.</p>
         <Button 
