@@ -55,6 +55,9 @@
   z-index: 10;
   border: none;
   outline: none;
+  &:hover {
+    transform: scale(1.1);
+  }
   @media screen and (max-width: $tablet) {
     left: 24px;
   }
@@ -104,27 +107,22 @@
   flex-direction: column;
   justify-content: center;
   background-color: #111518;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: calc((100% / 2) + 32px);
+  width: calc((100% / 2) + 32px + 1px);
   height: 100%;
   animation: move 0.7s ease-out;
-
   z-index: 7;
   &::after {
     content: "";
-    width: calc((100% - 64px) / 2);
+    width: 100%;
     height: 100%;
     background: rgba(21, 27, 31, 0.81);
-    border-left: 1px solid #111518;
-    position: fixed;
+    position: absolute;
     top: 0;
-    right: 0;
+    right: -100%;
     animation: move 0.7s ease-out;
-    @media screen and (max-width: $desktopMin) {
-      width: calc((100% - 64px) * 410 / 960);
-    }
     @media screen and (max-width: $tablet) {
       display: none;
     }
@@ -140,6 +138,7 @@
   @media screen and (max-width: $mobile) {
     padding: 80px 28px 28px;
     justify-content: flex-start;
+    position: fixed;
   }
 }
 
@@ -182,33 +181,19 @@
 }
 
 .navbar__social-media {
+  margin-right: 24px;
+}
+
+.navbar__social-link {
   width: $medium;
   height: $medium;
-  margin-right: 24px;
   border-radius: 50%;
-  position: relative;
+  display: block;
+}
 
-  &:hover::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    opacity: 0.5;
-    background: $mainGreen;
+.navbar__social-icon {
+  fill: #ffffff;
+  &:hover {
+    fill: $mainGreen;
   }
-}
-
-.navbar__social-media.navbar__social-media_telegram {
-  background-image: url(../../images/Telegram_white.svg);
-}
-
-.navbar__social-media_facebook {
-  background-image: url(../../images/Facebook_white.svg);
-}
-
-.navbar__social-media_instagram {
-  background-image: url(../../images/Instagram_white.svg);
 }

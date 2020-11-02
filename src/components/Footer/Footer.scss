@@ -44,5 +44,12 @@
   @media screen and (max-width: $mobile) {
     color: $mainGreen;
     order: 1;
+
+    &:hover {
+      color: $lightGrey;
+    }
+    &:active {
+      color: #ffffff;
+    }
   }
 }
