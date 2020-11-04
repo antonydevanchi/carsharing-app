@@ -155,6 +155,9 @@
   text-transform: uppercase;
   color: #ffffff;
   margin-bottom: $small;
+  &:hover {
+    color: $mainGreen;
+  }
   @media screen and (max-width: $tablet) {
     font-size: 28px;
     line-height: 33px;
@@ -168,10 +171,6 @@
 
 .navbar__item:last-child {
   margin-bottom: 0;
-}
-
-.navbar__item_active {
-  color: $mainGreen;
 }
 
 .navbar__social-media-list {

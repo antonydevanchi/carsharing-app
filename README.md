@@ -20,3 +20,7 @@ React, SCSS
 - Установить зависимости при помощи npm - `npm i`;
 - Запустить в development-режиме - `npm start`;
 - Запустить сборку production-билда - `npm run build`
+
+## Ссылка на github pages:
+
+https://anufriTan.github.io/carsharing-app/

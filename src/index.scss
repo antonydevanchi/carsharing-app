@@ -7,9 +7,13 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, "Courier New", monospace;
 }
+
+// code {
+//   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+//     monospace;
+// }
 
 *,
 *::after {
@@ -19,35 +23,35 @@ code {
 @font-face {
   font-family: "Roboto";
   font-style: normal;
-  src: url("./fonts/roboto-regular.woff") format("woff");
+  src: url(./fonts/roboto-regular.woff) format("woff");
   font-weight: normal;
 }
 
 @font-face {
   font-family: "Roboto";
   font-style: italic;
-  src: url("./fonts/Roboto-Italic.woff") format("woff");
+  src: url(./fonts/Roboto-Italic.woff) format("woff");
   font-weight: normal;
 }
 
 @font-face {
   font-family: "Roboto";
   font-style: normal;
-  src: url("./fonts/Roboto-Bold.woff") format("woff");
+  src: url(./fonts/Roboto-Bold.woff) format("woff");
   font-weight: bold;
 }
 
 @font-face {
   font-family: "Roboto";
   font-style: normal;
-  src: url("./fonts/Roboto-Light.woff") format("woff");
+  src: url(./fonts/Roboto-Light.woff) format("woff");
   font-weight: 300;
 }
 
 @font-face {
   font-family: "Roboto";
   font-style: normal;
-  src: url("./fonts/roboto-medium.woff") format("woff");
+  src: url(./fonts/roboto-medium.woff) format("woff");
   font-weight: 500;
 }
 

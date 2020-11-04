@@ -5,7 +5,7 @@ import Navbar from './Navbar/Navbar';
 import Header from './Header/Header';
 import MainContent from './MainContent/MainContent';
 import Footer from './Footer/Footer';
-import Slider from './Slider/Slider';
+import NewSlider from './Slider/NewSlider';
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <MainContent />
           <Footer />             
       </div>
-      <Slider />  
+      <NewSlider />  
     </div>     
    
   );

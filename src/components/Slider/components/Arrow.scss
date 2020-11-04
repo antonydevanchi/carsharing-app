@@ -1,0 +1,46 @@
+@import "../../../scss/variables.scss";
+
+.slider__btn {
+  min-width: $large;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  z-index: 5;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0;
+  &:hover::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: $mainGreen;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+  }
+  @media screen and (max-width: $desktopMin) {
+    min-width: $medium;
+  }
+}
+
+.slider__btn-image {
+  width: $extraSmall;
+  height: 18px;
+  padding: 0;
+  z-index: 5;
+}
+
+.slider__btn_prev {
+  left: 0;
+}
+
+.slider__btn_next {
+  right: 0;
+}

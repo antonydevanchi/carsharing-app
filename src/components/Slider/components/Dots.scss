@@ -1,0 +1,27 @@
+@import "../../../scss/variables.scss";
+
+.slider__pagination {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  position: absolute;
+  bottom: $medium;
+  z-index: 5;
+  width: 100%;
+}
+
+.slider__dot {
+  width: $extraSmall;
+  height: $extraSmall;
+  border-radius: 50%;
+  background-color: $lightGrey;
+  margin-right: $extraSmall;
+}
+
+.slider__dot:last-child {
+  margin-right: 0;
+}
+
+.slider__dot_active {
+  background-color: $mainGreen;
+}

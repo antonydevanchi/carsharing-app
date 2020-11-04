@@ -1,0 +1,16 @@
+@import "../../scss/variables.scss";
+
+.slider {
+  width: calc((100% - 64px) / 2);
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+
+  @media screen and (max-width: $desktopMin) {
+    width: calc((100% - 64px) * 410 / 960);
+  }
+  @media screen and (max-width: $tablet) {
+    display: none;
+  }
+}
