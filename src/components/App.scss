@@ -29,3 +29,20 @@
     width: 100%;
   }
 }
+
+.order-page {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 100%;
+  // max-width: 1440px;
+}
+
+.order-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  @media screen and (max-width: $tablet) {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,45 @@
+@import "../../scss/variables.scss";
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $extraSmall $large;
+  margin: 0;
+  list-style-type: none;
+  border-top: 1px solid $lightGrey;
+  border-bottom: 1px solid $lightGrey;
+  @media screen and (max-width: $desktopMin) {
+    padding-right: $medium;
+    padding-left: $medium;
+  }
+  @media screen and (max-width: $mobile) {
+    padding-right: $small;
+    padding-left: $small;
+  }
+}
+
+.breadcrumbs__item {
+}
+
+.breadcrumbs__link {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  color: $darkGrey;
+  margin-right: $small;
+  text-decoration: none;
+  @media screen and (max-width: $mobile) {
+    font-weight: normal;
+    margin-right: $micro;
+  }
+}
+
+.breadcrumbs__link_active {
+  color: $mainGreen;
+}
+
+.breadcrumbs__arrow {
+  margin-right: $small;
+  width: 6px;
+  height: $extraSmall;
+}
