@@ -1,4 +1,4 @@
-@import "../../scss/variables.scss";
+@import "../../../../scss/variables.scss";
 
 .location {
   display: flex;
@@ -75,7 +75,7 @@
   position: absolute;
   bottom: 6px;
   right: 6px;
-  background-image: url(../../images/reset.svg);
+  background-image: url(../../../../images/reset.svg);
   background-size: cover;
   background-repeat: no-repeat;
   border: none;

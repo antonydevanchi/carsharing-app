@@ -1,6 +1,6 @@
 import React from 'react';
 import './Location.scss';
-import map from '../../images/map.jpg';
+import map from '../../../../images/map.jpg';
 
 function Location() {
   return (

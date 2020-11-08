@@ -7,9 +7,7 @@ import MainContent from './MainContent/MainContent';
 import Footer from './Footer/Footer';
 import NewSlider from './Slider/NewSlider';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Breadcrumbs from './Breadcrumbs/Breadccrumbs';
-import Location from './Location/Location';
-import Order from './Order/Order';
+import OrderForm from './OrderForm/OrderForm';
 
 function App() {
   return (   
@@ -25,14 +23,10 @@ function App() {
             </div>
             <NewSlider />  
           </Route>    
-          <Route path="/location">
+          <Route path="/order-form">
             <div className="order-page">
-              <Header />            
-              <Breadcrumbs />
-              <div className="order-content">                
-                <Location />               
-                <Order />
-              </div>            
+              <Header />   
+              <OrderForm />           
             </div>
           </Route>
         </Switch>    

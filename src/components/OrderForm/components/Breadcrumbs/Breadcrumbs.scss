@@ -1,4 +1,4 @@
-@import "../../scss/variables.scss";
+@import "../../../../scss/variables.scss";
 
 .breadcrumbs {
   display: flex;
@@ -19,6 +19,7 @@
 }
 
 .breadcrumbs__item {
+  margin: 0;
 }
 
 .breadcrumbs__link {

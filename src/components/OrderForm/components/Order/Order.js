@@ -1,6 +1,6 @@
 import React from 'react';
 import './Order.scss';
-import Button from '../Button/Button';
+import Button from '../../../Button/Button';
 
 function Order() {
   return (
