@@ -1,9 +1,12 @@
 import React from 'react';
-import './OrderForm.scss';
+import {Switch, Route} from 'react-router-dom';
 import Breadcrumbs from './components/Breadcrumbs/Breadccrumbs';
 import Location from './components/Location/Location';
 import Order from './components/Order/Order';
-import {Switch, Route} from 'react-router-dom';
+import AutoModel from './components/AutoModel/AutoModel';
+import Additionally from './components/Additionally/Additionally';
+import Total from './components/Total/Total';
+import './OrderForm.scss';
 
 function OrderForm() {
   return (
@@ -15,13 +18,13 @@ function OrderForm() {
             <Location /> 
           </Route>
           <Route path="/order-form/model">
-            Model
+            <AutoModel />
           </Route>
           <Route path="/order-form/additionally">
-            Additionally
+            <Additionally />
           </Route>
           <Route path="/order-form/total">
-            Total
+            <Total />
           </Route>
         </Switch>        
         <Order />

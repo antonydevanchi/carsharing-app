@@ -1,0 +1,184 @@
+@import "../../../../scss/variables.scss";
+
+.additionally {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: $medium $large;
+  @media screen and (max-width: $desktopMin) {
+    padding: $medium $medium;
+  }
+  @media screen and (max-width: $mobile) {
+    padding: $small $small;
+  }
+
+  &__title {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: $mainBlack;
+    margin: 0 0 $small;
+  }
+
+  &__container {
+    display: flex;
+    align-items: baseline;
+    padding-bottom: $medium;
+
+    &_column {
+      flex-direction: column;
+    }
+
+    &_right {
+      align-items: flex-end;
+      margin-right: auto;
+    }
+  }
+
+  &__radio {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border: 1px solid $darkGrey;
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: $extraSmall;
+    @media screen and (max-width: $mobile) {
+      margin-right: $micro;
+    }
+    &:checked {
+      border: 3px solid $mainGreen;
+    }
+    &:checked + label {
+      color: $mainBlack;
+    }
+  }
+
+  &__item {
+    margin-right: $small;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: $darkGrey;
+    position: relative;
+    @media screen and (max-width: $mobile) {
+      margin-right: $extraSmall;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  &__text {
+    margin: 0 0 $extraSmall;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &__input {
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: 1px solid $darkGrey;
+    margin-left: $extraSmall;
+    min-width: 224px;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    padding-left: $extraSmall;
+    &::placeholder {
+      font-size: inherit;
+      font-family: inherit;
+      line-height: inherit;
+      color: $darkGrey;
+    }
+    @media screen and (max-width: $mobile) {
+      margin-left: 0;
+      margin-top: $extraSmall;
+      min-width: 260px;
+    }
+  }
+
+  &__input_icon {
+    padding-right: 20px;
+  }
+
+  &__btn-reset {
+    width: $extraSmall;
+    height: $extraSmall;
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background-image: url(../../../../images/reset.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+    padding: 0;
+    &:hover {
+      outline: 1px solid $mainGreen;
+    }
+    &:active {
+      transform: scale(1.15);
+    }
+  }
+
+  &__checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+    & + label {
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+      cursor: pointer;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    &:checked + label {
+      color: $mainBlack;
+    }
+
+    & + label::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 1px solid $darkGrey;
+      margin-right: $extraSmall;
+    }
+
+    & + label::after {
+      content: "";
+      position: absolute;
+      width: 13px;
+      height: 10px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    &:checked + label::after {
+      top: 0;
+      left: 2px;
+      background-image: url("../../../../images/check.svg");
+    }
+
+    &:checked + label::before {
+      border-color: $mainGreen;
+    }
+
+    &:not(:disabled):not(:checked) + label:hover::before {
+      border-color: $mainGreen;
+    }
+  }
+}

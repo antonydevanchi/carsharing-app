@@ -1,6 +1,6 @@
 import React from 'react';
-import './Breadcrumbs.scss';
 import {NavLink} from 'react-router-dom';
+import './Breadcrumbs.scss';
 import arrow from '../../../../images/arrow.svg'; 
 
 function Breadcrumbs() {

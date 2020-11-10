@@ -16,31 +16,31 @@
     padding-right: $small;
     padding-left: $small;
   }
-}
 
-.breadcrumbs__item {
-  margin: 0;
-}
-
-.breadcrumbs__link {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 16px;
-  color: $darkGrey;
-  margin-right: $small;
-  text-decoration: none;
-  @media screen and (max-width: $mobile) {
-    font-weight: normal;
-    margin-right: $micro;
+  &__item {
+    margin: 0;
   }
-}
 
-.breadcrumbs__link_active {
-  color: $mainGreen;
-}
+  &__link {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    color: $darkGrey;
+    margin-right: $small;
+    text-decoration: none;
+    @media screen and (max-width: $mobile) {
+      font-weight: normal;
+      margin-right: $micro;
+    }
 
-.breadcrumbs__arrow {
-  margin-right: $small;
-  width: 6px;
-  height: $extraSmall;
+    &_active {
+      color: $mainGreen;
+    }
+  }
+
+  &__arrow {
+    margin-right: $small;
+    width: 6px;
+    height: $extraSmall;
+  }
 }

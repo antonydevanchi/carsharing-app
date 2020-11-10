@@ -1,0 +1,69 @@
+@import "../../../../scss/variables.scss";
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: $medium 3 * $large $medium $large;
+  @media screen and (max-width: $desktopMin) {
+    padding: $medium $medium;
+  }
+  @media screen and (max-width: $mobile) {
+    padding: $small $small;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__container {
+    display: inline-block;
+    @media screen and (max-width: $mobile) {
+      margin-bottom: $small;
+    }
+  }
+
+  &__auto-model {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: $mainBlack;
+    margin: 0 0 $extraSmall 0;
+  }
+
+  &__car-number {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: $mainBlack;
+    margin: 0 0 $extraSmall 0;
+    border: 1px solid $darkGrey;
+    border-radius: 4px;
+    width: auto;
+    display: inline-block;
+    padding: $micro $extraSmall;
+  }
+
+  &__item {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    color: $mainBlack;
+    margin: 0 0 $extraSmall 0;
+  }
+
+  &__value {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: $mainBlack;
+    margin-left: $micro;
+  }
+
+  &__image {
+    width: 256px;
+    height: 116px;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
