@@ -3,7 +3,7 @@ import {Switch, Route} from 'react-router-dom';
 import Breadcrumbs from './components/Breadcrumbs/Breadccrumbs';
 import Location from './components/Location/Location';
 import Order from './components/Order/Order';
-import AutoModel from './components/AutoModel/AutoModel';
+import CarModel from './components/CarModel/CarModel';
 import Additionally from './components/Additionally/Additionally';
 import Total from './components/Total/Total';
 import './OrderForm.scss';
@@ -18,7 +18,7 @@ function OrderForm() {
             <Location /> 
           </Route>
           <Route path="/order-form/model">
-            <AutoModel />
+            <CarModel />
           </Route>
           <Route path="/order-form/additionally">
             <Additionally />
