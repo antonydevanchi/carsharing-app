@@ -14,32 +14,32 @@
     align-items: flex-end;
     padding: $small $small $small $large;
   }
-}
 
-.header__logo {
-  color: $mainGreen;
-  font-size: 30px;
-  line-height: 35px;
-  font-weight: bold;
-  margin: 0;
-}
-
-.header__place {
-  color: $darkGrey;
-  font-size: 14px;
-  line-height: 16px;
-  font-weight: normal;
-  display: flex;
-  align-items: center;
-  margin: 0;
-  cursor: pointer;
-  @media screen and (max-width: $mobile) {
-    margin-top: $extraSmall;
+  &__logo {
+    color: $mainGreen;
+    font-size: 30px;
+    line-height: 35px;
+    font-weight: bold;
+    margin: 0;
   }
-}
 
-.header__place-icon {
-  width: 15px;
-  height: 18px;
-  margin-right: $extraSmall;
+  &__place {
+    color: $darkGrey;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    cursor: pointer;
+    @media screen and (max-width: $mobile) {
+      margin-top: $extraSmall;
+    }
+  }
+
+  &__place-icon {
+    width: 15px;
+    height: 18px;
+    margin-right: $extraSmall;
+  }
 }

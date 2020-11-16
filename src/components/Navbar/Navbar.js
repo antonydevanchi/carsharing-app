@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Navbar.scss';
 
 function Navbar() {
-  const [ isClicked, setIsClicked ] = React.useState(false);
-  const[isChanged, setIsChanged] = React.useState(false);
+  const [ isMenuOpened, setIsMenuOpened ] = useState(false);
+  const [ isChanged, setIsChanged ] = useState(false);
   
-  function showOrCloseMenu(e) {
-    setIsClicked (!isClicked);
+  function toggleMenuVisibility(e) {
+    setIsMenuOpened (!isMenuOpened);
     const btnMenu = e.target;
     btnMenu.classList.toggle("navbar__btn_close");
   }
@@ -18,10 +18,10 @@ function Navbar() {
   return (
     <section className="navbar">
       <div className="navbar__hamburger-menu">
-        <button className="navbar__btn" onClick={showOrCloseMenu} />       
+        <button className="navbar__btn" onClick={toggleMenuVisibility} />       
         <p className="navbar__language" onClick={changeLanguage}>{ !isChanged ? "Eng" : "Рус"}</p>
       </div>
-      { isClicked &&
+      { isMenuOpened &&
       <nav className="navbar__menu">        
         <ul className="navbar__list">
           <li className="navbar__item">ПАРКОВКА</li>

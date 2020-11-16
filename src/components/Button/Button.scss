@@ -14,25 +14,52 @@
   outline: none;
   padding: 0;
   cursor: pointer;
-}
 
-.button:hover {
-  filter: brightness(90%);
-}
+  &:hover {
+    filter: brightness(90%);
+  }
 
-.button:active {
-  filter: brightness(80%);
-}
+  &:active {
+    filter: brightness(80%);
+  }
 
-.button__disabled {
-  background-color: $lightGrey;
-  background-image: none;
-}
+  &__disabled {
+    background-color: $lightGrey;
+    background-image: none;
+  }
 
-.button_max {
-  @media screen and (max-width: $mobile) {
-    width: 100% !important;
-    margin-top: $medium !important;
-    border-radius: 0;
+  &_max {
+    width: 250px;
+    margin-top: $large;
+    @media screen and (max-width: $mobile) {
+      width: 100%;
+      margin-top: $medium;
+      border-radius: 0;
+    }
+  }
+
+  &_middle {
+    width: 164px;
+    margin-top: $medium;
+    border-radius: $micro;
+    z-index: 5;
+  }
+
+  &_theme {
+    &_green {
+      background-image: linear-gradient(90deg, #13493f 0%, #0c7b1b 100%);
+    }
+
+    &_blue {
+      background-image: linear-gradient(90deg, #132949 0%, #0c7b67 100%);
+    }
+
+    &_red {
+      background-image: linear-gradient(90deg, #493013 0%, #7b0c3b 100%);
+    }
+
+    &_violet {
+      background-image: linear-gradient(90deg, #281349 0%, #720c7b 100%);
+    }
   }
 }

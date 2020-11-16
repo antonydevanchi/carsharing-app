@@ -5,7 +5,7 @@ function Dots(props) {
   
   return (
     <div className="slider__pagination">
-      {props.slides.map(function(slide, i) {
+      {props.slides.map((slide, i) => {
         if (props.activeIndex === i) {
           return <div key={slide + i} className="slider__dot slider__dot_active" />
         } else {
@@ -17,3 +17,4 @@ function Dots(props) {
 }
 
 export default Dots;
+

@@ -1,13 +1,12 @@
-import './App.scss';
 import React from 'react';
-import './App.scss';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navbar from './Navbar/Navbar';
 import Header from './Header/Header';
 import MainContent from './MainContent/MainContent';
 import Footer from './Footer/Footer';
 import NewSlider from './Slider/NewSlider';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import OrderForm from './OrderForm/OrderForm';
+import './App.scss';
 
 function App() {
   return (   

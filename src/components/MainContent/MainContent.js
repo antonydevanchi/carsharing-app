@@ -1,7 +1,7 @@
 import React from 'react';
-import './MainContent.scss';
+import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
-import { Link } from 'react-router-dom'; 
+import './MainContent.scss';
 
 function MainContent() {
   return (
@@ -10,8 +10,7 @@ function MainContent() {
       <h2 className="main-content__title main-content__title_en" lang="en">Need for drive</h2>
       <p className="main-content__text">Поминутная аренда авто твоего города</p>
       <Link to="/order-form/location">
-        <Button 
-          style={{ width: 250, marginTop: 64 }}
+        <Button          
           text="Забронировать"
           className="button button_max"
         />

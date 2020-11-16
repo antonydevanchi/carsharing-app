@@ -3,15 +3,13 @@ import './Button.scss';
 
 function Button(props) {
  
-  return (
-    <>
-      <button 
-        className={props.className}
-        style={props.style} 
-      >
-        {props.text}
-      </button>
-    </>
+  return (    
+    <button 
+      className={props.className}       
+    >
+      {props.text}
+    </button>
+    
   )
 }
 

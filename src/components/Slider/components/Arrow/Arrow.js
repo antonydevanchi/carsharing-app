@@ -1,7 +1,7 @@
 import React from 'react';
 import './Arrow.scss';
-import leftArrow from '../../../images/btn_prev.svg';
-import rightArrow from '../../../images/btn_next.svg';
+import leftArrow from '../../../../images/btn_prev.svg';
+import rightArrow from '../../../../images/btn_next.svg';
 
 
 function Arrow(props) {

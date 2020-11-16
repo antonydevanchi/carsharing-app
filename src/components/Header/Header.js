@@ -7,7 +7,7 @@ function Header() {
     <header className="header">
       <p className="header__logo" lang="en">Need for drive</p>
       <p className="header__place">
-        <img className="header__place-icon" src={locality} alt="" />
+        <img className="header__place-icon" src={locality} alt="Метка" />
         Ульяновск
       </p>
     </header>

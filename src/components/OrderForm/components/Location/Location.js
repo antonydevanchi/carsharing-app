@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {API_URL} from '../../../../constants/constats';
 import './Location.scss';
 import map from '../../../../images/map.jpg';
 
@@ -10,6 +11,20 @@ function Location() {
   useEffect(() => {
     const cities = ['Ульяновск', 'Самара', 'Казань', 'Саранск'];
     setOptions(cities);
+    fetch( `${API_URL}/db/city`, {
+      method: 'GET',
+      headers: {
+        'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+        'Authorization': 'Bearer 52efbe08228671240494f537f2486bc109a637b4'
+      }  
+    })
+    .then((res) => {
+      return res.json();
+    })
+      .then((data) => {
+        console.log(data);
+      })
+
   }, []);
   
   function handleClear() {
