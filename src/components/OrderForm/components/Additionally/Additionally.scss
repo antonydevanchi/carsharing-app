@@ -9,7 +9,7 @@
   @media screen and (max-width: $desktopMin) {
     padding: $medium $medium;
   }
-  @media screen and (max-width: $mobile) {
+  @media screen and (max-width: $tablet) {
     padding: $small $small;
   }
 
@@ -28,11 +28,9 @@
 
     &_column {
       flex-direction: column;
-    }
-
-    &_right {
-      align-items: flex-end;
-      margin-right: auto;
+      @media screen and (max-width: $tablet) {
+        padding-bottom: 0;
+      }
     }
   }
 
@@ -78,6 +76,13 @@
     &:last-of-type {
       margin-bottom: 0;
     }
+  }
+
+  &__date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: auto;
   }
 
   &__input {

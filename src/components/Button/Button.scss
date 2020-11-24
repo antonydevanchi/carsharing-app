@@ -23,7 +23,7 @@
     filter: brightness(80%);
   }
 
-  &__disabled {
+  &_disabled {
     background-color: $lightGrey;
     background-image: none;
   }
@@ -36,6 +36,12 @@
       margin-top: $medium;
       border-radius: 0;
     }
+  }
+
+  &_order {
+    width: 287px;
+    margin-top: $medium;
+    align-self: center;
   }
 
   &_middle {

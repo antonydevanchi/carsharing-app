@@ -26,119 +26,18 @@
     line-height: 16px;
     color: $mainBlack;
     position: relative;
-    margin: 0 0 $small;
-    &_map {
-      margin-top: $medium;
-    }
-  }
-
-  &__name {
-    position: relative;
-    @media screen and (max-width: $mobile) {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  &__input {
-    border: none;
-    outline: none;
-    background: none;
-    border-bottom: 1px solid $darkGrey;
-    margin-left: $extraSmall;
-    min-width: 224px;
-    font-weight: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    padding-left: $extraSmall;
-    padding-right: 20px;
-
-    &::placeholder {
-      font-size: inherit;
-      font-family: inherit;
-      line-height: inherit;
-      color: $darkGrey;
-    }
-    @media screen and (max-width: $mobile) {
-      margin-left: 0;
-      margin-top: $extraSmall;
-      min-width: 260px;
-    }
-  }
-
-  &__btn-reset {
-    width: $extraSmall;
-    height: $extraSmall;
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    background-image: url(../../../../images/reset.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    border: none;
-    outline: none;
-    padding: 0;
-    &:hover {
-      outline: 1px solid $mainGreen;
-    }
-    &:active {
-      transform: scale(1.15);
-    }
+    margin: $medium 0 $small;
   }
 
   &__map {
     width: 736px;
-    max-height: 352px;
-    background-size: cover;
-    background-position: center center;
+    height: 352px;
     @media screen and (max-width: $desktopMin) {
       width: 80%;
     }
     @media screen and (max-width: $mobile) {
       width: 100%;
-    }
-  }
-
-  &__autocomplete {
-    width: 224px;
-    height: 106px;
-    overflow: auto;
-    padding: $extraSmall;
-    border: 1px solid $lightGrey;
-    border-top: none;
-    position: absolute;
-    top: 20px;
-    right: 0;
-    background-color: #ffffff;
-    z-index: 5;
-    margin: 0;
-    list-style-type: none;
-    cursor: default;
-    scrollbar-color: $darkGrey transparent;
-    scrollbar-width: thin;
-    &::-webkit-scrollbar {
-      width: $micro;
-      height: $micro;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: #ffffff;
-      border-left: 1px solid $lightGrey;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: $darkGrey;
-      border-radius: 2px;
-      border: 1px solid #ffffff;
-    }
-  }
-
-  &__autocomplete-item {
-    font-size: inherit;
-    font-family: inherit;
-    line-height: inherit;
-    color: $darkGrey;
-    margin-bottom: $extraSmall;
-    &:hover {
-      color: $mainGreen;
+      height: 60%;
     }
   }
 }

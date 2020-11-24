@@ -8,11 +8,10 @@
   align-items: flex-end;
   border-left: 1px solid $lightGrey;
   padding: $medium $medium;
+  order: 2;
   @media screen and (max-width: $tablet) {
     min-width: 100%;
     height: auto;
-  }
-  @media screen and (max-width: $mobile) {
     padding: $small $small;
   }
 
@@ -21,39 +20,19 @@
     font-size: 18px;
     line-height: 21px;
     color: $mainBlack;
-    margin: 0;
+    margin: 0 0 $medium;
+    @media screen and (max-width: $tablet) {
+      margin-bottom: $extraSmall;
+      align-self: center;
+    }
   }
 
   &__container {
     display: flex;
-    margin-top: $medium;
+    margin-top: $small;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-end;
-
-    &_price {
-      justify-content: flex-start;
-    }
-  }
-
-  &__text {
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 16px;
-    color: $mainBlack;
-    margin: 0;
-
-    &_thin {
-      color: $darkGrey;
-      text-align: right;
-    }
-  }
-
-  &__line {
-    border-bottom: 1px dotted $darkGrey;
-    width: 100%;
-    margin-left: 12px;
-    margin-right: 12px;
   }
 
   &__price {
