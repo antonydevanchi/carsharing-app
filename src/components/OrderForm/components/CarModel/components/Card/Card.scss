@@ -15,7 +15,8 @@
   &:hover {
     border: 1px solid $darkGrey;
   }
-  &:visited {
+
+  &_active {
     border: 1px solid $mainGreen;
   }
 
@@ -46,7 +47,7 @@
     align-self: flex-end;
     width: 256px;
     height: 116px;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
     @media screen and (max-width: $mobile) {
       margin-top: $small;

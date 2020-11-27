@@ -68,4 +68,12 @@
       justify-content: center;
     }
   }
+
+  &__loading {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: $mainBlack;
+    align-self: center;
+  }
 }

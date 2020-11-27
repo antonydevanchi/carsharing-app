@@ -15,8 +15,9 @@ function Location(props) {
   const [optionsPoint, setOptionsPoint] = useState([]);
   // При первоначальной загрузке страницы для отрисовки карты используются координаты Ульяновска.
   const [coords, setCoords] = useState([54.321251, 48.3809734]);
-  const [coordsPoint, setCoordsPoint] = useState([]);
+  const [coordsPoint, setCoordsPoint] = useState([54.321251, 48.3809734]);
   const [coordsCityPoints, setCoordsCityPoints] = useState([]);
+
   let urlCityId;
   if (searchCity !== "") {
     urlCityId = `/db/point?cityId=${sessionStorage.getItem(searchCity)}`;
@@ -70,7 +71,7 @@ function Location(props) {
   // Обращение к API Яндекс.карт для получения координат пунктов выбранного города для отрисовки меток на карте.
   useEffect(() => {
     const geoData = [];
-    if (searchCity !== "" && optionsPoint.join()) {
+    if (searchCity !== "" && optionsPoint.join() !== "") {
       optionsPoint.forEach((point) => {
         fetch(
           `${API_URL_YANDEX_MAP}&geocode=${point.city},+${point.address}&apikey=${API_KEY_YANDEX_MAP}`
@@ -94,13 +95,13 @@ function Location(props) {
   // Обращение к API Яндекс.карт для получения координат выбранного пункта для отрисовки его метки на карте
   // (если город не был выбран) и центрирования карты.
   useEffect(() => {
-    if (searchPoint) {
+    if (searchPoint !== "" && optionsPoint.join() !== "") {
       const currentCity = optionsPoint.reduce((prevVal, item) => {
         if (item.address === searchPoint) {
           prevVal = item.city;
         }
         return prevVal;
-      }, 0);
+      }, "");
       fetch(
         `${API_URL_YANDEX_MAP}&geocode=${currentCity},+${searchPoint}&apikey=${API_KEY_YANDEX_MAP}`
       )
@@ -158,7 +159,7 @@ function Location(props) {
           className="location__map"
           state={{ center: mapCenter, zoom: mapZoom }}
         >
-          {coordsPoint.join() && (
+          {searchPoint && (
             <Placemark
               geometry={coordsPoint}
               options={{
@@ -169,8 +170,8 @@ function Location(props) {
               }}
             />
           )}
-
-          {coordsCityPoints.join() &&
+          {searchCity &&
+            // optionsPoint.join() !== "" &&
             coordsCityPoints.map((item, i) => (
               <Placemark
                 key={i}
