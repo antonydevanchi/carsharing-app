@@ -8,8 +8,9 @@
   @media screen and (max-width: $desktopMin) {
     padding: $medium $medium 0;
   }
-  @media screen and (max-width: $mobile) {
+  @media screen and (max-width: $tablet) {
     padding: $small $small 0;
+    height: auto;
   }
 
   &__form {

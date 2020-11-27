@@ -9,8 +9,9 @@
   @media screen and (max-width: $desktopMin) {
     padding: $medium $medium;
   }
-  @media screen and (max-width: $mobile) {
+  @media screen and (max-width: $tablet) {
     padding: $small $small;
+    height: auto;
   }
 
   &__container {

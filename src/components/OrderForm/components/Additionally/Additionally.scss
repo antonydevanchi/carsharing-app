@@ -11,6 +11,7 @@
   }
   @media screen and (max-width: $tablet) {
     padding: $small $small;
+    height: auto;
   }
 
   &__title {

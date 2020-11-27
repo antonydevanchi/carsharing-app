@@ -9,6 +9,9 @@
   @media screen and (max-width: $desktopMin) {
     padding: $medium $medium;
   }
+  @media screen and (max-width: $tablet) {
+    height: auto;
+  }
   @media screen and (max-width: $mobile) {
     padding: $small $small;
     flex-direction: column;
