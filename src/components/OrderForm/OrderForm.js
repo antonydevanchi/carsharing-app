@@ -1,5 +1,5 @@
 import React from "react";
-import Breadcrumbs from "./components/Breadcrumbs/Breadccrumbs";
+import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 import Order from "./components/Order/Order";
 import "./OrderForm.scss";
 

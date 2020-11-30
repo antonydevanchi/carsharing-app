@@ -16,12 +16,12 @@
     margin: 0;
     white-space: pre;
 
-    &_thin {
+    &_type_thin {
       color: $darkGrey;
       text-align: right;
     }
 
-    &_point {
+    &_size_point {
       white-space: normal;
       min-width: 102px;
     }

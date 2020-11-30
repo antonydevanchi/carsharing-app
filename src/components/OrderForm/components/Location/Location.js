@@ -4,7 +4,7 @@ import Autocomplete from "../Autocomplete/Autocomplete";
 import {
   API_KEY_YANDEX_MAP,
   API_URL_YANDEX_MAP,
-} from "../../../../constants/constats";
+} from "../../../../constants/constants";
 import "./Location.scss";
 import placemark from "../../../../images/placemark.svg";
 
@@ -51,20 +51,21 @@ function Location(props) {
   // Обращение к API Яндекс.карт для получения координат выбранного города и использования их для перерисовки карты.
   useEffect(() => {
     if (searchCity !== "") {
-      fetch(
-        `${API_URL_YANDEX_MAP}&geocode=${searchCity}&apikey=${API_KEY_YANDEX_MAP}`
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) =>
+      (async () => {
+        try {
+          const response = await fetch(
+            `${API_URL_YANDEX_MAP}&geocode=${searchCity}&apikey=${API_KEY_YANDEX_MAP}`
+          );
+          const resData = await response.json();
           setCoords(
-            data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+            resData.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
               .split(" ")
               .reverse()
-          )
-        )
-        .catch((err) => console.log(err));
+          );
+        } catch (error) {
+          console.log("Ошибка. запрос не выполнен");
+        }
+      })();
     }
   }, [searchCity]);
 
@@ -73,20 +74,21 @@ function Location(props) {
     const geoData = [];
     if (searchCity !== "" && optionsPoint.join() !== "") {
       optionsPoint.forEach((point) => {
-        fetch(
-          `${API_URL_YANDEX_MAP}&geocode=${point.city},+${point.address}&apikey=${API_KEY_YANDEX_MAP}`
-        )
-          .then((res) => {
-            return res.json();
-          })
-          .then((data) => {
+        (async () => {
+          try {
+            const response = await fetch(
+              `${API_URL_YANDEX_MAP}&geocode=${point.city},+${point.address}&apikey=${API_KEY_YANDEX_MAP}`
+            );
+            const resData = await response.json();
             geoData.push(
-              data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+              resData.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
                 .split(" ")
                 .reverse()
             );
-          })
-          .catch((err) => console.log(err));
+          } catch (error) {
+            console.log("Ошибка. запрос не выполнен");
+          }
+        })();
       });
       setCoordsCityPoints(geoData);
     }
@@ -102,20 +104,21 @@ function Location(props) {
         }
         return prevVal;
       }, "");
-      fetch(
-        `${API_URL_YANDEX_MAP}&geocode=${currentCity},+${searchPoint}&apikey=${API_KEY_YANDEX_MAP}`
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
+      (async () => {
+        try {
+          const response = await fetch(
+            `${API_URL_YANDEX_MAP}&geocode=${currentCity},+${searchPoint}&apikey=${API_KEY_YANDEX_MAP}`
+          );
+          const resData = await response.json();
           setCoordsPoint(
-            data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+            resData.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
               .split(" ")
               .reverse()
           );
-        })
-        .catch((err) => console.log(err));
+        } catch (error) {
+          console.log("Ошибка. запрос не выполнен");
+        }
+      })();
     }
   }, [searchPoint, optionsPoint]);
 

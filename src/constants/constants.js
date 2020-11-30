@@ -37,7 +37,32 @@ export const HEADERS = {
   "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b",
   Authorization: "Bearer 52efbe08228671240494f537f2486bc109a637b4",
 };
+export const URL_SIMBIRSOFT =
+  "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/";
 
 export const API_KEY_YANDEX_MAP = "434c60eb-7e25-434d-8607-ff46d664dc87";
 export const API_URL_YANDEX_MAP =
   "https://geocode-maps.yandex.ru/1.x/?format=json";
+
+export const COLORS = [
+  { type: "Любой", id: "any" },
+  { type: "Красный", id: "red" },
+  { type: "Голубой", id: "blue" },
+];
+
+export const RATES = [
+  { type: "Поминутно", id: "forMinutes", price: "7₽/мин" },
+  { type: "На сутки", id: "forDay", price: "1999 ₽/сутки" },
+];
+
+export const OTHERS = [
+  { type: "Полный бак", id: "fullTank", price: "500р" },
+  { type: "Детское кресло", id: "babyChair", price: "200р" },
+  { type: "Правый руль", id: "rightHandDrive", price: "1600р" },
+];
+
+export const MODEL_TYPES = [
+  { type: "Все модели", id: "allModels" },
+  { type: "Эконом", id: "economModels" },
+  { type: "Премиум", id: "premiumModels" },
+];

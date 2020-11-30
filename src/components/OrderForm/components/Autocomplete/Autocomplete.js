@@ -1,34 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { API_URL, HEADERS } from "../../../../constants/constats";
+import { API_URL, HEADERS } from "../../../../constants/constants";
 import "./Autocomplete.scss";
 
 function Autocomplete(props) {
   const [display, setDisplay] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const places = [];
     if (props.id === "city" || props.id === "point") {
-      fetch(`${API_URL}${props.urlEnd}`, {
-        method: "GET",
-        headers: HEADERS,
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((res) => {
-          res.data.forEach((item) => {
+      setIsLoading(true);
+      (async () => {
+        try {
+          const response = await fetch(`${API_URL}${props.urlEnd}`, {
+            method: "GET",
+            headers: HEADERS,
+          });
+          const resData = await response.json();
+          resData.data.map((item) => {
             if (props.id === "city") {
               places.push({ name: item.name, id: item.id });
               sessionStorage.setItem(item.name, item.id);
             } else {
               places.push({ city: item.cityId.name, address: item.address });
             }
+            return places;
           });
-        })
-        .catch((err) => {
+          setIsLoading(false);
+        } catch (error) {
           console.log("Ошибка. запрос не выполнен");
-        });
-      props.setOptions(places);
+        }
+        props.setOptions(places);
+      })();
     }
   }, [props.urlEnd, props.id]);
 
@@ -67,9 +70,11 @@ function Autocomplete(props) {
           onClick={props.handleClear}
         />
       )}
-
       {display && props.id === "city" && (
         <ul className="autocomplete__list">
+          {isLoading && (
+            <li className="autocomplete__item">Загружаем города...</li>
+          )}
           {props.options
             .filter((item) =>
               item.name.toLowerCase().startsWith(`${props.value}`.toLowerCase())
@@ -89,6 +94,9 @@ function Autocomplete(props) {
       )}
       {display && props.id === "point" && (
         <ul className="autocomplete__list">
+          {isLoading && (
+            <li className="autocomplete__item">Загружаем пункты...</li>
+          )}
           {props.options
             .filter((item) =>
               item.address

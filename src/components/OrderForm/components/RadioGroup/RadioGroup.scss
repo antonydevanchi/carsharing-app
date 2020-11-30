@@ -1,24 +1,38 @@
 @import "../../../../scss/variables.scss";
 
-.car-model {
+.radio-group {
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: $medium $large 0;
+  align-items: baseline;
+  padding-bottom: $medium;
   @media screen and (max-width: $desktopMin) {
-    padding: $medium $medium 0;
-  }
-  @media screen and (max-width: $tablet) {
-    padding: $small $small 0;
-    height: auto;
+    padding-bottom: $small;
   }
 
-  &__form {
-    display: flex;
-    align-items: baseline;
+  &_type_column {
+    flex-direction: column;
+    @media screen and (max-width: $tablet) {
+      padding-bottom: 0;
+    }
   }
 
-  &__input {
+  &__item {
+    margin: 0 $small 0 0;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    @media screen and (max-width: $mobile) {
+      margin-right: $extraSmall;
+    }
+
+    &_type_column {
+      margin: 0 0 $extraSmall;
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__radio {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -40,37 +54,18 @@
     }
   }
 
-  &__item {
+  &__name {
     margin-right: $small;
     font-weight: 300;
     font-size: 14px;
     line-height: 16px;
     color: $darkGrey;
+    position: relative;
     @media screen and (max-width: $mobile) {
       margin-right: $extraSmall;
     }
     &:last-of-type {
       margin-right: 0;
     }
-  }
-
-  &__card-container {
-    margin-top: $small;
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    @media screen and (max-width: $mobile) {
-      margin-top: $extraSmall;
-      justify-content: center;
-    }
-  }
-
-  &__loading {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    color: $mainBlack;
-    align-self: center;
   }
 }

@@ -6,7 +6,9 @@ import Additionally from "../Additionally/Additionally";
 import Total from "../Total/Total";
 import Button from "../../../Button/Button";
 import Item from "./components/Item/Item";
-import { API_URL, HEADERS } from "../../../../constants/constats";
+import PriceContainer from "./components/PriceContainer/PriceContainer";
+import { API_URL, HEADERS } from "../../../../constants/constants";
+import { makePriceWithGap } from "../../../../utils/price";
 import "./Order.scss";
 
 function Order() {
@@ -19,11 +21,15 @@ function Order() {
   const [search, setSearch] = useState("");
   const [filteredCards, setFilteredCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const orderColor = "Голубой";
-  const orderDate = "1д 2ч";
-  const orderRate = "На сутки";
-  const orderOtherServices = "Да";
+  const orderOtherServices = [
+    { title: "Цвет", name: "Голубой" },
+    { title: "Длительность аренды", name: "1д 2ч" },
+    { title: "Тариф", name: "На сутки" },
+    { title: "Полный бак", name: "Да" },
+  ];
+  const isOrderDate = orderOtherServices.some((item) => {
+    return Object.values(item).includes("Длительность аренды");
+  });
 
   const history = useHistory();
   const location = useLocation();
@@ -46,11 +52,11 @@ function Order() {
     if (
       (location.pathname === "/order-form/location" && orderPoint !== "") ||
       (location.pathname === "/order-form/model" && orderModel !== "") ||
-      (location.pathname === "/order-form/additionally" && orderDate !== "")
+      (location.pathname === "/order-form/additionally" && isOrderDate)
     ) {
       setIsDisabled(false);
     }
-  }, [orderPoint, orderModel, orderDate, location.pathname]);
+  }, [orderPoint, orderModel, isOrderDate, location.pathname]);
 
   function handleSubmitPoint(cityPoint) {
     setOrderPoint(cityPoint);
@@ -78,108 +84,57 @@ function Order() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${API_URL}/db/car`, {
-      method: "GET",
-      headers: HEADERS,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setCards(res.data);
+    (async () => {
+      try {
+        const response = await fetch(`${API_URL}/db/car`, {
+          method: "GET",
+          headers: HEADERS,
+        });
+        const resData = await response.json();
+        setCards(resData.data);
         setIsLoading(false);
-      })
-      .catch((err) => {
+      } catch (error) {
         console.log("Ошибка. запрос не выполнен");
-      });
+      }
+    })();
   }, []);
 
   useEffect(() => {
     setFilteredCards(
       cards.filter((card) => {
-        return card.categoryId.name === search;
+        if (search !== "Все модели") {
+          return card.categoryId.name === search;
+        } else {
+          return cards;
+        }
       })
     );
   }, [cards, search]);
-
-  function makePriceWithGap(number) {
-    let priceWithGap;
-    if (number >= 1000) {
-      const integer = parseInt(number / 1000, 10);
-      if (number % 1000 === 0) {
-        priceWithGap = `${integer} 000`;
-      } else {
-        const float = (number / 1000 - integer).toFixed(3) * 1000;
-        priceWithGap = `${integer} ${float} `;
-      }
-    } else {
-      priceWithGap = number;
-    }
-    return priceWithGap;
-  }
 
   return (
     <>
       <div className="order">
         <h2 className="order__title">Ваш заказ:</h2>
-        <Item
-          title="Пункт выдачи"
-          name={orderPoint}
-          className="item__text item__text_thin item__text_point"
-        />
+        <Item title="Пункт выдачи" name={orderPoint} modifier="point" />
 
         {location.pathname !== "/order-form/location" && (
-          <Item
-            title="Модель"
-            name={orderModel}
-            className="item__text item__text_thin"
-          />
+          <Item title="Модель" name={orderModel} />
         )}
         {location.pathname !== "/order-form/location" &&
-          location.pathname !== "/order-form/model" && (
-            <>
-              <Item
-                title="Цвет"
-                name={orderColor}
-                className="item__text item__text_thin"
-              />
-              <Item
-                title="Длительность аренды"
-                name={orderDate}
-                className="item__text item__text_thin"
-              />
-              <Item
-                title="Тариф"
-                name={orderRate}
-                className="item__text item__text_thin"
-              />
-              <Item
-                title="Полный бак"
-                name={orderOtherServices}
-                className="item__text item__text_thin"
-              />
-            </>
-          )}
-
+          location.pathname !== "/order-form/model" &&
+          orderOtherServices.map((item, i) => (
+            <Item key={i} title={item.title} name={item.name} />
+          ))}
         {location.pathname === "/order-form/model" && orderModel && (
-          <div className="order__container">
-            <h3 className="order__price order__price_title">Цена:</h3>
-            <span className="order__price">от</span>
-            <span className="order__price">{makePriceWithGap(priceMin)}</span>
-            <span className="order__price">до</span>
-            <span className="order__price">{makePriceWithGap(priceMax)}</span>
-            <span className="order__price">₽</span>
-          </div>
+          <PriceContainer
+            priceMin={makePriceWithGap(priceMin)}
+            priceMax={makePriceWithGap(priceMax)}
+          />
         )}
         {location.pathname !== "/order-form/model" &&
           location.pathname !== "/order-form/location" && (
-            <div className="order__container">
-              <h3 className="order__price order__price_title">Цена:</h3>
-              <span className="order__price">16 000</span>
-              <span className="order__price">₽</span>
-            </div>
+            <PriceContainer price="16 000" />
           )}
-
         <Button
           text={btnText}
           className={`button button_max button_order ${
@@ -202,7 +157,6 @@ function Order() {
             isLoading={isLoading}
             filteredCards={filteredCards}
             setSearch={setSearch}
-            makePriceWithGap={makePriceWithGap}
           />
         </Route>
         <Route path="/order-form/additionally">
