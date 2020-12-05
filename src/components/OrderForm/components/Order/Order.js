@@ -8,28 +8,43 @@ import Button from "../../../Button/Button";
 import Item from "./components/Item/Item";
 import PriceContainer from "./components/PriceContainer/PriceContainer";
 import { API_URL, HEADERS } from "../../../../constants/constants";
-import { makePriceWithGap } from "../../../../utils/price";
+import { makePriceWithGap } from "../../../../utils/priceWithGap";
+
 import "./Order.scss";
 
 function Order() {
   const [orderPoint, setOrderPoint] = useState("");
-
-  const [orderModel, setOrderModel] = useState("");
-  const [priceMin, setPriceMin] = useState("");
-  const [priceMax, setPriceMax] = useState("");
+  const [orderModel, setOrderModel] = useState({});
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredCards, setFilteredCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const orderOtherServices = [
-    { title: "Цвет", name: "Голубой" },
-    { title: "Длительность аренды", name: "1д 2ч" },
-    { title: "Тариф", name: "На сутки" },
-    { title: "Полный бак", name: "Да" },
-  ];
+  const [orderOtherServices, setOrderOtherServices] = useState([]);
+  const [isPopupOpened, setIsPopupOpened] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [totalPrice, setTotalPrice] = useState("");
+
   const isOrderDate = orderOtherServices.some((item) => {
-    return Object.values(item).includes("Длительность аренды");
+    if (item.name) {
+      return Object.values(item).includes("Длительность аренды");
+    } else return false;
   });
+
+  function handleSubmitOtherServices(title, name) {
+    const newList = orderOtherServices.slice();
+    const isRepeated = newList.some((item) => {
+      return item.title === title;
+    });
+    if (isRepeated) {
+      let repeatedElem = newList.find((elem) => {
+        return elem.title === title;
+      });
+      repeatedElem.name = name;
+    } else {
+      newList.push({ title, name });
+    }
+    setOrderOtherServices(newList);
+  }
 
   const history = useHistory();
   const location = useLocation();
@@ -52,22 +67,27 @@ function Order() {
     if (
       (location.pathname === "/order-form/location" && orderPoint !== "") ||
       (location.pathname === "/order-form/model" && orderModel !== "") ||
-      (location.pathname === "/order-form/additionally" && isOrderDate)
+      (location.pathname === "/order-form/additionally" &&
+        isOrderDate &&
+        totalPrice >= orderModel.priceMin &&
+        totalPrice <= orderModel.priceMax)
     ) {
       setIsDisabled(false);
+    } else if (
+      location.pathname === "/order-form/additionally" &&
+      (!isOrderDate ||
+        totalPrice < orderModel.priceMin ||
+        totalPrice > orderModel.priceMax)
+    ) {
+      setIsDisabled(true);
     }
-  }, [orderPoint, orderModel, isOrderDate, location.pathname]);
+  }, [orderPoint, orderModel, isOrderDate, location.pathname, totalPrice]);
 
   function handleSubmitPoint(cityPoint) {
     setOrderPoint(cityPoint);
   }
-  function handleSubmitModel(Model) {
-    setOrderModel(Model);
-  }
-
-  function displayPrice(minPrice, maxPrice) {
-    setPriceMin(minPrice);
-    setPriceMax(maxPrice);
+  function handleSubmitModel(modelObject) {
+    setOrderModel(modelObject);
   }
 
   function handleClick() {
@@ -79,7 +99,13 @@ function Order() {
       setIsDisabled(true);
     } else if (location.pathname === "/order-form/additionally") {
       history.push("/order-form/total");
+    } else if (location.pathname === "/order-form/total") {
+      togglePopup();
     }
+  }
+
+  function togglePopup() {
+    setIsPopupOpened(!isPopupOpened);
   }
 
   useEffect(() => {
@@ -111,6 +137,32 @@ function Order() {
     );
   }, [cards, search]);
 
+  useEffect(() => {
+    if (isOrderDate) {
+    }
+  }, [isOrderDate, orderOtherServices]);
+
+  function getTotalPrice(price) {
+    setTotalPrice(price);
+  }
+  function getStartDate(date) {
+    setStartDate(date);
+  }
+
+  useEffect(() => {
+    if (
+      !!totalPrice &&
+      (totalPrice < orderModel.priceMin || totalPrice > orderModel.priceMax)
+    ) {
+      alert(
+        `Для продолжения заказа необходимо набрать сумму 
+         не менее ${makePriceWithGap(orderModel.priceMin)}руб
+         и не более ${makePriceWithGap(orderModel.priceMax)}руб. 
+         Сейчас расчетная цена = ${makePriceWithGap(totalPrice)}руб.`
+      );
+    }
+  }, [totalPrice, orderModel]);
+
   return (
     <>
       <div className="order">
@@ -118,22 +170,23 @@ function Order() {
         <Item title="Пункт выдачи" name={orderPoint} modifier="point" />
 
         {location.pathname !== "/order-form/location" && (
-          <Item title="Модель" name={orderModel} />
+          <Item title="Модель" name={orderModel.name} />
         )}
         {location.pathname !== "/order-form/location" &&
           location.pathname !== "/order-form/model" &&
-          orderOtherServices.map((item, i) => (
-            <Item key={i} title={item.title} name={item.name} />
-          ))}
+          orderOtherServices.map(
+            (item, i) =>
+              item.name && <Item key={i} title={item.title} name={item.name} />
+          )}
         {location.pathname === "/order-form/model" && orderModel && (
           <PriceContainer
-            priceMin={makePriceWithGap(priceMin)}
-            priceMax={makePriceWithGap(priceMax)}
+            priceMin={makePriceWithGap(orderModel.priceMin)}
+            priceMax={makePriceWithGap(orderModel.priceMax)}
           />
         )}
         {location.pathname !== "/order-form/model" &&
           location.pathname !== "/order-form/location" && (
-            <PriceContainer price="16 000" />
+            <PriceContainer price={makePriceWithGap(totalPrice)} />
           )}
         <Button
           text={btnText}
@@ -151,7 +204,6 @@ function Order() {
         <Route path="/order-form/model">
           <CarModel
             handleSubmit={handleSubmitModel}
-            displayPrice={displayPrice}
             cards={cards}
             search={search}
             isLoading={isLoading}
@@ -160,10 +212,21 @@ function Order() {
           />
         </Route>
         <Route path="/order-form/additionally">
-          <Additionally />
+          <Additionally
+            handleSubmit={handleSubmitOtherServices}
+            colors={orderModel.colors}
+            getTotalPrice={getTotalPrice}
+            getStartDate={getStartDate}
+            tank={orderModel.tank}
+          />
         </Route>
         <Route path="/order-form/total">
-          <Total />
+          <Total
+            carModel={orderModel}
+            startDate={startDate}
+            isPopupOpened={isPopupOpened}
+            togglePopup={togglePopup}
+          />
         </Route>
       </Switch>
     </>

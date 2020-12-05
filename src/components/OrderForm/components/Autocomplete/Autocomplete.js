@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_URL, HEADERS } from "../../../../constants/constants";
+import MaskedInput from "react-text-mask";
 import "./Autocomplete.scss";
 
 function Autocomplete(props) {
@@ -51,18 +52,50 @@ function Autocomplete(props) {
       <label className="autocomplete__name" htmlFor={props.id}>
         {props.content}
       </label>
-      <input
-        type={props.type}
-        id={props.id}
-        name={props.name}
-        onClick={() => setDisplay(!display)}
-        placeholder={props.placeholder}
-        className="autocomplete__input"
-        value={props.value}
-        onChange={props.onChange}
-        autoComplete="off"
-        required={props.required}
-      />
+      {props.id === "city" || props.id === "point" ? (
+        <input
+          type={props.type}
+          id={props.id}
+          name={props.name}
+          onClick={() => setDisplay(!display)}
+          placeholder={props.placeholder}
+          className="autocomplete__input"
+          value={props.value}
+          onChange={props.onChange}
+          autoComplete="off"
+          required={props.required}
+        />
+      ) : (
+        <MaskedInput
+          mask={[
+            /[0-3]/,
+            /\d/,
+            ".",
+            /[0-1]/,
+            /\d/,
+            ".",
+            "2",
+            "0",
+            "2",
+            /\d/,
+            " ",
+            /[0-2]/,
+            /\d/,
+            ":",
+            /[0-5]/,
+            /\d/,
+          ]}
+          type={props.type}
+          id={props.id}
+          name={props.name}
+          className="autocomplete__input"
+          value={props.value}
+          onChange={props.onChange}
+          autoComplete="off"
+          placeholder={props.placeholder}
+          required={props.required}
+        />
+      )}
       {props.value !== "" && (
         <button
           type="button"

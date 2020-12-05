@@ -31,12 +31,8 @@ function CarModel(props) {
             return (
               <Card
                 key={item.id}
-                name={item.name}
-                priceMin={item.priceMin}
-                priceMax={item.priceMax}
-                image={item.thumbnail.path}
+                carObject={item}
                 handleSubmit={props.handleSubmit}
-                displayPrice={props.displayPrice}
               />
             );
           })}
@@ -45,12 +41,8 @@ function CarModel(props) {
             return (
               <Card
                 key={i}
-                name={item.name}
-                priceMin={item.priceMin}
-                priceMax={item.priceMax}
-                image={item.thumbnail.path}
+                carObject={item}
                 handleSubmit={props.handleSubmit}
-                displayPrice={props.displayPrice}
               />
             );
           })}

@@ -174,7 +174,6 @@ function Location(props) {
             />
           )}
           {searchCity &&
-            // optionsPoint.join() !== "" &&
             coordsCityPoints.map((item, i) => (
               <Placemark
                 key={i}

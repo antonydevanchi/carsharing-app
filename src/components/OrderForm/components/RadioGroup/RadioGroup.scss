@@ -10,9 +10,10 @@
 
   &_type_column {
     flex-direction: column;
-    @media screen and (max-width: $tablet) {
-      padding-bottom: 0;
-    }
+  }
+
+  &_type_wrap {
+    flex-wrap: wrap;
   }
 
   &__item {
