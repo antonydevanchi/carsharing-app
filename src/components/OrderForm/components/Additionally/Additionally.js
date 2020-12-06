@@ -3,7 +3,7 @@ import Autocomplete from "../Autocomplete/Autocomplete";
 import RadioGroup from "../RadioGroup/RadioGroup";
 import CheckboxGroup from "../CheckboxGroup/CheckboxGroup";
 import { getDuration, estimatePrice } from "../../../../utils/calculations";
-import { RATES, OTHERS } from "../../../../constants/constants";
+import { OTHERS } from "../../../../constants/constants";
 import "./Additionally.scss";
 
 function Additionally({
@@ -12,8 +12,9 @@ function Additionally({
   getTotalPrice,
   getStartDate,
   tank,
+  rates,
 }) {
-  const [rateValue, setRateValue] = useState(RATES[0].type);
+  const [rateValue, setRateValue] = useState(rates[0].type);
   const [otherValues, setOtherValues] = useState([]);
   const [searchFromDate, setSearchFromDate] = useState("");
   const [searchToDate, setSearchToDate] = useState("");
@@ -87,13 +88,15 @@ function Additionally({
     searchFromDate,
     searchToDate,
     rateValue,
-    otherValues
+    otherValues,
+    rates
   ) {
     const estimatedPrice = estimatePrice(
       searchFromDate,
       searchToDate,
       rateValue,
-      otherValues
+      otherValues,
+      rates
     );
     if (estimatedPrice > 0 && !isNaN(estimatedPrice)) {
       getTotalPrice(estimatedPrice);
@@ -101,7 +104,7 @@ function Additionally({
   }
 
   useEffect(() => {
-    getActualPrice(searchFromDate, searchToDate, rateValue, otherValues);
+    getActualPrice(searchFromDate, searchToDate, rateValue, otherValues, rates);
   });
 
   return (
@@ -142,7 +145,7 @@ function Additionally({
       <RadioGroup
         value={rateValue}
         name="rate"
-        values={RATES}
+        values={rates}
         onChange={handleRateChange}
         modifier="column"
       />

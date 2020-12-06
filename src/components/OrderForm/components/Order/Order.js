@@ -23,6 +23,7 @@ function Order() {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [totalPrice, setTotalPrice] = useState("");
+  const [rates, setRates] = useState([]);
 
   const isOrderDate = orderOtherServices.some((item) => {
     if (item.name) {
@@ -126,6 +127,31 @@ function Order() {
   }, []);
 
   useEffect(() => {
+    const rateTypes = [];
+    (async () => {
+      try {
+        const response = await fetch(`${API_URL}/db/rate`, {
+          method: "GET",
+          headers: HEADERS,
+        });
+        const resData = await response.json();
+        resData.data.map((item) => {
+          rateTypes.push({
+            type: item.rateTypeId.name,
+            id: item.rateTypeId.id,
+            price: item.price,
+            unit: item.rateTypeId.unit,
+          });
+          return rateTypes;
+        });
+      } catch (error) {
+        console.log("Ошибка. запрос не выполнен");
+      }
+      setRates(rateTypes);
+    })();
+  }, []);
+
+  useEffect(() => {
     setFilteredCards(
       cards.filter((card) => {
         if (search !== "Все модели") {
@@ -218,6 +244,7 @@ function Order() {
             getTotalPrice={getTotalPrice}
             getStartDate={getStartDate}
             tank={orderModel.tank}
+            rates={rates}
           />
         </Route>
         <Route path="/order-form/total">

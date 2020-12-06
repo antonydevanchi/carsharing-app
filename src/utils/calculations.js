@@ -1,6 +1,4 @@
 import {
-  MINUTES_PRICE,
-  DAYS_PRICE,
   FULL_TANK_PRICE,
   BABY_CHAIR_PRICE,
   RIGHT_HAND_PRICE,
@@ -66,22 +64,34 @@ export const getDuration = (firstDate, secondDate) => {
   return undefined;
 };
 
-function getEstimatedPrice(firstDate, secondDate, rate) {
+function getEstimatedPrice(firstDate, secondDate, rate, rates) {
   const minsDuration = getMinsDuration(firstDate, secondDate);
   const daysDuration = minsDuration / 60 / 24;
   let price;
   if (rate === "Поминутно") {
-    price = minsDuration.toFixed() * MINUTES_PRICE;
-  } else if (rate === "На сутки" && Number.isInteger(daysDuration)) {
-    price = daysDuration * DAYS_PRICE;
-  } else {
-    price = (parseInt(daysDuration) + 1) * DAYS_PRICE;
+    const minsRate = rates.find((item) => {
+      return item.type === rate;
+    });
+    price = minsDuration.toFixed() * minsRate.price;
+  } else if (rate === "На сутки") {
+    const daysRate = rates.find((item) => {
+      return item.type === rate;
+    });
+    Number.isInteger(daysDuration)
+      ? (price = daysDuration * daysRate.price)
+      : (price = (parseInt(daysDuration) + 1) * daysRate.price);
   }
   return price;
 }
 
-export const estimatePrice = (firstDate, secondDate, rate, otherServices) => {
-  const price = getEstimatedPrice(firstDate, secondDate, rate);
+export const estimatePrice = (
+  firstDate,
+  secondDate,
+  rate,
+  otherServices,
+  rates
+) => {
+  const price = getEstimatedPrice(firstDate, secondDate, rate, rates);
   let totalPrice = price;
   if (otherServices) {
     otherServices.includes("Полный бак")
@@ -96,7 +106,3 @@ export const estimatePrice = (firstDate, secondDate, rate, otherServices) => {
   }
   return totalPrice;
 };
-
-// if (price < priceMin || price > priceMax) {
-//   return "Необходимо изменить длительность аренды"
-// } else return price;
