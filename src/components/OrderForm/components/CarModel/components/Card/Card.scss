@@ -1,0 +1,56 @@
+@import "../../../../../../scss/variables.scss";
+
+.card {
+  width: 368px;
+  padding: $small;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border: 1px solid $lightGrey;
+  @media screen and (max-width: $tablet) {
+    max-width: 288px;
+    padding: $extraSmall;
+  }
+
+  &:hover {
+    border: 1px solid $darkGrey;
+  }
+
+  &_active {
+    border: 1px solid $mainGreen;
+  }
+
+  &__title {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: $mainBlack;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__price-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__price {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: $darkGrey;
+    margin-right: $micro;
+  }
+
+  &__image {
+    margin: $medium 0 0;
+    align-self: flex-end;
+    width: 256px;
+    height: 116px;
+    object-fit: contain;
+    object-position: center center;
+    @media screen and (max-width: $mobile) {
+      margin-top: $small;
+    }
+  }
+}

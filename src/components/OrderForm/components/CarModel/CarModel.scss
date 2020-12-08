@@ -1,0 +1,76 @@
+@import "../../../../scss/variables.scss";
+
+.car-model {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: $medium $large 0;
+  @media screen and (max-width: $desktopMin) {
+    padding: $medium $medium 0;
+  }
+  @media screen and (max-width: $tablet) {
+    padding: $small $small 0;
+    height: auto;
+  }
+
+  &__form {
+    display: flex;
+    align-items: baseline;
+  }
+
+  &__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border: 1px solid $darkGrey;
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: $extraSmall;
+    @media screen and (max-width: $mobile) {
+      margin-right: $micro;
+    }
+    &:checked {
+      border: 3px solid $mainGreen;
+    }
+    &:checked + label {
+      color: $mainBlack;
+    }
+  }
+
+  &__item {
+    margin-right: $small;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: $darkGrey;
+    @media screen and (max-width: $mobile) {
+      margin-right: $extraSmall;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  &__card-container {
+    margin-top: $small;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    @media screen and (max-width: $mobile) {
+      margin-top: $extraSmall;
+      justify-content: center;
+    }
+  }
+
+  &__loading {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: $mainBlack;
+    align-self: center;
+  }
+}

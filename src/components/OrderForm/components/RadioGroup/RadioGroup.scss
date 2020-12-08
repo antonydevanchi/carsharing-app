@@ -1,0 +1,71 @@
+@import "../../../../scss/variables.scss";
+
+.radio-group {
+  display: flex;
+  align-items: baseline;
+  padding-bottom: $medium;
+  @media screen and (max-width: $desktopMin) {
+    padding-bottom: $small;
+  }
+
+  &_type_column {
+    flex-direction: column;
+    @media screen and (max-width: $tablet) {
+      padding-bottom: 0;
+    }
+  }
+
+  &__item {
+    margin: 0 $small 0 0;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    @media screen and (max-width: $mobile) {
+      margin-right: $extraSmall;
+    }
+
+    &_type_column {
+      margin: 0 0 $extraSmall;
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__radio {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border: 1px solid $darkGrey;
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: $extraSmall;
+    @media screen and (max-width: $mobile) {
+      margin-right: $micro;
+    }
+    &:checked {
+      border: 3px solid $mainGreen;
+    }
+    &:checked + label {
+      color: $mainBlack;
+    }
+  }
+
+  &__name {
+    margin-right: $small;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: $darkGrey;
+    position: relative;
+    @media screen and (max-width: $mobile) {
+      margin-right: $extraSmall;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}

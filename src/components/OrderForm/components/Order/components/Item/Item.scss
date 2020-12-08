@@ -1,0 +1,36 @@
+@import "../../../../../../scss/variables.scss";
+
+.item {
+  display: flex;
+  margin-bottom: $small;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+  overflow: hidden;
+
+  &__text {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: $mainBlack;
+    margin: 0;
+    white-space: pre;
+
+    &_type_thin {
+      color: $darkGrey;
+      text-align: right;
+    }
+
+    &_size_point {
+      white-space: normal;
+      min-width: 102px;
+    }
+  }
+
+  &__line {
+    border-bottom: 1px dotted $darkGrey;
+    width: 100%;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+}

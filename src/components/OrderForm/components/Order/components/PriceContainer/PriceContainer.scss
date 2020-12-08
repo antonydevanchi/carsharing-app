@@ -1,0 +1,21 @@
+@import "../../../../../../scss/variables.scss";
+
+.price-container {
+  display: flex;
+  margin-top: $small;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  &__item {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: $mainBlack;
+    margin-left: $micro;
+
+    &_type_title {
+      margin: 0;
+    }
+  }
+}

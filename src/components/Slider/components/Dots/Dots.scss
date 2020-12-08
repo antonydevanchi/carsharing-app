@@ -1,4 +1,4 @@
-@import "../../../scss/variables.scss";
+@import "../../../../scss/variables.scss";
 
 .slider__pagination {
   display: flex;
@@ -16,12 +16,12 @@
   border-radius: 50%;
   background-color: $lightGrey;
   margin-right: $extraSmall;
-}
 
-.slider__dot:last-child {
-  margin-right: 0;
-}
+  &:last-child {
+    margin-right: 0;
+  }
 
-.slider__dot_active {
-  background-color: $mainGreen;
+  &_active {
+    background-color: $mainGreen;
+  }
 }

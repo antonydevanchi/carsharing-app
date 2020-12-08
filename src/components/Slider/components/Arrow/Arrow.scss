@@ -1,4 +1,4 @@
-@import "../../../scss/variables.scss";
+@import "../../../../scss/variables.scss";
 
 .slider__btn {
   min-width: $large;
@@ -28,19 +28,19 @@
   @media screen and (max-width: $desktopMin) {
     min-width: $medium;
   }
-}
 
-.slider__btn-image {
-  width: $extraSmall;
-  height: 18px;
-  padding: 0;
-  z-index: 5;
-}
+  &_prev {
+    left: 0;
+  }
 
-.slider__btn_prev {
-  left: 0;
-}
+  &_next {
+    right: 0;
+  }
 
-.slider__btn_next {
-  right: 0;
+  &-image {
+    width: $extraSmall;
+    height: 18px;
+    padding: 0;
+    z-index: 5;
+  }
 }

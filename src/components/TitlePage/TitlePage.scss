@@ -1,0 +1,18 @@
+@import "../../scss/variables.scss";
+
+.title-page {
+  display: flex;
+  flex-direction: column;
+  width: calc((100% - 64px) / 2);
+  justify-content: space-between;
+  background-color: #ffffff;
+  @media screen and (max-width: $desktopMin) {
+    width: calc((100% - 64px) * 550 / 960);
+  }
+  @media screen and (max-width: $tablet) {
+    width: calc(100% - 86px);
+  }
+  @media screen and (max-width: $mobile) {
+    width: 100%;
+  }
+}

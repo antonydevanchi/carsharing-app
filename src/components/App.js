@@ -1,25 +1,29 @@
-import './App.scss';
-import React from 'react';
-import './App.scss';
-import Navbar from './Navbar/Navbar';
-import Header from './Header/Header';
-import MainContent from './MainContent/MainContent';
-import Footer from './Footer/Footer';
-import NewSlider from './Slider/NewSlider';
-
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Navbar from "./Navbar/Navbar";
+import Header from "./Header/Header";
+import TitlePage from "./TitlePage/TitlePage";
+import OrderForm from "./OrderForm/OrderForm";
+import "./App.scss";
 
 function App() {
-  return (    
-    <div className="start-screen">
-      <Navbar />
-      <div className="title-page">
-          <Header />
-          <MainContent />
-          <Footer />             
+  return (
+    <BrowserRouter>
+      <div className="start-screen">
+        <Navbar />
+        <Switch>
+          <Route path="/carsharing-app">
+            <TitlePage />
+          </Route>
+          <Route path="/order-form">
+            <div className="order-page">
+              <Header />
+              <OrderForm />
+            </div>
+          </Route>
+        </Switch>
       </div>
-      <NewSlider />  
-    </div>     
-   
+    </BrowserRouter>
   );
 }
 

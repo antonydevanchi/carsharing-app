@@ -1,18 +1,12 @@
-import React from 'react';
-import './Button.scss';
+import React from "react";
+import "./Button.scss";
 
-function Button(props) {
- 
+function Button({ className, onClick, disabled, text }) {
   return (
-    <>
-      <button 
-        className={props.className}
-        style={props.style} 
-      >
-        {props.text}
-      </button>
-    </>
-  )
+    <button className={className} onClick={onClick} disabled={disabled}>
+      {text}
+    </button>
+  );
 }
 
 export default Button;

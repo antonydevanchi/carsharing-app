@@ -14,42 +14,41 @@
     flex-direction: column;
     align-items: flex-end;
   }
-}
 
-.footer__contacts {
-  font-weight: normal;
-  font-size: 13px;
-  line-height: 15px;
-  margin: 0;
-}
+  &__contacts {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 15px;
+    margin: 0;
 
-.footer__contacts_copyright {
-  color: $darkGrey;
-  @media screen and (max-width: $mobile) {
-    color: $lightGrey;
-    order: 2;
-    margin-top: $extraSmall;
-  }
-}
-
-.footer__contacts_phone {
-  color: $mainBlack;
-  text-decoration: none;
-  &:hover {
-    color: $mainGreen;
-  }
-  &:active {
-    color: $mainGreen;
-  }
-  @media screen and (max-width: $mobile) {
-    color: $mainGreen;
-    order: 1;
-
-    &:hover {
-      color: $lightGrey;
+    &_copyright {
+      color: $darkGrey;
+      @media screen and (max-width: $mobile) {
+        color: $lightGrey;
+        order: 2;
+        margin-top: $extraSmall;
+      }
     }
-    &:active {
-      color: #ffffff;
+
+    &_phone {
+      color: $mainBlack;
+      text-decoration: none;
+      &:hover {
+        color: $mainGreen;
+      }
+      &:active {
+        color: $mainGreen;
+      }
+      @media screen and (max-width: $mobile) {
+        color: $mainGreen;
+        order: 1;
+        &:hover {
+          color: $lightGrey;
+        }
+        &:active {
+          color: #ffffff;
+        }
+      }
     }
   }
 }

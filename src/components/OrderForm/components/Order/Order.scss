@@ -1,0 +1,49 @@
+@import "../../../../scss/variables.scss";
+
+.order {
+  min-width: 384px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border-left: 1px solid $lightGrey;
+  padding: $medium $medium;
+  order: 2;
+  @media screen and (max-width: $tablet) {
+    min-width: 100%;
+    height: auto;
+    padding: $small $small;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: $mainBlack;
+    margin: 0 0 $medium;
+    @media screen and (max-width: $tablet) {
+      margin-bottom: $extraSmall;
+      align-self: center;
+    }
+  }
+
+  &__container {
+    display: flex;
+    margin-top: $small;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  &__price {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: $mainBlack;
+    margin-left: $micro;
+
+    &_title {
+      margin: 0;
+    }
+  }
+}
