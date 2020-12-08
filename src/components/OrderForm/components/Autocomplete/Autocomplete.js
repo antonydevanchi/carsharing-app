@@ -11,11 +11,14 @@ function Autocomplete(props) {
     const places = [];
     if (props.id === "city" || props.id === "point") {
       setIsLoading(true);
+      const abortController = new AbortController();
+      const signal = abortController.signal;
       (async () => {
         try {
           const response = await fetch(`${API_URL}${props.urlEnd}`, {
             method: "GET",
             headers: HEADERS,
+            signal: signal,
           });
           const resData = await response.json();
           resData.data.map((item) => {
@@ -32,6 +35,9 @@ function Autocomplete(props) {
           console.log("Ошибка. запрос не выполнен");
         }
         props.setOptions(places);
+        return function cleanup() {
+          abortController.abort();
+        };
       })();
     }
   }, [props.urlEnd, props.id]);

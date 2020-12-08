@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Button from "../../../Button/Button";
 import { URL_SIMBIRSOFT } from "../../../../constants/constants";
 import { makeDisplayNumber } from "../../../../utils/displayNumber";
 import "./Total.scss";
 
-function Total({ carModel, startDate, isPopupOpened, togglePopup }) {
+function Total({ carModel, startDate }) {
   const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
@@ -40,19 +39,6 @@ function Total({ carModel, startDate, isPopupOpened, togglePopup }) {
         src={imgSrc}
         alt="выбранная машина"
       />
-      {isPopupOpened && (
-        <div className="total__popup">
-          <h2 className="total__popup-title">Подтвердить заказ</h2>
-          <div className="total__button-container">
-            <Button text="Подтвердить" className="button button_middle-plus" />
-            <Button
-              text="Вернуться"
-              className="button button_middle button_theme_red"
-              onClick={togglePopup}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

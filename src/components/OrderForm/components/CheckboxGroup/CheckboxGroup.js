@@ -1,7 +1,7 @@
 import React from "react";
 import "./CheckboxGroup.scss";
 
-function CheckboxGroup({ values, onChange }) {
+function CheckboxGroup({ values, onChange, checkedValues }) {
   return (
     <div className="checkbox-group">
       {values.map((item, i) => (
@@ -14,6 +14,7 @@ function CheckboxGroup({ values, onChange }) {
             value={item.type}
             onChange={onChange}
             disabled={item.disabled}
+            checked={checkedValues.includes(item.type) ? true : false}
           />
           <label className="checkbox-group__name" htmlFor={item.id}>
             {item.type}

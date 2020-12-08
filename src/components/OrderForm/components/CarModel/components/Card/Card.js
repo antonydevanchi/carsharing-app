@@ -3,8 +3,7 @@ import { makePriceWithGap } from "../../../../../../utils/priceWithGap";
 import { URL_SIMBIRSOFT } from "../../../../../../constants/constants";
 import "./Card.scss";
 
-function Card({ carObject, handleSubmit }) {
-  const [isActive, setIsActive] = useState(false);
+function Card({ carObject, handleSubmit, isActive, setIsActive }) {
   const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
@@ -17,12 +16,12 @@ function Card({ carObject, handleSubmit }) {
 
   function setNameAndPrice(carObject) {
     handleSubmit(carObject);
-    setIsActive(!isActive);
+    setIsActive(carObject.name);
   }
 
   return (
     <div
-      className={`card ${isActive ? "card_active" : ""}`}
+      className={`card ${carObject.name === isActive ? "card_active" : ""}`}
       onClick={() => setNameAndPrice(carObject)}
     >
       <h3 className="card__title">{carObject.name}</h3>

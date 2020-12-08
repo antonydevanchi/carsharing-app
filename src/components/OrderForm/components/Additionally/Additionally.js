@@ -10,14 +10,16 @@ function Additionally({
   handleSubmit,
   colors,
   getTotalPrice,
-  getStartDate,
+  setSearchFromDate,
+  setSearchToDate,
+  searchFromDate,
+  searchToDate,
   tank,
   rates,
+  orderOtherServices,
 }) {
-  const [rateValue, setRateValue] = useState(rates[0].type);
+  const [rateValue, setRateValue] = useState();
   const [otherValues, setOtherValues] = useState([]);
-  const [searchFromDate, setSearchFromDate] = useState("");
-  const [searchToDate, setSearchToDate] = useState("");
   const isFullTank = tank === 100;
   const otherServices = OTHERS.map((item) => {
     if (item.type === "Полный бак" && !isFullTank) {
@@ -37,6 +39,7 @@ function Additionally({
       id: `color${i}`,
     };
   });
+
   const anyColor = [{ type: "Любой", id: "any" }];
   const allColors = anyColor.concat(carColors);
   const [colorValue, setColorValue] = useState(allColors[0].type);
@@ -75,7 +78,6 @@ function Additionally({
   }
   function setFromDate(event) {
     setSearchFromDate(event.target.value);
-    getStartDate(event.target.value);
   }
 
   function setToDate(event) {
@@ -83,6 +85,50 @@ function Additionally({
     const duration = getDuration(searchFromDate, event.target.value);
     handleSubmit("Длительность аренды", duration);
   }
+
+  useEffect(() => {
+    (function getAdditionallyFromOrder() {
+      if (orderOtherServices) {
+        const orderColor = orderOtherServices.find((item) => {
+          return Object.values(item).includes(color);
+        });
+        const orderRate = orderOtherServices.find((item) => {
+          return Object.values(item).includes(rate);
+        });
+        const others = [];
+        for (let i = 0; i < OTHERS.length; i++) {
+          let othersElem = orderOtherServices.find((item) => {
+            return Object.values(item).includes(OTHERS[i].type);
+          });
+          if (othersElem && othersElem.name) {
+            others.push(othersElem.title);
+          } else others.push("");
+        }
+        if (orderColor) {
+          setColorValue(orderColor.name);
+        }
+        if (orderRate) {
+          setRateValue(orderRate.name);
+        } else {
+          setRateValue(rates[0].type);
+        }
+        if (others) {
+          setOtherValues(others);
+        }
+      }
+      if (searchFromDate && searchToDate) {
+        setSearchFromDate(searchFromDate);
+        setSearchToDate(searchToDate);
+      }
+    })();
+  }, [
+    orderOtherServices,
+    rates,
+    searchFromDate,
+    searchToDate,
+    setSearchFromDate,
+    setSearchToDate,
+  ]);
 
   function getActualPrice(
     searchFromDate,
@@ -150,7 +196,11 @@ function Additionally({
         modifier="column"
       />
       <h4 className="additionally__title">Доп услуги</h4>
-      <CheckboxGroup values={otherServices} onChange={handleOtherChoose} />
+      <CheckboxGroup
+        values={otherServices}
+        onChange={handleOtherChoose}
+        checkedValues={otherValues}
+      />
     </form>
   );
 }

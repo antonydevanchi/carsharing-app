@@ -7,12 +7,13 @@ import Total from "../Total/Total";
 import Button from "../../../Button/Button";
 import Item from "./components/Item/Item";
 import PriceContainer from "./components/PriceContainer/PriceContainer";
+import Popup from "./components/Popup/Popup";
 import { API_URL, HEADERS } from "../../../../constants/constants";
 import { makePriceWithGap } from "../../../../utils/priceWithGap";
 
 import "./Order.scss";
 
-function Order() {
+function Order(props) {
   const [orderPoint, setOrderPoint] = useState("");
   const [orderModel, setOrderModel] = useState({});
   const [cards, setCards] = useState([]);
@@ -21,7 +22,8 @@ function Order() {
   const [isLoading, setIsLoading] = useState(false);
   const [orderOtherServices, setOrderOtherServices] = useState([]);
   const [isPopupOpened, setIsPopupOpened] = useState(false);
-  const [startDate, setStartDate] = useState("");
+  const [searchFromDate, setSearchFromDate] = useState("");
+  const [searchToDate, setSearchToDate] = useState("");
   const [totalPrice, setTotalPrice] = useState("");
   const [rates, setRates] = useState([]);
 
@@ -65,24 +67,35 @@ function Order() {
   }
 
   useEffect(() => {
-    if (
-      (location.pathname === "/order-form/location" && orderPoint !== "") ||
-      (location.pathname === "/order-form/model" && orderModel !== "") ||
-      (location.pathname === "/order-form/additionally" &&
+    (function toggleButtonAbility() {
+      if (location.pathname === "/order-form/location" && orderPoint !== "") {
+        setIsDisabled(false);
+        props.setIsActiveModel(true);
+      }
+      if (location.pathname === "/order-form/model" && orderModel.name) {
+        setIsDisabled(false);
+        props.setIsActiveAdditionally(true);
+      }
+      if (
+        location.pathname === "/order-form/additionally" &&
         isOrderDate &&
         totalPrice >= orderModel.priceMin &&
-        totalPrice <= orderModel.priceMax)
-    ) {
-      setIsDisabled(false);
-    } else if (
-      location.pathname === "/order-form/additionally" &&
-      (!isOrderDate ||
-        totalPrice < orderModel.priceMin ||
-        totalPrice > orderModel.priceMax)
-    ) {
-      setIsDisabled(true);
-    }
-  }, [orderPoint, orderModel, isOrderDate, location.pathname, totalPrice]);
+        totalPrice <= orderModel.priceMax
+      ) {
+        setIsDisabled(false);
+        props.setIsActiveTotal(true);
+      }
+      if (
+        location.pathname === "/order-form/additionally" &&
+        (!isOrderDate ||
+          totalPrice < orderModel.priceMin ||
+          totalPrice > orderModel.priceMax)
+      ) {
+        setIsDisabled(true);
+        props.setIsActiveTotal(false);
+      }
+    })();
+  });
 
   function handleSubmitPoint(cityPoint) {
     setOrderPoint(cityPoint);
@@ -163,16 +176,8 @@ function Order() {
     );
   }, [cards, search]);
 
-  useEffect(() => {
-    if (isOrderDate) {
-    }
-  }, [isOrderDate, orderOtherServices]);
-
   function getTotalPrice(price) {
     setTotalPrice(price);
-  }
-  function getStartDate(date) {
-    setStartDate(date);
   }
 
   useEffect(() => {
@@ -222,10 +227,11 @@ function Order() {
           onClick={handleClick}
           disabled={isDisabled}
         />
+        {isPopupOpened && <Popup togglePopup={togglePopup} />}
       </div>
       <Switch>
         <Route path="/order-form/location">
-          <Location handleSubmit={handleSubmitPoint} />
+          <Location handleSubmit={handleSubmitPoint} orderPoint={orderPoint} />
         </Route>
         <Route path="/order-form/model">
           <CarModel
@@ -235,6 +241,7 @@ function Order() {
             isLoading={isLoading}
             filteredCards={filteredCards}
             setSearch={setSearch}
+            modelName={orderModel.name}
           />
         </Route>
         <Route path="/order-form/additionally">
@@ -242,18 +249,17 @@ function Order() {
             handleSubmit={handleSubmitOtherServices}
             colors={orderModel.colors}
             getTotalPrice={getTotalPrice}
-            getStartDate={getStartDate}
+            setSearchFromDate={setSearchFromDate}
+            setSearchToDate={setSearchToDate}
+            searchFromDate={searchFromDate}
+            searchToDate={searchToDate}
             tank={orderModel.tank}
             rates={rates}
+            orderOtherServices={orderOtherServices}
           />
         </Route>
         <Route path="/order-form/total">
-          <Total
-            carModel={orderModel}
-            startDate={startDate}
-            isPopupOpened={isPopupOpened}
-            togglePopup={togglePopup}
-          />
+          <Total carModel={orderModel} startDate={searchFromDate} />
         </Route>
       </Switch>
     </>
