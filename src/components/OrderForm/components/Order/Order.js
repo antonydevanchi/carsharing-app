@@ -140,7 +140,7 @@ function Order(props) {
   }, []);
 
   useEffect(() => {
-    const rateTypes = [];
+    // const rateTypes = [];
     (async () => {
       try {
         const response = await fetch(`${API_URL}/db/rate`, {
@@ -148,19 +148,17 @@ function Order(props) {
           headers: HEADERS,
         });
         const resData = await response.json();
-        resData.data.map((item) => {
-          rateTypes.push({
+        setRates(
+          resData.data.map((item) => ({
             type: item.rateTypeId.name,
             id: item.rateTypeId.id,
             price: item.price,
             unit: item.rateTypeId.unit,
-          });
-          return rateTypes;
-        });
+          }))
+        );
       } catch (error) {
         console.log("Ошибка. запрос не выполнен");
       }
-      setRates(rateTypes);
     })();
   }, []);
 
@@ -182,7 +180,7 @@ function Order(props) {
 
   useEffect(() => {
     if (
-      !!totalPrice &&
+      totalPrice &&
       (totalPrice < orderModel.priceMin || totalPrice > orderModel.priceMax)
     ) {
       alert(

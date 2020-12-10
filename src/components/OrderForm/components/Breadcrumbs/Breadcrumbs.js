@@ -11,18 +11,16 @@ function Breadcrumbs(props) {
   const [isActiveTotal, setIsActiveTotal] = useState(false);
 
   useEffect(() => {
-    (function setActiveTab() {
-      location.pathname === "/order-form/model"
-        ? setIsActiveModel(true)
-        : setIsActiveModel(false);
-      location.pathname === "/order-form/additionally"
-        ? setIsActiveAdditionally(true)
-        : setIsActiveAdditionally(false);
-      location.pathname === "/order-form/total"
-        ? setIsActiveTotal(true)
-        : setIsActiveTotal(false);
-    })();
-  });
+    location.pathname === "/order-form/model"
+      ? setIsActiveModel(true)
+      : setIsActiveModel(false);
+    location.pathname === "/order-form/additionally"
+      ? setIsActiveAdditionally(true)
+      : setIsActiveAdditionally(false);
+    location.pathname === "/order-form/total"
+      ? setIsActiveTotal(true)
+      : setIsActiveTotal(false);
+  }, [location.pathname]);
 
   function openTabModel() {
     if (props.isActiveModel) {

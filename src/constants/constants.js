@@ -59,3 +59,22 @@ export const MODEL_TYPES = [
   { type: "Эконом", id: "economModels" },
   { type: "Премиум", id: "premiumModels" },
 ];
+
+export const dateMask = [
+  /[0-3]/,
+  /\d/,
+  ".",
+  /[0-1]/,
+  /\d/,
+  ".",
+  "2",
+  "0",
+  "2",
+  /\d/,
+  " ",
+  /[0-2]/,
+  /\d/,
+  ":",
+  /[0-5]/,
+  /\d/,
+];

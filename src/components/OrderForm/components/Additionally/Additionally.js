@@ -3,6 +3,7 @@ import Autocomplete from "../Autocomplete/Autocomplete";
 import RadioGroup from "../RadioGroup/RadioGroup";
 import CheckboxGroup from "../CheckboxGroup/CheckboxGroup";
 import { getDuration, estimatePrice } from "../../../../utils/calculations";
+import { makeCapitalizedWord } from "../../../../utils/capitalizedWord";
 import { OTHERS } from "../../../../constants/constants";
 import "./Additionally.scss";
 
@@ -35,7 +36,7 @@ function Additionally({
   const rate = "Тариф";
   const carColors = colors.map((color, i) => {
     return {
-      type: color.substr(0, 1).toUpperCase() + color.substr(1).toLowerCase(),
+      type: makeCapitalizedWord(color),
       id: `color${i}`,
     };
   });
@@ -87,40 +88,38 @@ function Additionally({
   }
 
   useEffect(() => {
-    (function getAdditionallyFromOrder() {
-      if (orderOtherServices) {
-        const orderColor = orderOtherServices.find((item) => {
-          return Object.values(item).includes(color);
+    if (orderOtherServices) {
+      const orderColor = orderOtherServices.find((item) => {
+        return Object.values(item).includes(color);
+      });
+      const orderRate = orderOtherServices.find((item) => {
+        return Object.values(item).includes(rate);
+      });
+      const others = [];
+      for (let i = 0; i < OTHERS.length; i++) {
+        let othersElem = orderOtherServices.find((item) => {
+          return Object.values(item).includes(OTHERS[i].type);
         });
-        const orderRate = orderOtherServices.find((item) => {
-          return Object.values(item).includes(rate);
-        });
-        const others = [];
-        for (let i = 0; i < OTHERS.length; i++) {
-          let othersElem = orderOtherServices.find((item) => {
-            return Object.values(item).includes(OTHERS[i].type);
-          });
-          if (othersElem && othersElem.name) {
-            others.push(othersElem.title);
-          } else others.push("");
-        }
-        if (orderColor) {
-          setColorValue(orderColor.name);
-        }
-        if (orderRate) {
-          setRateValue(orderRate.name);
-        } else {
-          setRateValue(rates[0].type);
-        }
-        if (others) {
-          setOtherValues(others);
-        }
+        if (othersElem && othersElem.name) {
+          others.push(othersElem.title);
+        } else others.push("");
       }
-      if (searchFromDate && searchToDate) {
-        setSearchFromDate(searchFromDate);
-        setSearchToDate(searchToDate);
+      if (orderColor) {
+        setColorValue(orderColor.name);
       }
-    })();
+      if (orderRate) {
+        setRateValue(orderRate.name);
+      } else {
+        setRateValue(rates[0].type);
+      }
+      if (others) {
+        setOtherValues(others);
+      }
+    }
+    if (searchFromDate && searchToDate) {
+      setSearchFromDate(searchFromDate);
+      setSearchToDate(searchToDate);
+    }
   }, [
     orderOtherServices,
     rates,
@@ -144,14 +143,14 @@ function Additionally({
       otherValues,
       rates
     );
-    if (estimatedPrice > 0 && !isNaN(estimatedPrice)) {
+    if (estimatedPrice && estimatedPrice > 0) {
       getTotalPrice(estimatedPrice);
     }
   }
 
   useEffect(() => {
     getActualPrice(searchFromDate, searchToDate, rateValue, otherValues, rates);
-  });
+  }, [searchFromDate, searchToDate, rateValue, otherValues, rates]);
 
   return (
     <form className="additionally">
