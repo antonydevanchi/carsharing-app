@@ -1,24 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { API_URL, HEADERS } from "../../../../constants/constants";
+import MaskedInput from "react-text-mask";
+import { API_URL, HEADERS, dateMask } from "../../../../constants/constants";
 import "./Autocomplete.scss";
 
-function Autocomplete(props) {
+function Autocomplete({
+  type,
+  id,
+  name,
+  value,
+  placeholder,
+  urlEnd,
+  content,
+  options,
+  setOptions,
+  onChange,
+  setSearch,
+  handleClear,
+  handleSubmit,
+  required,
+}) {
   const [display, setDisplay] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const places = [];
-    if (props.id === "city" || props.id === "point") {
+    if (id === "city" || id === "point") {
       setIsLoading(true);
+      const abortController = new AbortController();
+      const signal = abortController.signal;
       (async () => {
         try {
-          const response = await fetch(`${API_URL}${props.urlEnd}`, {
+          const response = await fetch(`${API_URL}${urlEnd}`, {
             method: "GET",
             headers: HEADERS,
+            signal: signal,
           });
           const resData = await response.json();
           resData.data.map((item) => {
-            if (props.id === "city") {
+            if (id === "city") {
               places.push({ name: item.name, id: item.id });
               sessionStorage.setItem(item.name, item.id);
             } else {
@@ -30,54 +49,72 @@ function Autocomplete(props) {
         } catch (error) {
           console.log("Ошибка. запрос не выполнен");
         }
-        props.setOptions(places);
+        setOptions(places);
+        return function cleanup() {
+          abortController.abort();
+        };
       })();
     }
-  }, [props.urlEnd, props.id]);
+  }, [urlEnd, id]);
 
   const setPlaceCity = (place) => {
-    props.setSearch(place);
+    setSearch(place);
     setDisplay(false);
   };
 
   const setPlacePoint = (place, city) => {
-    props.setSearch(place);
-    props.handleSubmit(`${city}, ${place}`);
+    setSearch(place);
+    handleSubmit(`${city}, ${place}`);
     setDisplay(false);
   };
 
   return (
     <div className="autocomplete">
-      <label className="autocomplete__name" htmlFor={props.id}>
-        {props.content}
+      <label className="autocomplete__name" htmlFor={id}>
+        {content}
       </label>
-      <input
-        type={props.type}
-        id={props.id}
-        name={props.name}
-        onClick={() => setDisplay(!display)}
-        placeholder={props.placeholder}
-        className="autocomplete__input"
-        value={props.value}
-        onChange={props.onChange}
-        autoComplete="off"
-        required={props.required}
-      />
-      {props.value !== "" && (
+      {id === "city" || id === "point" ? (
+        <input
+          type={type}
+          id={id}
+          name={name}
+          onClick={() => setDisplay(!display)}
+          placeholder={placeholder}
+          className="autocomplete__input"
+          value={value}
+          onChange={onChange}
+          autoComplete="off"
+          required={required}
+        />
+      ) : (
+        <MaskedInput
+          mask={dateMask}
+          type={type}
+          id={id}
+          name={name}
+          className="autocomplete__input"
+          value={value}
+          onChange={onChange}
+          autoComplete="off"
+          placeholder={placeholder}
+          required={required}
+        />
+      )}
+      {value !== "" && (
         <button
           type="button"
           className="autocomplete__btn-reset"
-          onClick={props.handleClear}
+          onClick={handleClear}
         />
       )}
-      {display && props.id === "city" && (
+      {display && id === "city" && (
         <ul className="autocomplete__list">
           {isLoading && (
             <li className="autocomplete__item">Загружаем города...</li>
           )}
-          {props.options
+          {options
             .filter((item) =>
-              item.name.toLowerCase().startsWith(`${props.value}`.toLowerCase())
+              item.name.toLowerCase().startsWith(`${value}`.toLowerCase())
             )
             .map((item, i) => {
               return (
@@ -92,16 +129,14 @@ function Autocomplete(props) {
             })}
         </ul>
       )}
-      {display && props.id === "point" && (
+      {display && id === "point" && (
         <ul className="autocomplete__list">
           {isLoading && (
             <li className="autocomplete__item">Загружаем пункты...</li>
           )}
-          {props.options
+          {options
             .filter((item) =>
-              item.address
-                .toLowerCase()
-                .startsWith(`${props.value}`.toLowerCase())
+              item.address.toLowerCase().startsWith(`${value}`.toLowerCase())
             )
             .map((item, i) => {
               return (

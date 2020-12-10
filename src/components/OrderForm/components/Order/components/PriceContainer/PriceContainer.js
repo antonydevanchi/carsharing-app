@@ -7,17 +7,23 @@ function PriceContainer({ priceMin, priceMax, price }) {
 
   return (
     <div className="price-container">
-      <h3 className={cn("container", "item")({ type: "title" })}>Цена:</h3>
       {priceMin && (
         <>
+          <h3 className={cn("container", "item")({ type: "title" })}>Цена:</h3>
           <span className="price-container__item">от</span>
           <span className="price-container__item">{priceMin}</span>
           <span className="price-container__item">до</span>
           <span className="price-container__item">{priceMax}</span>
+          <span className="price-container__item">₽</span>
         </>
       )}
-      {price && <span className="price-container__item">{price}</span>}
-      <span className="price-container__item">₽</span>
+      {price && (
+        <>
+          <h3 className={cn("container", "item")({ type: "title" })}>Цена:</h3>
+          <span className="price-container__item">{price}</span>
+          <span className="price-container__item">₽</span>
+        </>
+      )}
     </div>
   );
 }

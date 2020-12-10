@@ -8,7 +8,7 @@ import {
 import "./Location.scss";
 import placemark from "../../../../images/placemark.svg";
 
-function Location(props) {
+function Location({ handleSubmit, orderPoint }) {
   const [searchCity, setSearchCity] = useState("");
   const [searchPoint, setSearchPoint] = useState("");
   const [optionsCity, setOptionsCity] = useState([]);
@@ -40,6 +40,16 @@ function Location(props) {
   } else {
     mapCenter = coords;
   }
+
+  useEffect(() => {
+    (function getLocationFromOrder() {
+      if (orderPoint) {
+        const places = orderPoint.split(",");
+        setSearchCity(places[0]);
+        setSearchPoint(orderPoint.substr(places[0].length + 2));
+      }
+    })();
+  }, [orderPoint]);
 
   function handleClearCity() {
     setSearchCity("");
@@ -152,7 +162,7 @@ function Location(props) {
           onChange={(event) => setSearchPoint(event.target.value)}
           setSearch={(item) => setSearchPoint(item)}
           handleClear={handleClearPoint}
-          handleSubmit={props.handleSubmit}
+          handleSubmit={handleSubmit}
           required="required"
         />
       </div>
@@ -174,7 +184,6 @@ function Location(props) {
             />
           )}
           {searchCity &&
-            // optionsPoint.join() !== "" &&
             coordsCityPoints.map((item, i) => (
               <Placemark
                 key={i}

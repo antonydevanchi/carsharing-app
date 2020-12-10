@@ -19,7 +19,12 @@ function RadioGroup({ value, name, values, onChange, modifier }) {
           />
           <label className="radio-group__name" htmlFor={item.id}>
             {item.type}
-            {item.price && <span>, {item.price}</span>}
+            {item.price && item.unit && (
+              <span>
+                , {item.price} ₽/{item.unit}
+              </span>
+            )}
+            {item.price && !item.unit && <span>, {item.price}</span>}
           </label>
         </p>
       ))}

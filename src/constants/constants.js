@@ -44,25 +44,37 @@ export const API_KEY_YANDEX_MAP = "434c60eb-7e25-434d-8607-ff46d664dc87";
 export const API_URL_YANDEX_MAP =
   "https://geocode-maps.yandex.ru/1.x/?format=json";
 
-export const COLORS = [
-  { type: "Любой", id: "any" },
-  { type: "Красный", id: "red" },
-  { type: "Голубой", id: "blue" },
-];
-
-export const RATES = [
-  { type: "Поминутно", id: "forMinutes", price: "7₽/мин" },
-  { type: "На сутки", id: "forDay", price: "1999 ₽/сутки" },
-];
+export const FULL_TANK_PRICE = 500;
+export const BABY_CHAIR_PRICE = 200;
+export const RIGHT_HAND_PRICE = 1600;
 
 export const OTHERS = [
-  { type: "Полный бак", id: "fullTank", price: "500р" },
-  { type: "Детское кресло", id: "babyChair", price: "200р" },
-  { type: "Правый руль", id: "rightHandDrive", price: "1600р" },
+  { type: "Полный бак", id: "fullTank", price: `${FULL_TANK_PRICE}р` },
+  { type: "Детское кресло", id: "babyChair", price: `${BABY_CHAIR_PRICE}р` },
+  { type: "Правый руль", id: "rightHandDrive", price: `${RIGHT_HAND_PRICE}р` },
 ];
 
 export const MODEL_TYPES = [
   { type: "Все модели", id: "allModels" },
   { type: "Эконом", id: "economModels" },
   { type: "Премиум", id: "premiumModels" },
+];
+
+export const dateMask = [
+  /[0-3]/,
+  /\d/,
+  ".",
+  /[0-1]/,
+  /\d/,
+  ".",
+  "2",
+  "0",
+  "2",
+  /\d/,
+  " ",
+  /[0-2]/,
+  /\d/,
+  ":",
+  /[0-5]/,
+  /\d/,
 ];
