@@ -34,7 +34,12 @@ function Navbar() {
           </ul>
           <ul className="navbar__social-media-list">
             <li className="navbar__social-media">
-              <a href="#" target="_blank" className="navbar__social-link">
+              <a
+                href="https://www.telegram.org/"
+                rel="noreferrer"
+                target="_blank"
+                className="navbar__social-link"
+              >
                 <svg
                   className="navbar__social-icon"
                   width="32"
@@ -52,7 +57,12 @@ function Navbar() {
               </a>
             </li>
             <li className="navbar__social-media">
-              <a href="#" target="_blank" className="navbar__social-link">
+              <a
+                href="https://www.facebook.com/"
+                rel="noreferrer"
+                target="_blank"
+                className="navbar__social-link"
+              >
                 <svg
                   className="navbar__social-icon"
                   width="32"
@@ -66,7 +76,12 @@ function Navbar() {
               </a>
             </li>
             <li className="navbar__social-media">
-              <a href="#" target="_blank" className="navbar__social-link">
+              <a
+                href="https://www.instagram.com/"
+                rel="noreferrer"
+                target="_blank"
+                className="navbar__social-link"
+              >
                 <svg
                   className="navbar__social-icon"
                   width="32"

@@ -4,21 +4,20 @@ import {
   RIGHT_HAND_PRICE,
 } from "../constants/constants";
 
-function getMinsDuration(firstDate, secondDate) {
-  const days = [firstDate.substr(0, 2), secondDate.substr(0, 2)];
-  const months = [firstDate.substr(3, 2), secondDate.substr(3, 2)];
-  const years = [firstDate.substr(6, 4), secondDate.substr(6, 4)];
-  const hours = [firstDate.substr(-5, 2), secondDate.substr(-5, 2)];
-  const minutes = [firstDate.substr(-2, 2), secondDate.substr(-2, 2)];
+export function formateDate(date) {
+  const day = date.substr(0, 2);
+  const month = date.substr(3, 2);
+  const year = date.substr(6, 4);
+  const hour = date.substr(-5, 2);
+  const minute = date.substr(-2, 2);
 
-  const start = new Date(
-    years[0],
-    months[0] - 1,
-    days[0],
-    hours[0],
-    minutes[0]
-  );
-  const end = new Date(years[1], months[1] - 1, days[1], hours[1], minutes[1]);
+  const formattedDate = new Date(year, month - 1, day, hour, minute);
+  return formattedDate;
+}
+
+function getMinsDuration(firstDate, secondDate) {
+  const start = formateDate(firstDate);
+  const end = formateDate(secondDate);
   const secDuration = (end - start) / 1000;
   return secDuration / 60;
 }

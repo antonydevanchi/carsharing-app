@@ -39,6 +39,10 @@
     &_active {
       color: $mainGreen;
     }
+
+    &_type_dark {
+      color: $mainBlack;
+    }
   }
 
   &__arrow {

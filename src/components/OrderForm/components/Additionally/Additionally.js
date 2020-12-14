@@ -150,7 +150,7 @@ function Additionally({
 
   useEffect(() => {
     getActualPrice(searchFromDate, searchToDate, rateValue, otherValues, rates);
-  }, [searchFromDate, searchToDate, rateValue, otherValues, rates]);
+  }, [searchFromDate, searchToDate, rateValue, otherValues, rates]); // eslint-disable-line
 
   return (
     <form className="additionally">
