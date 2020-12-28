@@ -1,0 +1,53 @@
+@import "../../../../scss/variables.scss";
+
+.admin-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0px -0.5px 0px #d7dae3;
+  z-index: 1;
+  padding: 28px;
+  @media screen and (max-width: $mobile) {
+    flex-direction: column;
+    padding: $extraSmall;
+    align-items: flex-start;
+  }
+
+  &__list {
+    display: flex;
+    @media screen and (max-width: $mobile) {
+      flex-direction: column;
+      margin-bottom: $small;
+    }
+  }
+
+  &__item {
+    color: $blue;
+    font-family: "Helvetica", sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    margin-right: 16px;
+    text-decoration: none;
+
+    &:hover {
+      filter: brightness(80%);
+      transition: filter 0.4s linear;
+    }
+
+    &:active {
+      filter: brightness(90%);
+      transition: filter 0.4s linear;
+    }
+  }
+
+  &__text {
+    color: #818ea3;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0;
+  }
+}

@@ -1,0 +1,12 @@
+@import "../../../../../../scss/variables.scss";
+
+.posts-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 12px;
+  fill: #cacedb;
+
+  &_active {
+    fill: $blue;
+  }
+}

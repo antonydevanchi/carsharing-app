@@ -1,0 +1,122 @@
+@import "../../../../scss/variables.scss";
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  font-family: "Helvetica", sans-serif;
+  font-weight: normal;
+  box-shadow: 0px 2.5px 9.5px rgba(90, 97, 105, 0.12);
+  z-index: 1;
+
+  &__search {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    @media screen and (max-width: $mobile) {
+      padding: $extraSmall;
+    }
+  }
+
+  &__search-icon {
+    width: 14px;
+    height: 14px;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__search-input {
+    margin-left: 8px;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    line-height: 15px;
+    color: #767f9d;
+    padding: 0;
+    @media screen and (max-width: $mobile) {
+      width: 60px;
+    }
+
+    &::placeholder {
+      font-family: inherit;
+      font-weight: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      color: #767f9d;
+    }
+    &:hover::placeholder {
+      color: $blue;
+    }
+  }
+
+  &__container {
+    display: flex;
+    @media screen and (max-width: $mobile) {
+      align-items: center;
+    }
+  }
+
+  &__notifications {
+    padding: 22px 24px;
+    box-shadow: 0.5px 0px 0px #cacedb, -0.5px 0px 0px #cacedb;
+    position: relative;
+    @media screen and (max-width: $mobile) {
+      padding: $extraSmall;
+      align-self: center;
+    }
+  }
+
+  &__bell {
+    width: 18px;
+    height: 18px;
+  }
+
+  &__counter {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #c4183c;
+    position: absolute;
+    top: 35px;
+    right: 18px;
+    color: #ffffff;
+    font-size: 9px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media screen and (max-width: $mobile) {
+      top: 18px;
+      right: 4px;
+    }
+  }
+
+  &__admin-info {
+    padding: 13px 24px;
+    display: flex;
+    align-items: center;
+    @media screen and (max-width: $mobile) {
+      display: none;
+    }
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  &__admin-select {
+    margin-left: 13px;
+    border: none;
+    outline: none;
+    color: #5a6169;
+    width: 96px;
+  }
+
+  &__select-option {
+    color: inherit;
+  }
+}

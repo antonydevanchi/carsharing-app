@@ -1,0 +1,37 @@
+@import "../../scss/variables.scss";
+
+.admin-panel {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+}
+
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
+}
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  background-color: $greyAdmin;
+  padding: 28px;
+  width: 100%;
+  height: 100%;
+  padding: 28px;
+  @media screen and (max-width: $mobile) {
+    padding: $extraSmall;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  align-items: flex-start;
+  @media screen and (max-width: $tablet) {
+    flex-direction: column;
+  }
+}

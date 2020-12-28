@@ -1,0 +1,95 @@
+@import "../../../../scss/variables.scss";
+
+.login {
+  display: flex;
+  flex-direction: column;
+  background-color: $greyAdmin;
+  align-items: center;
+  padding-top: 10%;
+  width: 100%;
+
+  &__container {
+    font-family: "Helvetica", sans-serif;
+    font-weight: normal;
+    width: 376px;
+    height: 254px;
+    padding: $small;
+    background-color: #ffffff;
+    border-radius: 9px;
+    box-shadow: 0px 1px 0px rgba(90, 97, 105, 0.11),
+      0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06),
+      0px 3.5px 35px rgba(90, 97, 105, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    color: $darkBlue;
+    font-size: 17.5px;
+    line-height: 20px;
+    letter-spacing: -0.4375px;
+    margin: 0 0 $small;
+    font-weight: normal;
+    align-self: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin-top: $small;
+  }
+
+  &__name {
+    color: #495057;
+    font-size: 10.5px;
+    line-height: 12px;
+    letter-spacing: -0.18421px;
+    margin: 0 0 $extraSmall;
+  }
+
+  &__input {
+    color: $darkBlue;
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: -0.192982px;
+    margin: 0 0 $small;
+    outline: none;
+    border: 0.5px solid #becad6;
+    border-radius: 3px;
+    padding: $extraSmall;
+
+    &::placeholder {
+      color: $darkBlue;
+      font-size: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+    }
+  }
+
+  &__button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__text {
+    margin: 0;
+    color: $blue;
+    font-size: 10.5px;
+    line-height: 12px;
+    letter-spacing: -0.18421px;
+  }
+
+  &__button {
+    width: 110px;
+    color: #ffffff;
+    background-color: $blue;
+    font-size: 11.5px;
+    line-height: 13px;
+    padding: $extraSmall;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+  }
+}

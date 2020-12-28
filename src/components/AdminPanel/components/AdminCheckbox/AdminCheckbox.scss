@@ -1,0 +1,96 @@
+@import "../../../../scss/variables.scss";
+
+.admin-checkbox {
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #495057;
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  @media screen and (max-width: $tablet) {
+    padding-bottom: 0;
+  }
+
+  &_type_input {
+    margin-top: $small;
+  }
+
+  &__item {
+    margin: 0 0 $extraSmall;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+    @media screen and (max-width: $mobile) {
+      margin-right: $extraSmall;
+    }
+  }
+
+  &__checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+    & + label {
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+      cursor: pointer;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    & + label::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      border: 0.5px solid #becad6;
+      border-radius: 1px;
+      margin-right: $extraSmall;
+    }
+
+    & + label::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 6px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    &:checked + label::after {
+      top: 3px;
+      left: 3px;
+      background-image: url("../../../../images/check-admin.svg");
+    }
+
+    &:checked + label::before {
+      background-color: $blue;
+      border-radius: 2px;
+      border: none;
+    }
+
+    &:disabled + label::before {
+      background-color: #edecef;
+    }
+  }
+
+  &__name {
+    margin-right: $small;
+    position: relative;
+    @media screen and (max-width: $mobile) {
+      margin-right: $extraSmall;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}

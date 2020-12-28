@@ -44,6 +44,20 @@ code {
   font-weight: 500;
 }
 
+@font-face {
+  font-family: "Helvetica";
+  font-style: normal;
+  src: url(./fonts/HelveticaRegular.woff) format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Helvetica";
+  font-style: normal;
+  src: url(./fonts/HelveticaBold.woff) format("woff");
+  font-weight: bold;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document

@@ -1,0 +1,48 @@
+@import "../../../../scss/variables.scss";
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: $small;
+
+  &_type_mini {
+    padding: 23px 22px 23px 48px;
+    margin-bottom: 0;
+    box-shadow: inset 0px -1px 0px #e1e5eb;
+    @media screen and (max-width: $tablet) {
+      padding-left: $small;
+      padding-right: $extraSmall;
+    }
+    @media screen and (max-width: $mobile) {
+      padding: $extraSmall $micro $extraSmall $extraSmall;
+    }
+  }
+
+  &__image {
+    width: 44px;
+    height: 44px;
+
+    &_type_mini {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  &__title {
+    font-family: "Helvetica", sans-serif;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    color: $darkBlue;
+    margin: 0 0 0 $extraSmall;
+
+    &_type_mini {
+      font-size: 16px;
+      line-height: 18px;
+      @media screen and (max-width: $mobile) {
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+  }
+}
