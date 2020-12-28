@@ -37,6 +37,11 @@ export const HEADERS = {
   "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b",
   Authorization: "Bearer 52efbe08228671240494f537f2486bc109a637b4",
 };
+export const HEADERS_POST = {
+  "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b",
+  Authorization: "Bearer 52efbe08228671240494f537f2486bc109a637b4",
+  "Content-type": "application/json",
+};
 export const URL_SIMBIRSOFT =
   "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/";
 
@@ -78,3 +83,8 @@ export const dateMask = [
   /[0-5]/,
   /\d/,
 ];
+
+export const ORDER_STATUS_NEW_ID = "5e26a191099b810b946c5d89";
+export const ORDER_STATUS_ISSUED_ID = "5e26a1d5099b810b946c5d8a";
+export const ORDER_STATUS_CONFIRMED_ID = "5e26a1f0099b810b946c5d8b";
+export const ORDER_STATUS_CANCELLED_ID = "5e26a1f5099b810b946c5d8c";

@@ -8,13 +8,27 @@ import Button from "../../../Button/Button";
 import Item from "./components/Item/Item";
 import PriceContainer from "./components/PriceContainer/PriceContainer";
 import Popup from "./components/Popup/Popup";
-import { API_URL, HEADERS } from "../../../../constants/constants";
+import {
+  API_URL,
+  HEADERS,
+  HEADERS_POST,
+  ORDER_STATUS_CONFIRMED_ID,
+  ORDER_STATUS_CANCELLED_ID,
+} from "../../../../constants/constants";
+import { formateDate } from "../../../../utils/calculations";
 import { makePriceWithGap } from "../../../../utils/priceWithGap";
 
 import "./Order.scss";
 
-function Order(props) {
-  const [orderPoint, setOrderPoint] = useState("");
+function Order({
+  setIsActiveModel,
+  setIsActiveAdditionally,
+  setIsActiveTotal,
+  setIsConfirmedOrder,
+  isConfirmedOrder,
+  setOrderId,
+}) {
+  const [orderPoint, setOrderPoint] = useState({});
   const [orderModel, setOrderModel] = useState({});
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState("");
@@ -26,6 +40,7 @@ function Order(props) {
   const [searchToDate, setSearchToDate] = useState("");
   const [totalPrice, setTotalPrice] = useState("");
   const [rates, setRates] = useState([]);
+  const [isCancelledOrder, setIsCancelledOrder] = useState(false);
 
   const isOrderDate = orderOtherServices.some((item) => {
     if (item.name) {
@@ -60,45 +75,43 @@ function Order(props) {
     btnText = "Дополнительно";
   } else if (location.pathname === "/order-form/additionally") {
     btnText = "Итого";
-  } else if (location.pathname === "/order-form/total") {
+  } else if (location.pathname === "/order-form/total" && !isConfirmedOrder) {
     btnText = "Заказать";
   } else {
     btnText = "Отменить";
   }
 
   useEffect(() => {
-    (function toggleButtonAbility() {
-      if (location.pathname === "/order-form/location" && orderPoint !== "") {
-        setIsDisabled(false);
-        props.setIsActiveModel(true);
-      }
-      if (location.pathname === "/order-form/model" && orderModel.name) {
-        setIsDisabled(false);
-        props.setIsActiveAdditionally(true);
-      }
-      if (
-        location.pathname === "/order-form/additionally" &&
-        isOrderDate &&
-        totalPrice >= orderModel.priceMin &&
-        totalPrice <= orderModel.priceMax
-      ) {
-        setIsDisabled(false);
-        props.setIsActiveTotal(true);
-      }
-      if (
-        location.pathname === "/order-form/additionally" &&
-        (!isOrderDate ||
-          totalPrice < orderModel.priceMin ||
-          totalPrice > orderModel.priceMax)
-      ) {
-        setIsDisabled(true);
-        props.setIsActiveTotal(false);
-      }
-    })();
-  });
+    if (location.pathname === "/order-form/location" && orderPoint.address) {
+      setIsDisabled(false);
+      setIsActiveModel(true);
+    }
+    if (location.pathname === "/order-form/model" && orderModel.name) {
+      setIsDisabled(false);
+      setIsActiveAdditionally(true);
+    }
+    if (
+      location.pathname === "/order-form/additionally" &&
+      isOrderDate &&
+      totalPrice >= orderModel.priceMin &&
+      totalPrice <= orderModel.priceMax
+    ) {
+      setIsDisabled(false);
+      setIsActiveTotal(true);
+    }
+    if (
+      location.pathname === "/order-form/additionally" &&
+      (!isOrderDate ||
+        totalPrice < orderModel.priceMin ||
+        totalPrice > orderModel.priceMax)
+    ) {
+      setIsDisabled(true);
+      setIsActiveTotal(false);
+    }
+  }, [isOrderDate, location.pathname, orderModel, orderPoint, totalPrice]); // eslint-disable-line
 
-  function handleSubmitPoint(cityPoint) {
-    setOrderPoint(cityPoint);
+  function handleSubmitPoint(cityPointObject) {
+    setOrderPoint(cityPointObject);
   }
   function handleSubmitModel(modelObject) {
     setOrderModel(modelObject);
@@ -113,8 +126,20 @@ function Order(props) {
       setIsDisabled(true);
     } else if (location.pathname === "/order-form/additionally") {
       history.push("/order-form/total");
-    } else if (location.pathname === "/order-form/total") {
+    } else if (location.pathname === "/order-form/total" && !isConfirmedOrder) {
       togglePopup();
+    } else {
+      const resData = sendDataToServer(ORDER_STATUS_CANCELLED_ID);
+      resData
+        .then((res) => {
+          setIsCancelledOrder(true);
+          setIsDisabled(true);
+          setIsConfirmedOrder(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(`Не удается установить связь с сервером и отменить заказ.`);
+        });
     }
   }
 
@@ -140,7 +165,6 @@ function Order(props) {
   }, []);
 
   useEffect(() => {
-    // const rateTypes = [];
     (async () => {
       try {
         const response = await fetch(`${API_URL}/db/rate`, {
@@ -192,12 +216,96 @@ function Order(props) {
     }
   }, [totalPrice, orderModel]);
 
+  function sendDataToServer(statusId) {
+    const orderColor = orderOtherServices.find((item) => {
+      return item.title === "Цвет";
+    });
+    let selectedColor;
+    if (orderColor) {
+      selectedColor = orderColor.name.toLowerCase();
+    } else {
+      selectedColor = orderModel.colors[0];
+    }
+    const orderRate = orderOtherServices.find((item) => {
+      return Object.values(item).includes("Тариф");
+    });
+    let rateId;
+    if (orderRate) {
+      const rate = rates.find((elem) => {
+        return elem.type === orderRate.name;
+      });
+      rateId = rate.id;
+    } else {
+      rateId = rates[0].id;
+    }
+    const dateFrom = formateDate(searchFromDate);
+    const dateTo = formateDate(searchToDate);
+
+    const isFullTank = orderOtherServices.some((item) => {
+      return item.title === "Полный бак" && item.name;
+    });
+    const isNeedChildChair = orderOtherServices.some((item) => {
+      return item.title === "Детское кресло" && item.name;
+    });
+    const isRightWheel = orderOtherServices.some((item) => {
+      return item.title === "Правый руль" && item.name;
+    });
+
+    return fetch(`${API_URL}/db/order/`, {
+      method: "POST",
+      headers: HEADERS_POST,
+      body: JSON.stringify({
+        orderStatusId: statusId,
+        cityId: orderPoint.cityId,
+        pointId: orderPoint.pointId,
+        carId: orderModel.id,
+        color: selectedColor,
+        dateFrom: +dateFrom,
+        dateTo: +dateTo,
+        rateId: rateId,
+        price: totalPrice,
+        isFullTank: isFullTank,
+        isNeedChildChair: isNeedChildChair,
+        isRightWheel: isRightWheel,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
+  function confirmOrder() {
+    const resData = sendDataToServer(ORDER_STATUS_CONFIRMED_ID);
+    resData
+      .then((res) => {
+        setOrderId(res.data.id);
+        togglePopup();
+        setIsConfirmedOrder(true);
+        history.push(`/order-form/total/${res.data.id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(
+          `Не удается установить связь с сервером и подтвердить заказ.
+           Попробуйте проверить подключение к Интернет
+           или открыть приложение через несколько минут`
+        );
+      });
+  }
+
   return (
     <>
       <div className="order">
         <h2 className="order__title">Ваш заказ:</h2>
-        <Item title="Пункт выдачи" name={orderPoint} modifier="point" />
-
+        {orderPoint.city && (
+          <Item
+            title="Пункт выдачи"
+            name={`${orderPoint.city}, ${orderPoint.address}`}
+            modifier="point"
+          />
+        )}
         {location.pathname !== "/order-form/location" && (
           <Item title="Модель" name={orderModel.name} />
         )}
@@ -221,11 +329,13 @@ function Order(props) {
           text={btnText}
           className={`button button_max button_order ${
             isDisabled ? "button_disabled" : ""
-          }`}
+          } ${isConfirmedOrder ? "button_theme_red" : ""}`}
           onClick={handleClick}
           disabled={isDisabled}
         />
-        {isPopupOpened && <Popup togglePopup={togglePopup} />}
+        {isPopupOpened && (
+          <Popup confirmOrder={confirmOrder} togglePopup={togglePopup} />
+        )}
       </div>
       <Switch>
         <Route path="/order-form/location">
@@ -257,7 +367,12 @@ function Order(props) {
           />
         </Route>
         <Route path="/order-form/total">
-          <Total carModel={orderModel} startDate={searchFromDate} />
+          <Total
+            carModel={orderModel}
+            startDate={searchFromDate}
+            isConfirmedOrder={isConfirmedOrder}
+            isCancelledOrder={isCancelledOrder}
+          />
         </Route>
       </Switch>
     </>

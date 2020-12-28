@@ -41,7 +41,12 @@ function Autocomplete({
               places.push({ name: item.name, id: item.id });
               sessionStorage.setItem(item.name, item.id);
             } else {
-              places.push({ city: item.cityId.name, address: item.address });
+              places.push({
+                city: item.cityId.name,
+                address: item.address,
+                cityId: item.cityId.id,
+                pointId: item.id,
+              });
             }
             return places;
           });
@@ -55,16 +60,16 @@ function Autocomplete({
         };
       })();
     }
-  }, [urlEnd, id]);
+  }, [urlEnd, id]); // eslint-disable-line
 
   const setPlaceCity = (place) => {
     setSearch(place);
     setDisplay(false);
   };
 
-  const setPlacePoint = (place, city) => {
-    setSearch(place);
-    handleSubmit(`${city}, ${place}`);
+  const setPlacePoint = (place) => {
+    setSearch(place.address);
+    handleSubmit(place);
     setDisplay(false);
   };
 
@@ -142,7 +147,7 @@ function Autocomplete({
               return (
                 <li
                   key={i}
-                  onClick={() => setPlacePoint(item.address, item.city)}
+                  onClick={() => setPlacePoint(item)}
                   className="autocomplete__item"
                 >
                   {item.address}

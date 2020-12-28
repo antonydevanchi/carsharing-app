@@ -42,13 +42,10 @@ function Location({ handleSubmit, orderPoint }) {
   }
 
   useEffect(() => {
-    (function getLocationFromOrder() {
-      if (orderPoint) {
-        const places = orderPoint.split(",");
-        setSearchCity(places[0]);
-        setSearchPoint(orderPoint.substr(places[0].length + 2));
-      }
-    })();
+    if (orderPoint.address) {
+      setSearchCity(orderPoint.city);
+      setSearchPoint(orderPoint.address);
+    }
   }, [orderPoint]);
 
   function handleClearCity() {
