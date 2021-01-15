@@ -7,7 +7,7 @@ function PostsIcon() {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    location.pathname === "/admin/content/list"
+    location.pathname === "/admin/content/cars-list"
       ? setIsActive(true)
       : setIsActive(false);
   }, [location.pathname]);

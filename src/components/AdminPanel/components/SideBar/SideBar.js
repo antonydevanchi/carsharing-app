@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import AddIcon from "./components/AddIcon/AddIcon";
@@ -11,66 +11,82 @@ import PostsIcon from "./components/PostsIcon/PostsIcon";
 import "./SideBar.scss";
 
 function SideBar() {
+  const [isMenuOpened, setIsMenuOpened] = useState(true);
+
+  function toggleMenuVisibility() {
+    setIsMenuOpened(!isMenuOpened);
+  }
+
   return (
-    <nav className="sidebar">
-      <Logo text="Need for car" modifier="mini" />
-      <NavLink
-        className="sidebar__item"
-        activeClassName="sidebar__item_active"
-        to="/admin/content/car"
-      >
-        <BlogIcon />
-        Карточка автомобиля
-      </NavLink>
-      <NavLink
-        className="sidebar__item"
-        activeClassName="sidebar__item_active"
-        to="/admin/content/list"
-      >
-        <PostsIcon />
-        Список авто
-      </NavLink>
-      <NavLink
-        className="sidebar__item"
-        activeClassName="sidebar__item_active"
-        to="/admin/content/table"
-      >
-        <AddIcon />
-        Заказы
-      </NavLink>
-      <NavLink
-        className="sidebar__item"
-        activeClassName="sidebar__item_active"
-        to="/admin/content/menu4"
-      >
-        <OverviewIcon />
-        Карточка заказа
-      </NavLink>
-      <NavLink
-        className="sidebar__item"
-        activeClassName="sidebar__item_active"
-        to="/admin/content/menu5"
-      >
-        <FormsIcon />
-        Menu 5
-      </NavLink>
-      <NavLink
-        className="sidebar__item"
-        activeClassName="sidebar__item_active"
-        to="/admin/content/menu6"
-      >
-        <PersonIcon />
-        Menu 6
-      </NavLink>
-      <NavLink
-        className="sidebar__item"
-        activeClassName="sidebar__item_active"
-        to="/admin/content/menu7"
-      >
-        <ErrorIcon />
-        Error Page
-      </NavLink>
-    </nav>
+    <div className="sidebar">
+      <button
+        className={`sidebar__button ${
+          isMenuOpened ? "sidebar__button_close" : ""
+        }`}
+        onClick={toggleMenuVisibility}
+      />
+      {isMenuOpened && (
+        <nav className="sidebar__menu">
+          <Logo text="Need for car" modifier="mini" />
+          <NavLink
+            className="sidebar__item"
+            activeClassName="sidebar__item_active"
+            to="/admin/content/car-card"
+          >
+            <BlogIcon />
+            Карточка автомобиля
+          </NavLink>
+          <NavLink
+            className="sidebar__item"
+            activeClassName="sidebar__item_active"
+            to="/admin/content/cars-list"
+          >
+            <PostsIcon />
+            Автомобили
+          </NavLink>
+          <NavLink
+            className="sidebar__item"
+            activeClassName="sidebar__item_active"
+            to="/admin/content/orders-list"
+          >
+            <AddIcon />
+            Заказы
+          </NavLink>
+          <NavLink
+            className="sidebar__item"
+            activeClassName="sidebar__item_active"
+            to="/admin/content/order-card"
+          >
+            <OverviewIcon />
+            Карточка заказа
+          </NavLink>
+          <NavLink
+            className="sidebar__item"
+            activeClassName="sidebar__item_active"
+            to="/admin/content/points-list"
+          >
+            <FormsIcon />
+            Пункты
+          </NavLink>
+          <NavLink
+            className="sidebar__item"
+            activeClassName="sidebar__item_active"
+            to="/admin/content/point-card"
+          >
+            <PersonIcon />
+            Карточка пункта
+          </NavLink>
+          <NavLink
+            className="sidebar__item"
+            activeClassName="sidebar__item_active"
+            to="/admin/content/menu7"
+          >
+            <ErrorIcon />
+            Menu 7
+          </NavLink>
+        </nav>
+      )}
+    </div>
   );
 }
 

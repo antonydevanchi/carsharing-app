@@ -7,7 +7,7 @@ function BlogIcon() {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    location.pathname === "/admin/content/car"
+    location.pathname === "/admin/content/car-card"
       ? setIsActive(true)
       : setIsActive(false);
   }, [location.pathname]);

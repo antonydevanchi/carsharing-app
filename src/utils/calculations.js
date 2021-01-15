@@ -79,7 +79,7 @@ function getEstimatedPrice(firstDate, secondDate, rate, rates) {
     Number.isInteger(daysDuration)
       ? (price = daysDuration * daysRate.price)
       : (price = (parseInt(daysDuration) + 1) * daysRate.price);
-  }
+  } else price = undefined;
   return price;
 }
 
@@ -92,7 +92,7 @@ export const estimatePrice = (
 ) => {
   const price = getEstimatedPrice(firstDate, secondDate, rate, rates);
   let totalPrice = price;
-  if (otherServices) {
+  if (otherServices && price) {
     otherServices.includes("Полный бак")
       ? (totalPrice += FULL_TANK_PRICE)
       : (totalPrice += 0);

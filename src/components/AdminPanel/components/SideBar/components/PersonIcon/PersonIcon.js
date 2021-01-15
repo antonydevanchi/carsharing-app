@@ -7,7 +7,7 @@ function PersonIcon() {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    location.pathname === "/admin/content/menu6"
+    location.pathname === "/admin/content/point-card"
       ? setIsActive(true)
       : setIsActive(false);
   }, [location.pathname]);

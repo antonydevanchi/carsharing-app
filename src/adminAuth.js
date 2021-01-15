@@ -77,7 +77,6 @@ export function refreshToken(token, key) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       if (data) {
         saveToken(data);
         return data;

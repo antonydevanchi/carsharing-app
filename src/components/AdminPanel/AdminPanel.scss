@@ -25,13 +25,3 @@
     padding: $extraSmall;
   }
 }
-
-.content {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  align-items: flex-start;
-  @media screen and (max-width: $tablet) {
-    flex-direction: column;
-  }
-}

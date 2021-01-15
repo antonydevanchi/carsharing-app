@@ -4,12 +4,10 @@ import AdminHeader from "./components/AdminHeader/AdminHeader";
 import SideBar from "./components/SideBar/SideBar";
 import AdminFooter from "./components/AdminFooter/AdminFooter";
 import AdminTitle from "./components/AdminTitle/AdminTitle";
-import AdminCard from "./components/AdminCard/AdminCard";
-import AdminSetting from "./components/AdminSetting/AdminSetting";
-import Table from "./components/Table/Table";
-import OrderCard from "./components/OrderCard/OrderCard";
-import ErrorPage from "./components/ErrorPage/ErrorPage";
-import { CARS, ORDERS } from "../../constants/constants";
+import CarCard from "./components/CarCard/CarCard";
+import CarsList from "./components/CarsList/CarsList";
+import OrdersList from "./components/OrdersList/OrdersList";
+import PointsList from "./components/PointsList/PointsList";
 import "./AdminPanel.scss";
 
 function AdminPanel() {
@@ -20,33 +18,26 @@ function AdminPanel() {
         <AdminHeader />
         <div className="admin-container">
           <Switch>
-            <Route path="/admin/content/car">
-              <AdminTitle text="Карточка автомобиля" />
-              <div className="content">
-                <AdminCard />
-                <AdminSetting />
-              </div>
+            <Route path="/admin/content/car-card">
+              <CarCard />
             </Route>
-            <Route path="/admin/content/list">
-              <AdminTitle text="Список авто" />
-              <Table options={CARS} />
+            <Route path="/admin/content/cars-list">
+              <CarsList />
             </Route>
-            <Route path="/admin/content/table">
-              <AdminTitle text="Заказы" />
-              <Table options={ORDERS} />
+            <Route path="/admin/content/orders-list">
+              <OrdersList />
             </Route>
-            <Route path="/admin/content/menu4">
+            <Route path="/admin/content/order-card">
               <AdminTitle text="Карточка заказа" />
-              <OrderCard />
             </Route>
-            <Route path="/admin/content/menu5">
-              <AdminTitle text="Menu 5" />
+            <Route path="/admin/content/points-list">
+              <PointsList />
             </Route>
-            <Route path="/admin/content/menu6">
-              <AdminTitle text="Menu 6" />
+            <Route path="/admin/content/point-card">
+              <AdminTitle text="Карточка пункта" />
             </Route>
             <Route path="/admin/content/menu7">
-              <ErrorPage />
+              <AdminTitle text="Menu 7" />
             </Route>
           </Switch>
         </div>

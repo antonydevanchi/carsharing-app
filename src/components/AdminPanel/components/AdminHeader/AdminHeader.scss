@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     @media screen and (max-width: $mobile) {
-      padding: $extraSmall;
+      padding: $extraSmall $extraSmall $extraSmall $medium;
     }
   }
 

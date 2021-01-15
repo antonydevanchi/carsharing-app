@@ -7,7 +7,7 @@ function AddIcon() {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    location.pathname === "/admin/content/table"
+    location.pathname === "/admin/content/orders-list"
       ? setIsActive(true)
       : setIsActive(false);
   }, [location.pathname]);

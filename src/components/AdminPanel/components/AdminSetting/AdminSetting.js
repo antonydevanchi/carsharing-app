@@ -3,9 +3,7 @@ import AdminButton from "../AdminButton/AdminButton";
 import AdminInput from "../AdminInput/AdminInput";
 import "./AdminSetting.scss";
 
-function AdminSetting() {
-  const colorValues = ["Красный", "Белый", "Чёрный"];
-
+function AdminSetting({ colors }) {
   return (
     <div className="admin-setting">
       <div className="admin-setting__content">
@@ -32,7 +30,7 @@ function AdminSetting() {
             kind="top"
             position="left"
             addition="button"
-            options={colorValues}
+            options={colors}
           />
         </form>
       </div>

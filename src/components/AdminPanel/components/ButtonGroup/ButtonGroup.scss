@@ -2,6 +2,12 @@
 
 .button-group {
   display: flex;
+  @media screen and (max-width: $desktopMin) {
+    flex-direction: column;
+  }
+  @media screen and (max-width: 1240px) {
+    flex-direction: row;
+  }
 
   &__button {
     width: 72px;
@@ -36,10 +42,27 @@
       border-bottom: 0.5px solid #becad6;
       border-left: 0.5px solid #becad6;
       border-right: none;
+      @media screen and (max-width: $desktopMin) {
+        border-radius: 4px 4px 0 0;
+        border-right: 0.5px solid #becad6;
+      }
+      @media screen and (max-width: 1240px) {
+        border-radius: 4px 0 0 4px;
+        border-right: none;
+      }
     }
 
     &_position_middle {
       border: 0.5px solid #becad6;
+      @media screen and (max-width: $desktopMin) {
+        border-right: 0.5px solid #becad6;
+        border-left: 0.5px solid #becad6;
+        border-top: none;
+        border-bottom: none;
+      }
+      @media screen and (max-width: 1240px) {
+        border: 0.5px solid #becad6;
+      }
     }
 
     &_position_right {
@@ -49,6 +72,14 @@
       border-right: 0.5px solid #becad6;
       border-left: none;
       padding-left: 3px;
+      @media screen and (max-width: $desktopMin) {
+        border-radius: 0 0 4px 4px;
+        border-left: 0.5px solid #becad6;
+      }
+      @media screen and (max-width: 1240px) {
+        border-radius: 0 4px 4px 0;
+        border-left: none;
+      }
     }
   }
 

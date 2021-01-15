@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { withNaming } from "@bem-react/classname";
 import "./Pagination.scss";
 
-function Pagination() {
+function Pagination({ pages, handleClick, activeIndex, setActiveIndex }) {
   const cn = withNaming({ n: "", e: "__", m: "_" });
-  const [activeIndex, setActiveIndex] = useState(0);
+  // const [activeIndex, setActiveIndex] = useState(0);
   const [pageNums, setPageNums] = useState([]);
-  const pages = 25;
 
   const goToNextPage = () => {
     if (activeIndex < pages - 1) {
       setActiveIndex(activeIndex + 1);
+      handleClick(activeIndex + 1);
     }
   };
   const goToPrevPage = () => {
     if (activeIndex >= 1) {
       setActiveIndex(activeIndex - 1);
+      handleClick(activeIndex - 1);
     }
   };
 
@@ -52,13 +53,13 @@ function Pagination() {
         }
       }
     }
-  }, [activeIndex]);
+  }, [activeIndex, pages]);
 
   return (
     <div className="pagination">
       <button
         className={cn("pagination", "button")({ type: "prev" })}
-        onClick={goToPrevPage}
+        onClick={() => goToPrevPage()}
       />
       {pageNums &&
         pageNums.map((num, i) => (
@@ -74,7 +75,7 @@ function Pagination() {
 
       <button
         className={cn("pagination", "button")({ type: "next" })}
-        onClick={goToNextPage}
+        onClick={() => goToNextPage()}
       />
     </div>
   );
