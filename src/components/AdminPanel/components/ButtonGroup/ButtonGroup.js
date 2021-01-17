@@ -6,19 +6,20 @@ import editIcon from "../../../../images/edit-icon.svg";
 import rejectIcon from "../../../../images/reject-icon.svg";
 
 function ButtonGroup() {
-  const cn = withNaming({ n: "", e: "__", m: "_" });
+  const cn = withNaming({ n: "button-group", e: "__", m: "_" });
+
   return (
-    <div className="button-group">
-      <button className={cn("button-group", "button")({ position: "left" })}>
-        <img className="button-group__image" src={greenCheck} alt="Готово" />
+    <div className={cn("")()}>
+      <button className={cn("", "button")({ position: "left" })}>
+        <img className={cn("", "image")()} src={greenCheck} alt="Готово" />
         Готово
       </button>
-      <button className={cn("button-group", "button")({ position: "middle" })}>
-        <img className="button-group__image" src={rejectIcon} alt="Отмена" />
+      <button className={cn("", "button")({ position: "middle" })}>
+        <img className={cn("", "image")()} src={rejectIcon} alt="Отмена" />
         Отмена
       </button>
-      <button className={cn("button-group", "button")({ position: "right" })}>
-        <img className="button-group__image" src={editIcon} alt="Изменить" />
+      <button className={cn("", "button")({ position: "right" })}>
+        <img className={cn("", "image")()} src={editIcon} alt="Изменить" />
         Изменить
       </button>
     </div>

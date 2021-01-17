@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import "./ErrorIcon.scss";
 
-function ErrorIcon() {
-  const location = useLocation();
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    location.pathname === "/admin/content/menu7"
-      ? setIsActive(true)
-      : setIsActive(false);
-  }, [location.pathname]);
-
+function ErrorIcon({ isActive }) {
   return (
     <svg
       className={`error-icon ${isActive ? "error-icon_active" : ""}`}

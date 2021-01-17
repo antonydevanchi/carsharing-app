@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Table from "../Table/Table";
+import List from "../List/List";
 import AdminTitle from "../AdminTitle/AdminTitle";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import {
@@ -9,9 +9,7 @@ import {
   PERIODS,
   CARS,
 } from "../../../../constants/constants";
-import { makePriceWithGap } from "../../../../utils/priceWithGap";
 import { getData, getSelectOptions } from "../../../../adminFetch";
-import { transformDate } from "../../../../utils/transformDate";
 
 function OrdersList() {
   const [orders, setOrders] = useState([]);
@@ -83,15 +81,23 @@ function OrdersList() {
         console.log(resData.data);
         setOrders(
           resData.data.map((item) => ({
-            city: item.cityId.name,
-            point: item.pointId.address,
-            car: item.carId.name,
-            dateFrom: transformDate(item.dateFrom),
-            dateTo: transformDate(item.dateTo),
-            price: makePriceWithGap(item.price),
-            status: item.orderStatusId ? item.orderStatusId.name : "",
-            image: item.carId.thumbnail.path,
-            color: item.color,
+            city: item.cityId ? item.cityId.name : "Неизвестный город",
+            point:
+              item.pointId && item.pointId.address
+                ? item.pointId.address
+                : "Неизвестный пункт",
+            car: item.carId ? item.carId.name : "Неизвестная машина",
+            dateFrom: item.dateFrom,
+            dateTo: item.dateTo,
+            price: item.price ? item.price : "",
+            status: item.orderStatusId
+              ? item.orderStatusId.name
+              : "Неизвестный статус",
+            image:
+              item.carId && item.carId.thumbnail
+                ? item.carId.thumbnail.path
+                : "",
+            color: item.color ? item.color : "Не выбран",
             isFullTank: item.isFullTank ? "Полный бак" : "",
             isNeedChildChair: item.isNeedChildChair ? "Детское кресло" : "",
             isRightWheel: item.isRightWheel ? "Правый руль" : "",
@@ -163,7 +169,7 @@ function OrdersList() {
   return (
     <>
       <AdminTitle text="Заказы" />
-      <Table
+      <List
         options={orders}
         selectFields={orderSelectFields}
         pages={orderPages}

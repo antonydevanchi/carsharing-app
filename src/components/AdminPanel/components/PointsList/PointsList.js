@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Table from "../Table/Table";
+import List from "../List/List";
 import AdminTitle from "../AdminTitle/AdminTitle";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import {
@@ -102,7 +102,7 @@ function CitiesList() {
   return (
     <>
       <AdminTitle text="Пункты" />
-      <Table
+      <List
         options={points}
         selectFields={pointSelectFields}
         headers={POINT_HEADERS}

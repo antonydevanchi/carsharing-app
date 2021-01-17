@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
 import Header from "./Header/Header";
 import TitlePage from "./TitlePage/TitlePage";
@@ -9,42 +9,38 @@ import AdminPanel from "./AdminPanel/AdminPanel";
 import * as adminAuth from "../adminAuth";
 import "./App.scss";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: false,
-    };
-    this.handleLogin = this.handleLogin.bind(this);
-    this.tokenCheck = this.tokenCheck.bind(this);
-  }
-  componentDidMount() {
-    this.tokenCheck();
-  }
-  handleLogin() {
-    this.setState({
-      loggedIn: true,
-    });
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    tokenCheck();
+  }, []); // eslint-disable-line
+
+  function handleLogin() {
+    setLoggedIn(true);
   }
 
-  tokenCheck() {
+  useEffect(() => {
+    if (loggedIn) {
+      history.push("/admin/content");
+    }
+  }, [loggedIn]); // eslint-disable-line
+
+  function tokenCheck() {
     if (localStorage.getItem("tokenData")) {
       const isTokenActual = Date.now() < localStorage.getItem("controlDate");
       const token = JSON.parse(localStorage.getItem("tokenData")).access_token;
 
       if (token && isTokenActual) {
-        adminAuth.getContent(token).then((res) => {
-          if (res) {
-            this.setState(
-              {
-                loggedIn: true,
-              },
-              () => {
-                this.props.history.push("/admin/content");
-              }
-            );
-          }
-        });
+        adminAuth
+          .getContent(token)
+          .then((res) => {
+            if (res) {
+              setLoggedIn(true);
+            }
+          })
+          .catch((err) => console.log(err));
       }
       if (token && !isTokenActual) {
         const refreshToken = JSON.parse(localStorage.getItem("tokenData"))
@@ -54,14 +50,7 @@ class App extends React.Component {
           .refreshToken(refreshToken, refreshKey)
           .then((data) => {
             if (data) {
-              this.setState(
-                {
-                  loggedIn: true,
-                },
-                () => {
-                  this.props.history.push("/admin/content");
-                }
-              );
+              setLoggedIn(true);
             }
           })
           .catch((err) => console.log(err));
@@ -69,40 +58,38 @@ class App extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div className="start-screen">
-        <Switch>
-          <Route path="/carsharing-app">
-            <Navbar />
-            <TitlePage />
+  return (
+    <div className="start-screen">
+      <Switch>
+        <Route path="/carsharing-app">
+          <Navbar />
+          <TitlePage />
+        </Route>
+        <Route path="/order-form">
+          <Navbar />
+          <div className="order-page">
+            <Header />
+            <OrderForm />
+          </div>
+        </Route>
+        <Route path="/admin/login">
+          <Login handleLogin={handleLogin} />
+        </Route>
+        {loggedIn && (
+          <Route path="/admin/content">
+            <AdminPanel />
           </Route>
-          <Route path="/order-form">
-            <Navbar />
-            <div className="order-page">
-              <Header />
-              <OrderForm />
-            </div>
-          </Route>
-          <Route path="/admin/login">
-            <Login handleLogin={this.handleLogin} />
-          </Route>
-          {this.state.loggedIn && (
-            <Route path="/admin/content">
-              <AdminPanel />
-            </Route>
+        )}
+        <Route>
+          {loggedIn ? (
+            <Redirect to="/admin/login" />
+          ) : (
+            <Redirect to="/carsharing-app" />
           )}
-          <Route>
-            {this.state.loggedIn ? (
-              <Redirect to="/admin/login" />
-            ) : (
-              <Redirect to="/carsharing-app" />
-            )}
-          </Route>
-        </Switch>
-      </div>
-    );
-  }
+        </Route>
+      </Switch>
+    </div>
+  );
 }
 
-export default withRouter(App);
+export default App;

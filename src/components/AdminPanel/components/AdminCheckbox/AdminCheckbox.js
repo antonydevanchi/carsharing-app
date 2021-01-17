@@ -3,25 +3,23 @@ import { withNaming } from "@bem-react/classname";
 import "./AdminCheckbox.scss";
 
 function AdminCheckbox({ values, onChange, checkedValues, type }) {
-  const cn = withNaming({ n: "", e: "__", m: "_" });
+  const cn = withNaming({ n: "admin-checkbox", e: "__", m: "_" });
 
   return (
-    <ul className={cn("admin-checkbox")({ type: type })}>
+    <ul className={cn("")({ type: type })}>
       {values &&
         values.map((item, i) => (
-          <li title={item} className="admin-checkbox__item" key={i}>
+          <li title={item} className={cn("", "item")()} key={i}>
             <input
-              className="admin-checkbox__checkbox"
+              className={cn("", "checkbox")()}
               type="checkbox"
               name={`id${i}`}
               id={`id${i}`}
               value={item}
               onChange={onChange}
-              defaultChecked={
-                checkedValues && checkedValues.includes(item) ? true : false
-              }
+              defaultChecked={checkedValues && checkedValues.includes(item)}
             />
-            <label className="admin-checkbox__name" htmlFor={`id${i}`}>
+            <label className={cn("", "name")()} htmlFor={`id${i}`}>
               {item}
             </label>
           </li>

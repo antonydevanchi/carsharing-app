@@ -1,6 +1,6 @@
 @import "../../../../scss/variables.scss";
 
-.table {
+.list {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,7 +10,6 @@
     0px 3.5px 35px rgba(90, 97, 105, 0.1);
   border-radius: 9px;
   margin-bottom: 28px;
-  font-family: "Helvetica", sans-serif;
   position: relative;
   overflow: auto;
   @media screen and (max-width: $mobile) {
@@ -63,7 +62,6 @@
   }
 
   &__item {
-    font-weight: normal;
     font-size: 12px;
     line-height: 14px;
     color: #818ea3;
@@ -91,6 +89,12 @@
     width: 138px;
     height: 63px;
     object-fit: cover;
+    margin-right: $small;
+  }
+
+  &__blank {
+    min-width: 138px;
+    min-height: 63px;
     margin-right: $small;
   }
 
@@ -123,8 +127,6 @@
   }
 
   &__text {
-    font-family: "Roboto", sans-serif;
-    font-size: normal;
     font-size: 13px;
     line-height: 15px;
     letter-spacing: -0.408571px;
@@ -137,8 +139,6 @@
   }
 
   &__price {
-    font-family: "Helvetica", sans-serif;
-    font-weight: normal;
     font-size: 24px;
     line-height: 28px;
     letter-spacing: -0.754286px;

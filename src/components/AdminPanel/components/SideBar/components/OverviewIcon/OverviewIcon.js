@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import "./OverviewIcon.scss";
 
-function OverviewIcon() {
-  const location = useLocation();
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    location.pathname === "/admin/content/order-card"
-      ? setIsActive(true)
-      : setIsActive(false);
-  }, [location.pathname]);
-
+function OverviewIcon({ isActive }) {
   return (
     <svg
       className={`overview-icon ${isActive ? "overview-icon_active" : ""}`}

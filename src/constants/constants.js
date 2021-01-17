@@ -86,6 +86,10 @@ export const dateMask = [
   /\d/,
 ];
 
+export const URL_TELEGRAM = "https://www.telegram.org/";
+export const URL_FACEBOOK = "https://www.facebook.com/";
+export const URL_INSTAGRAM = "https://www.instagram.com/";
+
 export const ORDER_STATUS_NEW_ID = "5e26a191099b810b946c5d89";
 export const ORDER_STATUS_ISSUED_ID = "5e26a1d5099b810b946c5d8a";
 export const ORDER_STATUS_CONFIRMED_ID = "5e26a1f0099b810b946c5d8b";
@@ -148,3 +152,5 @@ export const ENTITY_NUMBER_TO_SHOW = 10;
 export const ORDERS_NUMBER_TO_SHOW = 5;
 
 export const COLOR_VALUES = ["Красный", "Белый", "Чёрный"]; //для примера, пока не реализовано редактирование сущностей
+export const SYMBOLS_STRING =
+  "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";

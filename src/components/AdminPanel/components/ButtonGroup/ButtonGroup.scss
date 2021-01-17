@@ -12,8 +12,6 @@
   &__button {
     width: 72px;
     padding: 6px;
-    font-family: "Helvetica", sans-serif;
-    font-weight: normal;
     color: #5a6169;
     font-size: 11px;
     line-height: 13px;
@@ -21,6 +19,7 @@
     display: flex;
     align-items: center;
     outline: none;
+    cursor: pointer;
     @media screen and (max-width: 1240px) {
       margin-top: $small;
     }

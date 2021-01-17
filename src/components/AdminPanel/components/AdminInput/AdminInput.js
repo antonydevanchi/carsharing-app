@@ -16,7 +16,7 @@ function AdminInput({
   isError,
   options,
 }) {
-  const cn = withNaming({ n: "", e: "__", m: "_" });
+  const cn = withNaming({ n: "admin-input", e: "__", m: "_" });
   const [itemValues, setItemValues] = useState(options);
 
   function handleAddItem(e) {
@@ -35,18 +35,14 @@ function AdminInput({
   }
 
   return (
-    <label
-      className={cn("admin-input")({ kind: kind, position: position })}
-      htmlFor={id}
-    >
+    <label className={cn("")({ kind: kind, position: position })} htmlFor={id}>
       {label}
-      <div className="admin-input__container">
+      <div className={cn("", "container")()}>
         <input
-          className={
-            isError
-              ? cn("admin-input", "field")({ kind: kind, border: "red" })
-              : cn("admin-input", "field")({ kind: kind })
-          }
+          className={cn(
+            "",
+            "field"
+          )({ kind: kind, border: isError ? "red" : "" })}
           type={type}
           id={id}
           name={id}
@@ -58,14 +54,14 @@ function AdminInput({
         {addition && (
           <button
             type="button"
-            className="admin-input__button"
+            className={cn("", "button")()}
             onClick={handleAddItem}
           >
             +
           </button>
         )}
       </div>
-      {isError && <span className="admin-input__error">Ошибка</span>}
+      {isError && <span className={cn("", "error")()}>Ошибка</span>}
       {addition && (
         <AdminCheckbox
           values={itemValues}

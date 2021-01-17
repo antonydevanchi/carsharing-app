@@ -3,8 +3,7 @@ import { withNaming } from "@bem-react/classname";
 import "./Pagination.scss";
 
 function Pagination({ pages, handleClick, activeIndex, setActiveIndex }) {
-  const cn = withNaming({ n: "", e: "__", m: "_" });
-  // const [activeIndex, setActiveIndex] = useState(0);
+  const cn = withNaming({ n: "pagination", e: "__", m: "_" });
   const [pageNums, setPageNums] = useState([]);
 
   const goToNextPage = () => {
@@ -56,25 +55,27 @@ function Pagination({ pages, handleClick, activeIndex, setActiveIndex }) {
   }, [activeIndex, pages]);
 
   return (
-    <div className="pagination">
+    <div className={cn("")()}>
       <button
-        className={cn("pagination", "button")({ type: "prev" })}
+        className={cn("", "button")({ type: "prev" })}
         onClick={() => goToPrevPage()}
       />
       {pageNums &&
         pageNums.map((num, i) => (
           <span
             key={i}
-            className={`pagination__item ${
-              +num === activeIndex + 1 ? "pagination__item_active" : ""
-            }`}
+            className={
+              +num === activeIndex + 1
+                ? cn("", "item")({ type: "active" })
+                : cn("", "item")()
+            }
           >
             {num}
           </span>
         ))}
 
       <button
-        className={cn("pagination", "button")({ type: "next" })}
+        className={cn("", "button")({ type: "next" })}
         onClick={() => goToNextPage()}
       />
     </div>

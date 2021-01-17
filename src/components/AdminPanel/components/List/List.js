@@ -7,9 +7,11 @@ import AdminCheckbox from "../AdminCheckbox/AdminCheckbox";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import { URL_SIMBIRSOFT } from "../../../../constants/constants";
 import { makeCapitalizedWord } from "../../../../utils/capitalizedWord";
-import "./Table.scss";
+import { makePriceWithGap } from "../../../../utils/priceWithGap";
+import { transformDate } from "../../../../utils/transformDate";
+import "./List.scss";
 
-function Table({
+function List({
   options,
   selectFields,
   headers,
@@ -23,7 +25,7 @@ function Table({
   setActiveIndex,
   isOrdersList,
 }) {
-  const cn = withNaming({ n: "", e: "__", m: "_" });
+  const cn = withNaming({ n: "list", e: "__", m: "_" });
 
   function addSearchItem(value) {
     if (searchItems.length > 1) {
@@ -57,9 +59,9 @@ function Table({
   }
 
   return (
-    <div className="table">
-      <form className="table__container" onSubmit={handleSubmit}>
-        <div className="table__select-container">
+    <div className={cn("")()}>
+      <form className={cn("", "container")()} onSubmit={handleSubmit}>
+        <div className={cn("", "select-container")()}>
           {selectFields &&
             selectFields.map((item, i) => (
               <AdminSelect
@@ -70,7 +72,7 @@ function Table({
               />
             ))}
         </div>
-        <div className="table__button-container">
+        <div className={cn("", "button-container")()}>
           <AdminButton
             text="Сбросить"
             type="reset"
@@ -83,44 +85,49 @@ function Table({
         </div>
       </form>
       {isOrdersList ? (
-        <div className={cn("table", "container")({ type: "digits" })}>
+        <div className={cn("", "container")({ type: "digits" })}>
           {options &&
             options.map((option, i) => (
-              <div key={i} className={cn("table", "list")({ type: "order" })}>
-                <img
-                  className="table__image"
-                  src={
-                    option.image.startsWith("data")
-                      ? `${option.image}`
-                      : `${URL_SIMBIRSOFT}${option.image}`
-                  }
-                  alt="Фото машины"
-                  crossOrigin="anonymous"
-                  referrerPolicy="origin"
-                />
-                <div className="table__content">
-                  <div className="table__info">
-                    <p className="table__text">
+              <div key={i} className={cn("", "list")({ type: "order" })}>
+                {option.image ? (
+                  <img
+                    className={cn("", "image")()}
+                    src={
+                      option.image.startsWith("data")
+                        ? `${option.image}`
+                        : `${URL_SIMBIRSOFT}${option.image}`
+                    }
+                    alt="Фото машины"
+                    crossOrigin="anonymous"
+                    referrerPolicy="origin"
+                  />
+                ) : (
+                  <div className={cn("", "blank")()}></div>
+                )}
+                <div className={cn("", "content")()}>
+                  <div className={cn("", "info")()}>
+                    <p className={cn("", "text")()}>
                       {option.car}{" "}
-                      <span className={cn("table", "text")({ type: "thin" })}>
+                      <span className={cn("", "text")({ type: "thin" })}>
                         в
                       </span>{" "}
                       {option.city},{" "}
-                      <span className={cn("table", "text")({ type: "thin" })}>
+                      <span className={cn("", "text")({ type: "thin" })}>
                         {option.point}
                       </span>
                     </p>
-                    <p className={cn("table", "text")({ type: "thin" })}>
-                      {option.dateFrom} - {option.dateTo}
+                    <p className={cn("", "text")({ type: "thin" })}>
+                      {transformDate(option.dateFrom)} -{" "}
+                      {transformDate(option.dateTo)}
                     </p>
-                    <p className="table__text">
-                      <span className={cn("table", "text")({ type: "thin" })}>
+                    <p className={cn("", "text")()}>
+                      <span className={cn("", "text")({ type: "thin" })}>
                         Цвет:{" "}
                       </span>
                       {makeCapitalizedWord(option.color)}
                     </p>
                   </div>
-                  <div className="table__info">
+                  <div className={cn("", "info")()}>
                     <AdminCheckbox
                       values={["Полный бак", "Детское кресло", "Правый руль"]}
                       checkedValues={[
@@ -130,20 +137,22 @@ function Table({
                       ]}
                     />
                   </div>
-                  <div className="table__price">{option.price} ₽</div>
+                  <div className={cn("", "price")()}>
+                    {makePriceWithGap(option.price)} ₽
+                  </div>
                   <ButtonGroup />
                 </div>
               </div>
             ))}
         </div>
       ) : (
-        <div className={cn("table", "container")({ type: "digits" })}>
-          <ul className="table__list">
+        <div className={cn("", "container")({ type: "digits" })}>
+          <ul className={cn("", "list")()}>
             {headers &&
               headers.map((item, i) => (
                 <li
                   key={item + i}
-                  className={cn("table", "item")({ type: "title" })}
+                  className={cn("", "item")({ type: "title" })}
                 >
                   {item}
                 </li>
@@ -151,9 +160,9 @@ function Table({
           </ul>
           {options &&
             options.map((option, i) => (
-              <ul key={i} className="table__list">
+              <ul key={i} className={cn("", "list")()}>
                 {Object.values(option).map((item, i) => (
-                  <li key={i + item} className="table__item">
+                  <li key={i} className={cn("", "item")()}>
                     {item}
                   </li>
                 ))}
@@ -171,4 +180,4 @@ function Table({
   );
 }
 
-export default Table;
+export default List;

@@ -37,7 +37,7 @@
       transform: scale(1.1);
     }
 
-    &_close {
+    &_type_close {
       background-image: url(../../../../images/reset.svg);
       width: $small;
       height: $small;
@@ -46,10 +46,12 @@
     }
   }
 
+  &__menu {
+    margin: 0;
+  }
+
   &__item {
     color: $darkBlue;
-    font-family: "Helvetica", sans-serif;
-    font-weight: normal;
     font-size: 15px;
     line-height: 17px;
     padding: 20px $extraSmall 20px 28px;
@@ -63,7 +65,7 @@
       padding: $small $micro $small $extraSmall;
     }
 
-    &_active {
+    &_type_active {
       color: $blue;
       border-left: 4px solid $blue;
     }

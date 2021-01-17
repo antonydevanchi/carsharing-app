@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Table from "../Table/Table";
+import List from "../List/List";
 import AdminTitle from "../AdminTitle/AdminTitle";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import {
@@ -110,7 +110,7 @@ function CarsList() {
   return (
     <>
       <AdminTitle text="Автомобили" />
-      <Table
+      <List
         options={cars}
         selectFields={carSelectFields}
         headers={CAR_HEADERS}

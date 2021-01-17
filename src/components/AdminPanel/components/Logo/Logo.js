@@ -4,16 +4,16 @@ import logo from "../../../../images/logo.svg";
 import "./Logo.scss";
 
 function Logo({ text, modifier }) {
-  const cn = withNaming({ n: "", e: "__", m: "_" });
+  const cn = withNaming({ n: "logo", e: "__", m: "_" });
 
   return (
-    <div className={cn("logo")({ type: modifier })}>
+    <div className={cn("")({ type: modifier })}>
       <img
-        className={cn("logo", "image")({ type: modifier })}
+        className={cn("", "image")({ type: modifier })}
         src={logo}
         alt="Логотип"
       />
-      <h2 className={cn("logo", "title")({ type: modifier })}>{text}</h2>
+      <h2 className={cn("", "title")({ type: modifier })}>{text}</h2>
     </div>
   );
 }
