@@ -24,37 +24,16 @@ function List({
   activeIndex,
   setActiveIndex,
   isOrdersList,
+  selectNames,
 }) {
   const cn = withNaming({ n: "list", e: "__", m: "_" });
 
-  function addSearchItem(value) {
-    if (searchItems.length > 1) {
-      const checkedArray = selectFields.find((elem) => {
-        return elem.some((item) => Object.values(item).includes(value));
-      });
-      const valuesArray = checkedArray.map((elem) => {
-        return elem.name;
-      });
-      const repeatedWord = searchItems.find((word) => {
-        if (valuesArray.includes(word)) {
-          return word;
-        } else return undefined;
-      });
-      if (repeatedWord) {
-        const newSearchItems = searchItems.filter((elem) => {
-          return elem !== repeatedWord;
-        });
-        setSearchItems([...newSearchItems, value]);
-      } else setSearchItems([...searchItems, value]);
-    } else setSearchItems([...searchItems, value]);
-  }
-
   function handleChange(e) {
-    addSearchItem(e.target.value);
+    const { name, value } = e.target;
+    setSearchItems({ ...searchItems, [name]: value });
   }
 
   function handleReset() {
-    setSearchItems([]);
     resetFilters();
   }
 
@@ -66,7 +45,7 @@ function List({
             selectFields.map((item, i) => (
               <AdminSelect
                 key={i}
-                id={`id${i}`}
+                name={selectNames[i]}
                 options={item.map((elem) => elem)}
                 handleChange={handleChange}
               />

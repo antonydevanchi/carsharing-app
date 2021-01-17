@@ -16,7 +16,6 @@ function OrdersList() {
   const [orderPages, setOrderPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [searchItems, setSearchItems] = useState([]);
   const ordersUrlStart = `/db/order?page=${currentPage}&limit=${ORDERS_NUMBER_TO_SHOW}&sort[createdAt]=-1`;
   const [ordersUrlEnd, setOrdersUrlEnd] = useState("");
   const ordersUrl = ordersUrlStart + ordersUrlEnd;
@@ -29,6 +28,13 @@ function OrdersList() {
   const allCars = CARS.concat(cars);
   const orderSelectFields = [PERIODS, allCars, allCities, allStatuses];
   const isOrdersList = true;
+  const [searchItems, setSearchItems] = useState({
+    periodValue: PERIODS[0].name,
+    carValue: allCars[0].name,
+    cityValue: allCities[0].name,
+    statusValue: allStatuses[0].name,
+  });
+  const selectNames = ["periodValue", "carValue", "cityValue", "statusValue"];
 
   useEffect(() => {
     getSelectOptions("/db/city")
@@ -78,7 +84,6 @@ function OrdersList() {
   useEffect(() => {
     getData(ordersUrl)
       .then((resData) => {
-        console.log(resData.data);
         setOrders(
           resData.data.map((item) => ({
             city: item.cityId ? item.cityId.name : "Неизвестный город",
@@ -116,50 +121,47 @@ function OrdersList() {
     setCurrentPage(page);
   }
 
-  function findSearchWord(array, keyArray) {
-    const searchWordObject = array.reduce((prevVal, item) => {
-      const keyWord = keyArray.find((elem) => {
-        return elem.name === item;
-      });
-      if (keyWord) {
-        prevVal = keyWord;
-      }
-      return prevVal;
-    }, {});
+  function findSearchWord(searchWord, keyArray) {
+    const searchWordObject = keyArray.find((item) => {
+      return item.name === searchWord;
+    });
     return searchWordObject;
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (searchItems.join()) {
-      const period = findSearchWord(searchItems, PERIODS);
-      const car = findSearchWord(searchItems, allCars);
-      const city = findSearchWord(searchItems, allCities);
-      const status = findSearchWord(searchItems, allStatuses);
-      setCurrentPage(0);
-      setActiveIndex(0);
-      let url = "";
-      if (period.createdAt) {
-        url = url + `${period.createdAt}`;
-      }
-      if (car.carId) {
-        url = url + `&carId=${car.carId}`;
-      }
-      if (city.cityId) {
-        url = url + `&cityId=${city.cityId}`;
-      }
-      if (status.statusId) {
-        url = url + `&orderStatusId=${status.statusId}`;
-      }
-
-      setOrdersUrlEnd(url);
+    const period = findSearchWord(searchItems.periodValue, PERIODS);
+    const car = findSearchWord(searchItems.carValue, allCars);
+    const city = findSearchWord(searchItems.cityValue, allCities);
+    const status = findSearchWord(searchItems.statusValue, allStatuses);
+    setCurrentPage(0);
+    setActiveIndex(0);
+    let url = "";
+    if (period.createdAt) {
+      url = url + `${period.createdAt}`;
     }
+    if (car.carId) {
+      url = url + `&carId=${car.carId}`;
+    }
+    if (city.cityId) {
+      url = url + `&cityId=${city.cityId}`;
+    }
+    if (status.statusId) {
+      url = url + `&orderStatusId=${status.statusId}`;
+    }
+    setOrdersUrlEnd(url);
   }
 
   function resetFilters() {
     setCurrentPage(0);
     setActiveIndex(0);
     setOrdersUrlEnd("");
+    setSearchItems({
+      periodValue: PERIODS[0].name,
+      carValue: allCars[0].name,
+      cityValue: allCities[0].name,
+      statusValue: allStatuses[0].name,
+    });
   }
 
   if (isFetchError) {
@@ -181,6 +183,7 @@ function OrdersList() {
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
         isOrdersList={isOrdersList}
+        selectNames={selectNames}
       />
     </>
   );

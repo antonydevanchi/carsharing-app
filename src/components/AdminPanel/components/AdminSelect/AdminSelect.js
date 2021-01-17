@@ -2,12 +2,16 @@ import React from "react";
 import { withNaming } from "@bem-react/classname";
 import "./AdminSelect.scss";
 
-function AdminSelect({ id, options, handleChange }) {
+function AdminSelect({ name, options, handleChange }) {
   const cn = withNaming({ n: "admin-select", e: "__", m: "_" });
 
   return (
     <div className={cn("")()}>
-      <select className={cn("", "select")()} id={id} onChange={handleChange}>
+      <select
+        className={cn("", "select")()}
+        name={name}
+        onChange={handleChange}
+      >
         {options.map((item, i) => (
           <option className={cn("", "option")()} key={i}>
             {item.name}

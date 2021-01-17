@@ -14,7 +14,6 @@ function CitiesList() {
   const [pointPages, setPointPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [searchItems, setSearchItems] = useState([]);
   const pointsUrlStart = `/db/point?page=${currentPage}&limit=${ENTITY_NUMBER_TO_SHOW}`;
   const [pointsUrlEnd, setPointsUrlEnd] = useState("");
   const pointsUrl = pointsUrlStart + pointsUrlEnd;
@@ -22,6 +21,10 @@ function CitiesList() {
   const [cities, setCities] = useState([]);
   const allCities = CITIES.concat(cities);
   const pointSelectFields = [allCities];
+  const [searchItems, setSearchItems] = useState({
+    cityValue: allCities[0].name,
+  });
+  const selectNames = ["cityValue"];
 
   useEffect(() => {
     getSelectOptions("/db/city")
@@ -62,37 +65,32 @@ function CitiesList() {
     setCurrentPage(pageNumber);
   }
 
-  function findSearchWord(array, keyArray) {
-    const searchWordObject = array.reduce((prevVal, item) => {
-      const keyWord = keyArray.find((elem) => {
-        return elem.name === item;
-      });
-      if (keyWord) {
-        prevVal = keyWord;
-      }
-      return prevVal;
-    }, {});
+  function findSearchWord(searchWord, keyArray) {
+    const searchWordObject = keyArray.find((item) => {
+      return item.name === searchWord;
+    });
     return searchWordObject;
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (searchItems.join()) {
-      const city = findSearchWord(searchItems, allCities);
-      setCurrentPage(0);
-      setActiveIndex(0);
-      let url = "";
-      if (city.cityId) {
-        url = url + `&cityId=${city.cityId}`;
-      }
-      setPointsUrlEnd(url);
+    const city = findSearchWord(searchItems.cityValue, allCities);
+    setCurrentPage(0);
+    setActiveIndex(0);
+    let url = "";
+    if (city.cityId) {
+      url = url + `&cityId=${city.cityId}`;
     }
+    setPointsUrlEnd(url);
   }
 
   function resetFilters() {
     setCurrentPage(0);
     setActiveIndex(0);
     setPointsUrlEnd("");
+    setSearchItems({
+      cityValue: allCities[0].name,
+    });
   }
 
   if (isFetchError) {
@@ -114,6 +112,7 @@ function CitiesList() {
         resetFilters={resetFilters}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
+        selectNames={selectNames}
       />
     </>
   );
