@@ -1,0 +1,54 @@
+@import "../../../../scss/variables.scss";
+
+.error-page {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  font-family: "Helvetica", sans-serif;
+  font-weight: normal;
+  align-items: center;
+  margin: auto;
+
+  &__error {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 75px;
+    line-height: 88px;
+    letter-spacing: -5.76923px;
+    color: #cacedb;
+    @media screen and (max-width: $mobile) {
+      font-size: 35px;
+      line-height: 44px;
+      letter-spacing: normal;
+    }
+  }
+
+  &__title {
+    color: $darkBlue;
+    font-size: 50px;
+    line-height: 57px;
+    letter-spacing: -2.5px;
+    margin: $small 0;
+    font-weight: normal;
+    @media screen and (max-width: $mobile) {
+      font-size: 24px;
+      line-height: 28px;
+      letter-spacing: normal;
+      margin: $extraSmall 0;
+    }
+  }
+
+  &__text {
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: -0.5px;
+    margin: 0 0 $medium;
+    color: #818ea3;
+    @media screen and (max-width: $mobile) {
+      font-size: 16px;
+      line-height: 18px;
+      letter-spacing: normal;
+      margin-bottom: $small;
+    }
+  }
+}

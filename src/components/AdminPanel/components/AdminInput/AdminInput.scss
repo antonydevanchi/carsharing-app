@@ -1,0 +1,114 @@
+@import "../../../../scss/variables.scss";
+
+.admin-input {
+  font-family: "Helvetica", sans-serif;
+  font-weight: normal;
+  color: $mainBlack;
+  font-size: 10.5px;
+  line-height: 12px;
+  letter-spacing: -0.18421px;
+  margin: 0 0 $small;
+  display: flex;
+  flex-direction: column;
+
+  &_kind_login {
+    color: #495057;
+  }
+
+  &_kind_top {
+    margin-top: $small;
+  }
+
+  &_position_left {
+    margin-right: $small;
+  }
+
+  &__container {
+    display: flex;
+    width: 320px;
+    margin: $micro 0 0;
+    @media screen and (max-width: $mobile) {
+      width: auto;
+    }
+  }
+
+  &__field {
+    color: $mainBlack;
+    font-family: "Helvetica", sans-serif;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: -0.192982px;
+
+    outline: none;
+    border: 1px solid #becad6;
+    border-radius: 4px;
+    padding: $extraSmall 10px;
+    width: 100%;
+
+    &_kind_login {
+      border: 0.5px solid #becad6;
+      border-radius: 3px;
+      color: $darkBlue;
+      width: 100%;
+      margin-top: $extraSmall;
+    }
+
+    &_border_red {
+      border: 0.5px solid #c4183c;
+      box-shadow: 0px 2.5px 5.5px rgba(196, 24, 60, 0.1);
+    }
+
+    &::placeholder {
+      color: #495057;
+      font-size: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+    }
+
+    &:hover {
+      border: 1px solid $blue;
+      box-shadow: 0px 2.5px 5.5px rgba(0, 123, 255, 0.1);
+      transition: all 0.4s linear;
+    }
+  }
+
+  &__button {
+    min-width: 30px;
+    height: 30px;
+    border: 1px solid #becad6;
+    border-radius: 4px;
+    outline: none;
+    color: #becad6;
+    background-color: transparent;
+    font-size: 35px;
+    line-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 7px;
+    margin-left: $extraSmall;
+
+    &:hover {
+      border: 1px solid $blue;
+      box-shadow: 0px 2.5px 5.5px rgba(0, 123, 255, 0.1);
+      transition: all 0.4s linear;
+      color: $blue;
+    }
+
+    &:active {
+      color: $blue;
+      transform: scale(1.05);
+    }
+  }
+
+  &__error {
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: -0.175439px;
+    color: #c4183c;
+    margin: $micro 0 0 10px;
+  }
+}

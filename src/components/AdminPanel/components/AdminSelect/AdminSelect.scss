@@ -1,0 +1,47 @@
+@import "../../../../scss/variables.scss";
+
+.admin-select {
+  width: 110px;
+  height: 29px;
+  border: 0.5px solid #becad6;
+  border-radius: 4px;
+  margin-right: 16px;
+  padding: $extraSmall 4px $extraSmall 10px;
+  font-family: "Helvetica", sans-serif;
+  font-weight: normal;
+  color: #495057;
+  font-size: 10.5px;
+  line-height: 12px;
+  letter-spacing: -0.18421px;
+  cursor: pointer;
+  background-color: #ffffff;
+  background-image: url(../../../../images/select-arrow.svg);
+  background-repeat: no-repeat;
+  background-position: 95% center;
+
+  &:hover {
+    border: 1px solid $blue;
+    box-shadow: 0px 2.5px 5.5px rgba(0, 123, 255, 0.1);
+    transition: border 0.4s linear;
+  }
+
+  &__select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 $extraSmall 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: "Helvetica", sans-serif;
+    font-weight: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    color: inherit;
+    line-height: inherit;
+    outline: none;
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+}

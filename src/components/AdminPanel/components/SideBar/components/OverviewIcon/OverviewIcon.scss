@@ -1,0 +1,12 @@
+@import "../../../../../../scss/variables.scss";
+
+.overview-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  fill: #cacedb;
+
+  &_active {
+    fill: $blue;
+  }
+}

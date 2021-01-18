@@ -1,0 +1,16 @@
+@import "../../../../scss/variables.scss";
+
+.admin-title {
+  margin: 0 0 30px;
+  font-family: "Helvetica", sans-serif;
+  font-weight: normal;
+  font-size: 29px;
+  line-height: 33px;
+  letter-spacing: -0.725px;
+  color: $darkBlue;
+  width: 100%;
+
+  @media screen and (max-width: $mobile) {
+    margin-bottom: $small;
+  }
+}
