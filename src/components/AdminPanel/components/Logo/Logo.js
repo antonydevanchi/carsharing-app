@@ -1,19 +1,20 @@
 import React from "react";
-import { withNaming } from "@bem-react/classname";
+import { createClassName } from "../../../../utils/createClassName";
 import logo from "../../../../images/logo.svg";
 import "./Logo.scss";
 
 function Logo({ text, modifier }) {
-  const cn = withNaming({ n: "logo", e: "__", m: "_" });
+  const createCn = (element, modifier) =>
+    createClassName("logo", element, modifier);
 
   return (
-    <div className={cn("")({ type: modifier })}>
+    <div className={createCn("", { type: modifier })}>
       <img
-        className={cn("", "image")({ type: modifier })}
+        className={createCn("image", { type: modifier })}
         src={logo}
         alt="Логотип"
       />
-      <h2 className={cn("", "title")({ type: modifier })}>{text}</h2>
+      <h2 className={createCn("title", { type: modifier })}>{text}</h2>
     </div>
   );
 }

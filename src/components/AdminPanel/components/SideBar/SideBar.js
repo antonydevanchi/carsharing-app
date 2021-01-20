@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { withNaming } from "@bem-react/classname";
 import Logo from "../Logo/Logo";
 import AddIcon from "./components/AddIcon/AddIcon";
 import BlogIcon from "./components/BlogIcon/BlogIcon";
@@ -9,13 +8,19 @@ import FormsIcon from "./components/FormsIcon/FormsIcon";
 import OverviewIcon from "./components/OverviewIcon/OverviewIcon";
 import PersonIcon from "./components/PersonIcon/PersonIcon";
 import PostsIcon from "./components/PostsIcon/PostsIcon";
+import { createClassName } from "../../../../utils/createClassName";
 import "./SideBar.scss";
 
 function SideBar() {
   const [isMenuOpened, setIsMenuOpened] = useState(true);
   const [activePathname, setActivePathname] = useState("");
   const location = useLocation();
-  const cn = withNaming({ n: "sidebar", e: "__", m: "_" });
+
+  const createCn = (element, modifier) =>
+    createClassName("sidebar", element, modifier);
+
+  const checkCondition = (pathEnd) =>
+    activePathname === `/admin/content/${pathEnd}`;
 
   useEffect(() => {
     setActivePathname(location.pathname);
@@ -26,100 +31,72 @@ function SideBar() {
   }
 
   return (
-    <div className={cn("")()}>
+    <div className={createCn()}>
       <button
         className={
           isMenuOpened
-            ? cn("", "button")({ type: "close" })
-            : cn("", "button")()
+            ? createCn("button", { type: "close" })
+            : createCn("button")
         }
         onClick={toggleMenuVisibility}
       />
       {isMenuOpened && (
-        <nav className={cn("", "menu")()}>
+        <nav className={createCn("menu")}>
           <Logo text="Need for car" modifier="mini" />
           <NavLink
-            className={cn("", "item")()}
-            activeClassName={cn("", "item")({ type: "active" })}
+            className={createCn("item")}
+            activeClassName={createCn("item", { type: "active" })}
             to="/admin/content/car-card"
           >
-            <BlogIcon
-              isActive={
-                activePathname === "/admin/content/car-card" ? true : false
-              }
-            />
+            <BlogIcon isActive={checkCondition("car-card")} />
             Карточка автомобиля
           </NavLink>
           <NavLink
-            className={cn("", "item")()}
-            activeClassName={cn("", "item")({ type: "active" })}
+            className={createCn("item")}
+            activeClassName={createCn("item", { type: "active" })}
             to="/admin/content/cars-list"
           >
-            <PostsIcon
-              isActive={
-                activePathname === "/admin/content/cars-list" ? true : false
-              }
-            />
+            <PostsIcon isActive={checkCondition("cars-list")} />
             Автомобили
           </NavLink>
           <NavLink
-            className={cn("", "item")()}
-            activeClassName={cn("", "item")({ type: "active" })}
+            className={createCn("item")}
+            activeClassName={createCn("item", { type: "active" })}
             to="/admin/content/orders-list"
           >
-            <AddIcon
-              isActive={
-                activePathname === "/admin/content/orders-list" ? true : false
-              }
-            />
+            <AddIcon isActive={checkCondition("orders-list")} />
             Заказы
           </NavLink>
           <NavLink
-            className={cn("", "item")()}
-            activeClassName={cn("", "item")({ type: "active" })}
+            className={createCn("item")}
+            activeClassName={createCn("item", { type: "active" })}
             to="/admin/content/order-card"
           >
-            <OverviewIcon
-              isActive={
-                activePathname === "/admin/content/order-card" ? true : false
-              }
-            />
+            <OverviewIcon isActive={checkCondition("order-card")} />
             Карточка заказа
           </NavLink>
           <NavLink
-            className={cn("", "item")()}
-            activeClassName={cn("", "item")({ type: "active" })}
+            className={createCn("item")}
+            activeClassName={createCn("item", { type: "active" })}
             to="/admin/content/points-list"
           >
-            <FormsIcon
-              isActive={
-                activePathname === "/admin/content/points-list" ? true : false
-              }
-            />
+            <FormsIcon isActive={checkCondition("points-list")} />
             Пункты
           </NavLink>
           <NavLink
-            className={cn("", "item")()}
-            activeClassName={cn("", "item")({ type: "active" })}
+            className={createCn("item")}
+            activeClassName={createCn("item", { type: "active" })}
             to="/admin/content/point-card"
           >
-            <PersonIcon
-              isActive={
-                activePathname === "/admin/content/point-card" ? true : false
-              }
-            />
+            <PersonIcon isActive={checkCondition("point-card")} />
             Карточка пункта
           </NavLink>
           <NavLink
-            className={cn("", "item")()}
-            activeClassName={cn("", "item")({ type: "active" })}
+            className={createCn("item")}
+            activeClassName={createCn("item", { type: "active" })}
             to="/admin/content/menu7"
           >
-            <ErrorIcon
-              isActive={
-                activePathname === "/admin/content/menu7" ? true : false
-              }
-            />
+            <ErrorIcon isActive={checkCondition("menu7")} />
             Menu 7
           </NavLink>
         </nav>

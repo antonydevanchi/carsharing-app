@@ -1,12 +1,14 @@
 import React from "react";
-import { withNaming } from "@bem-react/classname";
+import { createClassName } from "../../../../utils/createClassName";
 import "./AdminButton.scss";
 
 function AdminButton({ text, type, color, size, position, disabled, onClick }) {
-  const cn = withNaming({ n: "", e: "__", m: "_" });
+  const createCn = (element, modifier) =>
+    createClassName("admin-button", element, modifier);
+
   return (
     <button
-      className={cn("admin-button")({
+      className={createCn("", {
         theme: color,
         size: size,
         position: position,

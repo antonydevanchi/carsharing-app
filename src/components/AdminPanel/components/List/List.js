@@ -1,5 +1,4 @@
 import React from "react";
-import { withNaming } from "@bem-react/classname";
 import AdminSelect from "../AdminSelect/AdminSelect";
 import AdminButton from "../AdminButton/AdminButton";
 import Pagination from "../Pagination/Pagination";
@@ -9,6 +8,7 @@ import { URL_SIMBIRSOFT } from "../../../../constants/constants";
 import { makeCapitalizedWord } from "../../../../utils/capitalizedWord";
 import { makePriceWithGap } from "../../../../utils/priceWithGap";
 import { transformDate } from "../../../../utils/transformDate";
+import { createClassName } from "../../../../utils/createClassName";
 import "./List.scss";
 
 function List({
@@ -18,29 +18,25 @@ function List({
   pages,
   handleClick,
   handleSubmit,
-  searchItems,
-  setSearchItems,
   resetFilters,
   activeIndex,
-  setActiveIndex,
+  goRight,
+  goLeft,
   isOrdersList,
   selectNames,
+  handleChange,
 }) {
-  const cn = withNaming({ n: "list", e: "__", m: "_" });
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setSearchItems({ ...searchItems, [name]: value });
-  }
+  const createCn = (element, modifier) =>
+    createClassName("list", element, modifier);
 
   function handleReset() {
     resetFilters();
   }
 
   return (
-    <div className={cn("")()}>
-      <form className={cn("", "container")()} onSubmit={handleSubmit}>
-        <div className={cn("", "select-container")()}>
+    <div className={createCn()}>
+      <form className={createCn("container")} onSubmit={handleSubmit}>
+        <div className={createCn("select-container")}>
           {selectFields &&
             selectFields.map((item, i) => (
               <AdminSelect
@@ -51,7 +47,7 @@ function List({
               />
             ))}
         </div>
-        <div className={cn("", "button-container")()}>
+        <div className={createCn("button-container")}>
           <AdminButton
             text="Сбросить"
             type="reset"
@@ -63,14 +59,14 @@ function List({
           <AdminButton text="Применить" type="submit" size="mini" />
         </div>
       </form>
-      {isOrdersList ? (
-        <div className={cn("", "container")({ type: "digits" })}>
+      {isOrdersList && (
+        <div className={createCn("container", { type: "digits" })}>
           {options &&
             options.map((option, i) => (
-              <div key={i} className={cn("", "list")({ type: "order" })}>
-                {option.image ? (
+              <div key={i} className={createCn("list", { type: "order" })}>
+                {option.image && (
                   <img
-                    className={cn("", "image")()}
+                    className={createCn("image")}
                     src={
                       option.image.startsWith("data")
                         ? `${option.image}`
@@ -80,33 +76,32 @@ function List({
                     crossOrigin="anonymous"
                     referrerPolicy="origin"
                   />
-                ) : (
-                  <div className={cn("", "blank")()}></div>
                 )}
-                <div className={cn("", "content")()}>
-                  <div className={cn("", "info")()}>
-                    <p className={cn("", "text")()}>
+                {!option.image && <div className={createCn("blank")}></div>}
+                <div className={createCn("content")}>
+                  <div className={createCn("info")}>
+                    <p className={createCn("text")}>
                       {option.car}{" "}
-                      <span className={cn("", "text")({ type: "thin" })}>
+                      <span className={createCn("text", { type: "thin" })}>
                         в
                       </span>{" "}
                       {option.city},{" "}
-                      <span className={cn("", "text")({ type: "thin" })}>
+                      <span className={createCn("text", { type: "thin" })}>
                         {option.point}
                       </span>
                     </p>
-                    <p className={cn("", "text")({ type: "thin" })}>
+                    <p className={createCn("text", { type: "thin" })}>
                       {transformDate(option.dateFrom)} -{" "}
                       {transformDate(option.dateTo)}
                     </p>
-                    <p className={cn("", "text")()}>
-                      <span className={cn("", "text")({ type: "thin" })}>
+                    <p className={createCn("text")}>
+                      <span className={createCn("text", { type: "thin" })}>
                         Цвет:{" "}
                       </span>
                       {makeCapitalizedWord(option.color)}
                     </p>
                   </div>
-                  <div className={cn("", "info")()}>
+                  <div className={createCn("info")}>
                     <AdminCheckbox
                       values={["Полный бак", "Детское кресло", "Правый руль"]}
                       checkedValues={[
@@ -116,7 +111,7 @@ function List({
                       ]}
                     />
                   </div>
-                  <div className={cn("", "price")()}>
+                  <div className={createCn("price")}>
                     {makePriceWithGap(option.price)} ₽
                   </div>
                   <ButtonGroup />
@@ -124,14 +119,15 @@ function List({
               </div>
             ))}
         </div>
-      ) : (
-        <div className={cn("", "container")({ type: "digits" })}>
-          <ul className={cn("", "list")()}>
+      )}
+      {!isOrdersList && (
+        <div className={createCn("container", { type: "digits" })}>
+          <ul className={createCn("list")}>
             {headers &&
               headers.map((item, i) => (
                 <li
                   key={item + i}
-                  className={cn("", "item")({ type: "title" })}
+                  className={createCn("item", { type: "title" })}
                 >
                   {item}
                 </li>
@@ -139,9 +135,9 @@ function List({
           </ul>
           {options &&
             options.map((option, i) => (
-              <ul key={i} className={cn("", "list")()}>
+              <ul key={i} className={createCn("list")}>
                 {Object.values(option).map((item, i) => (
-                  <li key={i} className={cn("", "item")()}>
+                  <li key={i} className={createCn("item")}>
                     {item}
                   </li>
                 ))}
@@ -153,7 +149,8 @@ function List({
         pages={pages}
         handleClick={handleClick}
         activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
+        goRight={goRight}
+        goLeft={goLeft}
       />
     </div>
   );

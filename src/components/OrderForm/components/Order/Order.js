@@ -104,7 +104,7 @@ function Order({
       (!isOrderDate ||
         totalPrice < orderModel.priceMin ||
         totalPrice > orderModel.priceMax ||
-        totalPrice === undefined)
+        !totalPrice)
     ) {
       setIsDisabled(true);
       setIsActiveTotal(false);
@@ -202,7 +202,7 @@ function Order({
   function getTotalPrice(price) {
     if (price) {
       setTotalPrice(price);
-    } else if (price === undefined) {
+    } else if (!price) {
       setTotalPrice(undefined);
     }
   }
@@ -218,7 +218,7 @@ function Order({
          и не более ${makePriceWithGap(orderModel.priceMax)}руб. 
          Сейчас расчетная цена = ${makePriceWithGap(totalPrice)}руб.`
       );
-    } else if (totalPrice === undefined) {
+    } else if (!totalPrice && totalPrice !== "") {
       alert(
         `К сожалению, на данный момент выбранный тариф не может быть применен.
          Выберите другой тариф и продолжите оформлять заказ`

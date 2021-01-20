@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import List from "../List/List";
 import AdminTitle from "../AdminTitle/AdminTitle";
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -8,33 +8,45 @@ import {
   CITIES,
 } from "../../../../constants/constants";
 import { getData, getSelectOptions } from "../../../../adminFetch";
+import { pointsListReducer } from "../../../../pointsListReducer";
 
-function CitiesList() {
-  const [points, setPoints] = useState([]);
-  const [pointPages, setPointPages] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(0);
+function PointsList() {
+  const initialState = {
+    points: [],
+    pointPages: 0,
+    currentPage: 0,
+    activeIndex: 0,
+    pointsUrlEnd: "",
+    isFetchError: false,
+    cities: [],
+    searchItems: { cityValue: CITIES[0].name },
+    selectNames: ["cityValue"],
+  };
+  const [state, dispatch] = useReducer(pointsListReducer, initialState);
+  const {
+    points,
+    pointPages,
+    currentPage,
+    activeIndex,
+    pointsUrlEnd,
+    isFetchError,
+    cities,
+    searchItems,
+    selectNames,
+  } = state;
   const pointsUrlStart = `/db/point?page=${currentPage}&limit=${ENTITY_NUMBER_TO_SHOW}`;
-  const [pointsUrlEnd, setPointsUrlEnd] = useState("");
   const pointsUrl = pointsUrlStart + pointsUrlEnd;
-  const [isFetchError, setIsFetchError] = useState(false);
-  const [cities, setCities] = useState([]);
   const allCities = CITIES.concat(cities);
   const pointSelectFields = [allCities];
-  const [searchItems, setSearchItems] = useState({
-    cityValue: allCities[0].name,
-  });
-  const selectNames = ["cityValue"];
 
   useEffect(() => {
     getSelectOptions("/db/city")
       .then((resData) => {
-        setCities(
-          resData.data.map((item) => ({
-            name: item.name,
-            cityId: item.id,
-          }))
-        );
+        const cityArray = resData.data.map((item) => ({
+          name: item.name,
+          cityId: item.id,
+        }));
+        dispatch({ type: "city", value: cityArray });
       })
       .catch((err) => {
         console.log(err);
@@ -44,25 +56,23 @@ function CitiesList() {
   useEffect(() => {
     getData(pointsUrl)
       .then((resData) => {
-        setPoints(
-          resData.data.map((item) => ({
-            pointAddress: item.address,
-            city: item.cityId.name,
-            name: item.name,
-            id: item.id,
-          }))
-        );
-        setPointPages(Math.ceil(resData.count / ENTITY_NUMBER_TO_SHOW));
-        setIsFetchError(false);
+        const pointsArray = resData.data.map((item) => ({
+          pointAddress: item.address,
+          city: item.cityId.name,
+          name: item.name,
+          id: item.id,
+        }));
+        const pageNum = Math.ceil(resData.count / ENTITY_NUMBER_TO_SHOW);
+        dispatch({ type: "points", value: pointsArray, count: pageNum });
       })
       .catch((err) => {
-        setIsFetchError(true);
+        dispatch({ type: "error" });
         console.log(err);
       });
   }, [pointsUrl]);
 
   function handleClick(pageNumber) {
-    setCurrentPage(pageNumber);
+    dispatch({ type: "page", value: pageNumber });
   }
 
   function findSearchWord(searchWord, keyArray) {
@@ -75,21 +85,19 @@ function CitiesList() {
   function handleSubmit(e) {
     e.preventDefault();
     const city = findSearchWord(searchItems.cityValue, allCities);
-    setCurrentPage(0);
-    setActiveIndex(0);
     let url = "";
     if (city.cityId) {
       url = url + `&cityId=${city.cityId}`;
     }
-    setPointsUrlEnd(url);
+    dispatch({ type: "url", value: url });
   }
 
   function resetFilters() {
-    setCurrentPage(0);
-    setActiveIndex(0);
-    setPointsUrlEnd("");
-    setSearchItems({
-      cityValue: allCities[0].name,
+    dispatch({
+      type: "reset",
+      value: {
+        cityValue: allCities[0].name,
+      },
     });
   }
 
@@ -108,14 +116,24 @@ function CitiesList() {
         handleClick={handleClick}
         handleSubmit={handleSubmit}
         searchItems={searchItems}
-        setSearchItems={setSearchItems}
+        setSearchItems={() => {
+          dispatch({ type: "search" });
+        }}
         resetFilters={resetFilters}
         activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
+        goRight={() => dispatch({ type: "right" })}
+        goLeft={() => dispatch({ type: "left" })}
         selectNames={selectNames}
+        handleChange={(e) =>
+          dispatch({
+            type: "search",
+            field: e.target.name,
+            value: e.target.value,
+          })
+        }
       />
     </>
   );
 }
 
-export default CitiesList;
+export default PointsList;

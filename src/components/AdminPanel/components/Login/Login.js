@@ -4,6 +4,7 @@ import AdminButton from "../AdminButton/AdminButton";
 import AdminInput from "../AdminInput/AdminInput";
 import Logo from "../Logo/Logo";
 import * as adminAuth from "../../../../adminAuth";
+import { createClassName } from "../../../../utils/createClassName";
 import "./Login.scss";
 
 function Login({ handleLogin }) {
@@ -12,6 +13,8 @@ function Login({ handleLogin }) {
     password: "",
   });
   const history = useHistory();
+  const createCn = (element, modifier) =>
+    createClassName("login", element, modifier);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -36,11 +39,11 @@ function Login({ handleLogin }) {
   }
 
   return (
-    <div className="login">
+    <div className={createCn()}>
       <Logo text="Need for drive" />
-      <div className="login__container">
-        <h3 className="login__title">Вход</h3>
-        <form className="login__form" onSubmit={handleSubmit}>
+      <div className={createCn("container")}>
+        <h3 className={createCn("title")}>Вход</h3>
+        <form className={createCn("form")} onSubmit={handleSubmit}>
           <AdminInput
             label="Почта"
             id="username"
@@ -59,8 +62,8 @@ function Login({ handleLogin }) {
             placeholder="Введите пароль"
             kind="login"
           />
-          <div className="login__button-container">
-            <p className="login__text">Запросить доступ</p>
+          <div className={createCn("button-container")}>
+            <p className={createCn("text")}>Запросить доступ</p>
             <AdminButton text="Войти" type="submit" />
           </div>
         </form>

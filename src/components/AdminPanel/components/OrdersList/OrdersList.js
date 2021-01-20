@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import List from "../List/List";
 import AdminTitle from "../AdminTitle/AdminTitle";
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -10,71 +10,81 @@ import {
   CARS,
 } from "../../../../constants/constants";
 import { getData, getSelectOptions } from "../../../../adminFetch";
+import { ordersListReducer } from "../../../../ordersListReducer";
 
 function OrdersList() {
-  const [orders, setOrders] = useState([]);
-  const [orderPages, setOrderPages] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const initialState = {
+    orders: [],
+    orderPages: 0,
+    currentPage: 0,
+    activeIndex: 0,
+    ordersUrlEnd: "",
+    isFetchError: false,
+    cities: [],
+    statuses: [],
+    cars: [],
+    searchItems: {
+      periodValue: PERIODS[0].name,
+      carValue: CARS[0].name,
+      cityValue: CITIES[0].name,
+      statusValue: STATUSES[0].name,
+    },
+    selectNames: ["periodValue", "carValue", "cityValue", "statusValue"],
+  };
+  const [state, dispatch] = useReducer(ordersListReducer, initialState);
+  const {
+    orders,
+    orderPages,
+    currentPage,
+    activeIndex,
+    ordersUrlEnd,
+    isFetchError,
+    cities,
+    statuses,
+    cars,
+    searchItems,
+    selectNames,
+  } = state;
   const ordersUrlStart = `/db/order?page=${currentPage}&limit=${ORDERS_NUMBER_TO_SHOW}&sort[createdAt]=-1`;
-  const [ordersUrlEnd, setOrdersUrlEnd] = useState("");
   const ordersUrl = ordersUrlStart + ordersUrlEnd;
-  const [isFetchError, setIsFetchError] = useState(false);
-  const [cities, setCities] = useState([]);
   const allCities = CITIES.concat(cities);
-  const [statuses, setStatuses] = useState([]);
   const allStatuses = STATUSES.concat(statuses);
-  const [cars, setCars] = useState([]);
   const allCars = CARS.concat(cars);
   const orderSelectFields = [PERIODS, allCars, allCities, allStatuses];
   const isOrdersList = true;
-  const [searchItems, setSearchItems] = useState({
-    periodValue: PERIODS[0].name,
-    carValue: allCars[0].name,
-    cityValue: allCities[0].name,
-    statusValue: allStatuses[0].name,
-  });
-  const selectNames = ["periodValue", "carValue", "cityValue", "statusValue"];
 
   useEffect(() => {
     getSelectOptions("/db/city")
       .then((resData) => {
-        setCities(
-          resData.data.map((item) => ({
-            name: item.name,
-            cityId: item.id,
-          }))
-        );
+        const cityArray = resData.data.map((item) => ({
+          name: item.name,
+          cityId: item.id,
+        }));
+        dispatch({ type: "city", value: cityArray });
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
 
-  useEffect(() => {
     getSelectOptions("/db/orderStatus")
       .then((resData) => {
-        setStatuses(
-          resData.data.map((item) => ({
-            name: item.name,
-            statusId: item.id,
-          }))
-        );
+        const statusArray = resData.data.map((item) => ({
+          name: item.name,
+          statusId: item.id,
+        }));
+        dispatch({ type: "status", value: statusArray });
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
 
-  useEffect(() => {
     getSelectOptions("/db/car")
       .then((resData) => {
-        setCars(
-          resData.data.map((item) => ({
-            name: item.name,
-            carId: item.id,
-          }))
-        );
+        const carArray = resData.data.map((item) => ({
+          name: item.name,
+          carId: item.id,
+        }));
+        dispatch({ type: "car", value: carArray });
       })
       .catch((err) => {
         console.log(err);
@@ -84,41 +94,48 @@ function OrdersList() {
   useEffect(() => {
     getData(ordersUrl)
       .then((resData) => {
-        setOrders(
-          resData.data.map((item) => ({
-            city: item.cityId ? item.cityId.name : "Неизвестный город",
+        const ordersArray = resData.data.map(
+          ({
+            cityId,
+            pointId,
+            carId,
+            dateFrom,
+            dateTo,
+            price,
+            orderStatusId,
+            color,
+            isFullTank,
+            isNeedChildChair,
+            isRightWheel,
+          }) => ({
+            city: cityId ? cityId.name : "Неизвестный город",
             point:
-              item.pointId && item.pointId.address
-                ? item.pointId.address
+              pointId && pointId.address
+                ? pointId.address
                 : "Неизвестный пункт",
-            car: item.carId ? item.carId.name : "Неизвестная машина",
-            dateFrom: item.dateFrom,
-            dateTo: item.dateTo,
-            price: item.price ? item.price : "",
-            status: item.orderStatusId
-              ? item.orderStatusId.name
-              : "Неизвестный статус",
-            image:
-              item.carId && item.carId.thumbnail
-                ? item.carId.thumbnail.path
-                : "",
-            color: item.color ? item.color : "Не выбран",
-            isFullTank: item.isFullTank ? "Полный бак" : "",
-            isNeedChildChair: item.isNeedChildChair ? "Детское кресло" : "",
-            isRightWheel: item.isRightWheel ? "Правый руль" : "",
-          }))
+            car: carId ? carId.name : "Неизвестная машина",
+            dateFrom: dateFrom,
+            dateTo: dateTo,
+            price: price ? price : "",
+            status: orderStatusId ? orderStatusId.name : "Неизвестный статус",
+            image: carId && carId.thumbnail ? carId.thumbnail.path : "",
+            color: color ? color : "Не выбран",
+            isFullTank: isFullTank ? "Полный бак" : "",
+            isNeedChildChair: isNeedChildChair ? "Детское кресло" : "",
+            isRightWheel: isRightWheel ? "Правый руль" : "",
+          })
         );
-        setOrderPages(Math.ceil(resData.count / ORDERS_NUMBER_TO_SHOW));
-        setIsFetchError(false);
+        const pageNum = Math.ceil(resData.count / ORDERS_NUMBER_TO_SHOW);
+        dispatch({ type: "orders", value: ordersArray, count: pageNum });
       })
       .catch((err) => {
-        setIsFetchError(true);
+        dispatch({ type: "error" });
         console.log(err);
       });
   }, [ordersUrl]);
 
   function handleClick(page) {
-    setCurrentPage(page);
+    dispatch({ type: "page", value: page });
   }
 
   function findSearchWord(searchWord, keyArray) {
@@ -134,8 +151,6 @@ function OrdersList() {
     const car = findSearchWord(searchItems.carValue, allCars);
     const city = findSearchWord(searchItems.cityValue, allCities);
     const status = findSearchWord(searchItems.statusValue, allStatuses);
-    setCurrentPage(0);
-    setActiveIndex(0);
     let url = "";
     if (period.createdAt) {
       url = url + `${period.createdAt}`;
@@ -149,18 +164,18 @@ function OrdersList() {
     if (status.statusId) {
       url = url + `&orderStatusId=${status.statusId}`;
     }
-    setOrdersUrlEnd(url);
+    dispatch({ type: "url", value: url });
   }
 
   function resetFilters() {
-    setCurrentPage(0);
-    setActiveIndex(0);
-    setOrdersUrlEnd("");
-    setSearchItems({
-      periodValue: PERIODS[0].name,
-      carValue: allCars[0].name,
-      cityValue: allCities[0].name,
-      statusValue: allStatuses[0].name,
+    dispatch({
+      type: "reset",
+      value: {
+        periodValue: PERIODS[0].name,
+        carValue: allCars[0].name,
+        cityValue: allCities[0].name,
+        statusValue: allStatuses[0].name,
+      },
     });
   }
 
@@ -178,12 +193,22 @@ function OrdersList() {
         handleClick={handleClick}
         handleSubmit={handleSubmit}
         searchItems={searchItems}
-        setSearchItems={setSearchItems}
+        setSearchItems={() => {
+          dispatch({ type: "search" });
+        }}
         resetFilters={resetFilters}
         activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
         isOrdersList={isOrdersList}
         selectNames={selectNames}
+        goRight={() => dispatch({ type: "right" })}
+        goLeft={() => dispatch({ type: "left" })}
+        handleChange={(e) =>
+          dispatch({
+            type: "search",
+            field: e.target.name,
+            value: e.target.value,
+          })
+        }
       />
     </>
   );

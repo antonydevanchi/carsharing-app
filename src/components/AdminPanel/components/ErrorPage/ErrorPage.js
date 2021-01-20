@@ -1,22 +1,23 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { withNaming } from "@bem-react/classname";
 import AdminButton from "../AdminButton/AdminButton";
+import { createClassName } from "../../../../utils/createClassName";
 import "./ErrorPage.scss";
 
 function ErrorPage() {
   const history = useHistory();
-  const cn = withNaming({ n: "error-page", e: "__", m: "_" });
+  const createCn = (element, modifier) =>
+    createClassName("error-page", element, modifier);
 
   function handleClick() {
     history.goBack();
   }
 
   return (
-    <div className={cn("")()}>
-      <span className={cn("", "error")()}>500</span>
-      <h1 className={cn("", "title")()}>Что то пошло не так</h1>
-      <p className={cn("", "text")()}>Попробуйте перезагрузить страницу</p>
+    <div className={createCn()}>
+      <span className={createCn("error")}>500</span>
+      <h1 className={createCn("title")}>Что то пошло не так</h1>
+      <p className={createCn("text")}>Попробуйте перезагрузить страницу</p>
       <AdminButton
         text="Назад"
         type="button"

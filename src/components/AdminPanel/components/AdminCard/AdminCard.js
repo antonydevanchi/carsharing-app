@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { withNaming } from "@bem-react/classname";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { createClassName } from "../../../../utils/createClassName";
 import "./AdminCard.scss";
 import elantra from "../../../../images/elantra.jpg";
 
 function AdminCard() {
   const [imageFile, setImageFile] = useState("");
   const [inputValue, setInputValue] = useState("");
-  const cn = withNaming({ n: "admin-card", e: "__", m: "_" });
+  const createCn = (element, modifier) =>
+    createClassName("admin-card", element, modifier);
 
   function getImageSrc(event) {
     const file = event.target.files[0];
@@ -22,20 +23,20 @@ function AdminCard() {
   }
 
   return (
-    <div className={cn("")()}>
+    <div className={createCn()}>
       <img
-        className={cn("", "image")()}
+        className={createCn("image")}
         src={imageFile ? imageFile : elantra}
         alt="фото машины"
       />
-      <h3 className={cn("", "title")()}>Hyndai, i30 N</h3>
-      <p className={cn("", "subtitle")()}>Компакт-кар</p>
-      <form className={cn("", "form")()}>
-        <div className={cn("", "input-container")()}>
-          <div className={cn("", "castom-input")()}>
+      <h3 className={createCn("title")}>Hyndai, i30 N</h3>
+      <p className={createCn("subtitle")}>Компакт-кар</p>
+      <form className={createCn("form")}>
+        <div className={createCn("input-container")}>
+          <div className={createCn("castom-input")}>
             {inputValue ? inputValue : "Выберите файл..."}
             <input
-              className={cn("", "input")()}
+              className={createCn("input")}
               type="file"
               id="file"
               name="file"
@@ -43,17 +44,17 @@ function AdminCard() {
               onChange={getImageSrc}
             />
           </div>
-          <label className={cn("", "label")()} htmlFor="file">
+          <label className={createCn("label")} htmlFor="file">
             Обзор
           </label>
         </div>
       </form>
       <ProgressBar value="74%" />
-      <form className={cn("", "form")({ type: "description" })}>
-        <label className={cn("", "description")()} htmlFor="description">
+      <form className={createCn("form", { type: "description" })}>
+        <label className={createCn("description")} htmlFor="description">
           Описание
           <textarea
-            className={cn("", "text")()}
+            className={createCn("text")}
             id="description"
             name="description"
             rows="6"

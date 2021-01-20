@@ -1,18 +1,19 @@
 import React from "react";
-import { withNaming } from "@bem-react/classname";
+import { createClassName } from "../../../../utils/createClassName";
 import "./ProgressBar.scss";
 
 function ProgressBar({ value }) {
-  const cn = withNaming({ n: "progress-bar", e: "__", m: "_" });
+  const createCn = (element, modifier) =>
+    createClassName("progress-bar", element, modifier);
 
   return (
-    <div className={cn("")()}>
-      <div className={cn("", "container")()}>
-        <p className={cn("", "value")()}>Заполнено</p>
-        <span className={cn("", "value")()}>{value}</span>
+    <div className={createCn()}>
+      <div className={createCn("container")}>
+        <p className={createCn("value")}>Заполнено</p>
+        <span className={createCn("value")}>{value}</span>
       </div>
-      <div className={cn("", "scale")()}>
-        <div className={cn("", "color-value")()} style={{ width: value }} />
+      <div className={createCn("scale")}>
+        <div className={createCn("color-value")} style={{ width: value }} />
       </div>
     </div>
   );

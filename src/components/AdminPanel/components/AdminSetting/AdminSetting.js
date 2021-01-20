@@ -1,17 +1,18 @@
 import React from "react";
-import { withNaming } from "@bem-react/classname";
 import AdminButton from "../AdminButton/AdminButton";
 import AdminInput from "../AdminInput/AdminInput";
+import { createClassName } from "../../../../utils/createClassName";
 import "./AdminSetting.scss";
 
 function AdminSetting({ colors }) {
-  const cn = withNaming({ n: "admin-setting", e: "__", m: "_" });
+  const createCn = (element, modifier) =>
+    createClassName("admin-setting", element, modifier);
 
   return (
-    <div className={cn("")()}>
-      <div className={cn("", "content")()}>
-        <h3 className={cn("", "title")()}>Настройки автомобиля</h3>
-        <form className={cn("", "form")()}>
+    <div className={createCn()}>
+      <div className={createCn("content")}>
+        <h3 className={createCn("title")}>Настройки автомобиля</h3>
+        <form className={createCn("form")}>
           <AdminInput
             label="Модель автомобиля"
             id="carBrand"
@@ -24,6 +25,7 @@ function AdminSetting({ colors }) {
             id="carType"
             type="text"
             placeholder="Введите тип автомобиля..."
+            position="left"
           />
           <AdminInput
             label="Доступные цвета"
@@ -37,8 +39,8 @@ function AdminSetting({ colors }) {
           />
         </form>
       </div>
-      <div className={cn("", "button-container")()}>
-        <div className={cn("", "button-group")()}>
+      <div className={createCn("button-container")}>
+        <div className={createCn("button-group")}>
           <AdminButton text="Сохранить" type="button" position="left" />
           <AdminButton text="Отменить" type="button" disabled={true} />
         </div>

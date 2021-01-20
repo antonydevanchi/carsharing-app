@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { withNaming } from "@bem-react/classname";
+import { createClassName } from "../../../../utils/createClassName";
 import "./Pagination.scss";
 
-function Pagination({ pages, handleClick, activeIndex, setActiveIndex }) {
-  const cn = withNaming({ n: "pagination", e: "__", m: "_" });
+function Pagination({ pages, handleClick, activeIndex, goRight, goLeft }) {
   const [pageNums, setPageNums] = useState([]);
+
+  const createCn = (element, modifier) =>
+    createClassName("pagination", element, modifier);
 
   const goToNextPage = () => {
     if (activeIndex < pages - 1) {
-      setActiveIndex(activeIndex + 1);
+      goRight();
       handleClick(activeIndex + 1);
     }
   };
   const goToPrevPage = () => {
     if (activeIndex >= 1) {
-      setActiveIndex(activeIndex - 1);
+      goLeft();
       handleClick(activeIndex - 1);
     }
   };
 
   useEffect(() => {
-    if (pages > 0 && pages < 6) {
+    if (pages >= 0 && pages < 6) {
       const numbers = [];
       for (let i = 1; i <= pages; i++) {
         numbers.push(i);
@@ -55,10 +57,10 @@ function Pagination({ pages, handleClick, activeIndex, setActiveIndex }) {
   }, [activeIndex, pages]);
 
   return (
-    <div className={cn("")()}>
+    <div className={createCn()}>
       <button
-        className={cn("", "button")({ type: "prev" })}
-        onClick={() => goToPrevPage()}
+        className={createCn("button", { type: "prev" })}
+        onClick={goToPrevPage}
       />
       {pageNums &&
         pageNums.map((num, i) => (
@@ -66,8 +68,8 @@ function Pagination({ pages, handleClick, activeIndex, setActiveIndex }) {
             key={i}
             className={
               +num === activeIndex + 1
-                ? cn("", "item")({ type: "active" })
-                : cn("", "item")()
+                ? createCn("item", { type: "active" })
+                : createCn("item")
             }
           >
             {num}
@@ -75,8 +77,8 @@ function Pagination({ pages, handleClick, activeIndex, setActiveIndex }) {
         ))}
 
       <button
-        className={cn("", "button")({ type: "next" })}
-        onClick={() => goToNextPage()}
+        className={createCn("button", { type: "next" })}
+        onClick={goToNextPage}
       />
     </div>
   );
