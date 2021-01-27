@@ -12,7 +12,7 @@ import {
   API_URL,
   HEADERS,
   HEADERS_POST,
-  ORDER_STATUS_CONFIRMED_ID,
+  ORDER_STATUS_NEW_ID,
   ORDER_STATUS_CANCELLED_ID,
 } from "../../../../constants/constants";
 import { formateDate } from "../../../../utils/calculations";
@@ -287,7 +287,7 @@ function Order({
   }
 
   function confirmOrder() {
-    const resData = sendDataToServer(ORDER_STATUS_CONFIRMED_ID);
+    const resData = sendDataToServer(ORDER_STATUS_NEW_ID);
     resData
       .then((res) => {
         setOrderId(res.data.id);

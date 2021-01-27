@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import { useHistory } from "react-router-dom";
 import List from "../List/List";
 import AdminTitle from "../AdminTitle/AdminTitle";
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -7,7 +8,7 @@ import {
   POINT_HEADERS,
   CITIES,
 } from "../../../../constants/constants";
-import { getData, getSelectOptions } from "../../../../adminFetch";
+import { getData } from "../../../../adminFetch";
 import { pointsListReducer } from "../../../../pointsListReducer";
 
 function PointsList() {
@@ -38,9 +39,10 @@ function PointsList() {
   const pointsUrl = pointsUrlStart + pointsUrlEnd;
   const allCities = CITIES.concat(cities);
   const pointSelectFields = [allCities];
+  const history = useHistory();
 
   useEffect(() => {
-    getSelectOptions("/db/city")
+    getData("/db/city")
       .then((resData) => {
         const cityArray = resData.data.map((item) => ({
           name: item.name,
@@ -101,6 +103,17 @@ function PointsList() {
     });
   }
 
+  function goToPointCard(pointId) {
+    getData(`/db/point/${pointId}`)
+      .then((resData) => {
+        sessionStorage.setItem("PointData", JSON.stringify(resData.data));
+        history.push("/admin/content/point-card");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   if (isFetchError) {
     return <ErrorPage />;
   }
@@ -131,6 +144,7 @@ function PointsList() {
             value: e.target.value,
           })
         }
+        goToEntityCard={goToPointCard}
       />
     </>
   );

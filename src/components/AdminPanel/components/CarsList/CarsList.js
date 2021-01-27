@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import { useHistory } from "react-router-dom";
 import List from "../List/List";
 import AdminTitle from "../AdminTitle/AdminTitle";
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -9,7 +10,7 @@ import {
   PRICE_TYPES,
 } from "../../../../constants/constants";
 import { makePriceWithGap } from "../../../../utils/priceWithGap";
-import { getData, getSelectOptions } from "../../../../adminFetch";
+import { getData } from "../../../../adminFetch";
 import { carsListReducer } from "../../../../carsListReducer";
 
 function CarsList() {
@@ -43,9 +44,10 @@ function CarsList() {
   const carsUrl = carsUrlStart + carsUrlEnd;
   const categories = CATEGORIES.concat(carCategories);
   const carSelectFields = [categories, PRICE_TYPES];
+  const history = useHistory();
 
   useEffect(() => {
-    getSelectOptions("/db/category")
+    getData("/db/category")
       .then((resData) => {
         const categoryArray = resData.data.map((item) => ({
           name: item.name,
@@ -113,6 +115,17 @@ function CarsList() {
     });
   }
 
+  function goToCarCard(carId) {
+    getData(`/db/car/${carId}`)
+      .then((resData) => {
+        sessionStorage.setItem("CarData", JSON.stringify(resData.data));
+        history.push("/admin/content/car-card");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   if (isFetchError) {
     return <ErrorPage />;
   }
@@ -143,6 +156,7 @@ function CarsList() {
             value: e.target.value,
           })
         }
+        goToEntityCard={goToCarCard}
       />
     </>
   );

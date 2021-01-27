@@ -91,14 +91,6 @@ function SideBar() {
             <PersonIcon isActive={checkCondition("point-card")} />
             Карточка пункта
           </NavLink>
-          <NavLink
-            className={createCn("item")}
-            activeClassName={createCn("item", { type: "active" })}
-            to="/admin/content/menu7"
-          >
-            <ErrorIcon isActive={checkCondition("menu7")} />
-            Menu 7
-          </NavLink>
         </nav>
       )}
     </div>

@@ -25,6 +25,9 @@ function List({
   isOrdersList,
   selectNames,
   handleChange,
+  goToEntityCard,
+  handleOrderCancel,
+  handleOrderConfirm,
 }) {
   const createCn = (element, modifier) =>
     createClassName("list", element, modifier);
@@ -114,7 +117,11 @@ function List({
                   <div className={createCn("price")}>
                     {makePriceWithGap(option.price)} ₽
                   </div>
-                  <ButtonGroup />
+                  <ButtonGroup
+                    handleConfirm={() => handleOrderConfirm(option.id)}
+                    handleEdit={() => goToEntityCard(option.id)}
+                    handleCancel={() => handleOrderCancel(option.id)}
+                  />
                 </div>
               </div>
             ))}
@@ -137,7 +144,11 @@ function List({
             options.map((option, i) => (
               <ul key={i} className={createCn("list")}>
                 {Object.values(option).map((item, i) => (
-                  <li key={i} className={createCn("item")}>
+                  <li
+                    key={i}
+                    className={createCn("item")}
+                    onClick={() => goToEntityCard(option.id)}
+                  >
                     {item}
                   </li>
                 ))}

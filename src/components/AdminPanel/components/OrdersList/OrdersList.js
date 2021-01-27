@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import { useHistory } from "react-router-dom";
 import List from "../List/List";
 import AdminTitle from "../AdminTitle/AdminTitle";
 import ErrorPage from "../ErrorPage/ErrorPage";
@@ -8,8 +9,10 @@ import {
   CITIES,
   PERIODS,
   CARS,
+  ORDER_STATUS_CANCELLED_ID,
+  ORDER_STATUS_CONFIRMED_ID,
 } from "../../../../constants/constants";
-import { getData, getSelectOptions } from "../../../../adminFetch";
+import { getData, changeEntity } from "../../../../adminFetch";
 import { ordersListReducer } from "../../../../ordersListReducer";
 
 function OrdersList() {
@@ -52,9 +55,10 @@ function OrdersList() {
   const allCars = CARS.concat(cars);
   const orderSelectFields = [PERIODS, allCars, allCities, allStatuses];
   const isOrdersList = true;
+  const history = useHistory();
 
   useEffect(() => {
-    getSelectOptions("/db/city")
+    getData("/db/city")
       .then((resData) => {
         const cityArray = resData.data.map((item) => ({
           name: item.name,
@@ -66,7 +70,7 @@ function OrdersList() {
         console.log(err);
       });
 
-    getSelectOptions("/db/orderStatus")
+    getData("/db/orderStatus")
       .then((resData) => {
         const statusArray = resData.data.map((item) => ({
           name: item.name,
@@ -78,7 +82,7 @@ function OrdersList() {
         console.log(err);
       });
 
-    getSelectOptions("/db/car")
+    getData("/db/car")
       .then((resData) => {
         const carArray = resData.data.map((item) => ({
           name: item.name,
@@ -96,6 +100,7 @@ function OrdersList() {
       .then((resData) => {
         const ordersArray = resData.data.map(
           ({
+            id,
             cityId,
             pointId,
             carId,
@@ -108,6 +113,7 @@ function OrdersList() {
             isNeedChildChair,
             isRightWheel,
           }) => ({
+            id: id,
             city: cityId ? cityId.name : "Неизвестный город",
             point:
               pointId && pointId.address
@@ -179,6 +185,41 @@ function OrdersList() {
     });
   }
 
+  function goToOrder(orderId) {
+    getData(`/db/order/${orderId}`)
+      .then((resData) => {
+        sessionStorage.setItem("OrderData", JSON.stringify(resData.data));
+        history.push("/admin/content/order-card");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleOrderConfirm(orderId) {
+    changeEntity("order", orderId, { orderStatusId: ORDER_STATUS_CONFIRMED_ID })
+      .then((res) => {
+        console.log(res);
+        console.log("Order Confirm !!!");
+      })
+      .catch((err) => {
+        alert("Что-то пошло не так... Заказ не подтвержден");
+        console.log(err);
+      });
+  }
+
+  function handleOrderCancel(orderId) {
+    changeEntity("order", orderId, { orderStatusId: ORDER_STATUS_CANCELLED_ID })
+      .then((res) => {
+        console.log(res);
+        console.log("Order Cancel !!!");
+      })
+      .catch((err) => {
+        alert("Что-то пошло не так... Заказ не отменен");
+        console.log(err);
+      });
+  }
+
   if (isFetchError) {
     return <ErrorPage />;
   }
@@ -209,6 +250,9 @@ function OrdersList() {
             value: e.target.value,
           })
         }
+        goToEntityCard={goToOrder}
+        handleOrderCancel={handleOrderCancel}
+        handleOrderConfirm={handleOrderConfirm}
       />
     </>
   );

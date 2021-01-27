@@ -3,10 +3,11 @@ import { Switch, Route } from "react-router-dom";
 import AdminHeader from "./components/AdminHeader/AdminHeader";
 import SideBar from "./components/SideBar/SideBar";
 import AdminFooter from "./components/AdminFooter/AdminFooter";
-import AdminTitle from "./components/AdminTitle/AdminTitle";
 import CarCard from "./components/CarCard/CarCard";
 import CarsList from "./components/CarsList/CarsList";
+import OrderCard from "./components/OrderCard/OrderCard";
 import OrdersList from "./components/OrdersList/OrdersList";
+import PointCard from "./components/PointCard/PointCard";
 import PointsList from "./components/PointsList/PointsList";
 import "./AdminPanel.scss";
 
@@ -28,16 +29,13 @@ function AdminPanel() {
               <OrdersList />
             </Route>
             <Route path="/admin/content/order-card">
-              <AdminTitle text="Карточка заказа" />
+              <OrderCard />
             </Route>
             <Route path="/admin/content/points-list">
               <PointsList />
             </Route>
             <Route path="/admin/content/point-card">
-              <AdminTitle text="Карточка пункта" />
-            </Route>
-            <Route path="/admin/content/menu7">
-              <AdminTitle text="Menu 7" />
+              <PointCard />
             </Route>
           </Switch>
         </div>
