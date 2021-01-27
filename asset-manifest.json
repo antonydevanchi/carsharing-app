@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/carsharing-app/static/css/main.a2cc79c1.chunk.css",
-    "main.js": "/carsharing-app/static/js/main.a06f2505.chunk.js",
-    "main.js.map": "/carsharing-app/static/js/main.a06f2505.chunk.js.map",
-    "runtime-main.js": "/carsharing-app/static/js/runtime-main.3b9ccead.js",
-    "runtime-main.js.map": "/carsharing-app/static/js/runtime-main.3b9ccead.js.map",
-    "static/js/2.5c9dd5a9.chunk.js": "/carsharing-app/static/js/2.5c9dd5a9.chunk.js",
-    "static/js/2.5c9dd5a9.chunk.js.map": "/carsharing-app/static/js/2.5c9dd5a9.chunk.js.map",
-    "static/js/3.b4112dd8.chunk.js": "/carsharing-app/static/js/3.b4112dd8.chunk.js",
-    "static/js/3.b4112dd8.chunk.js.map": "/carsharing-app/static/js/3.b4112dd8.chunk.js.map",
+    "main.css": "/carsharing-app/static/css/main.3cb7c771.chunk.css",
+    "main.js": "/carsharing-app/static/js/main.893eb469.chunk.js",
+    "main.js.map": "/carsharing-app/static/js/main.893eb469.chunk.js.map",
+    "runtime-main.js": "/carsharing-app/static/js/runtime-main.39e8b268.js",
+    "runtime-main.js.map": "/carsharing-app/static/js/runtime-main.39e8b268.js.map",
+    "static/js/2.73590569.chunk.js": "/carsharing-app/static/js/2.73590569.chunk.js",
+    "static/js/2.73590569.chunk.js.map": "/carsharing-app/static/js/2.73590569.chunk.js.map",
+    "static/js/3.f847fee3.chunk.js": "/carsharing-app/static/js/3.f847fee3.chunk.js",
+    "static/js/3.f847fee3.chunk.js.map": "/carsharing-app/static/js/3.f847fee3.chunk.js.map",
     "index.html": "/carsharing-app/index.html",
-    "static/css/main.a2cc79c1.chunk.css.map": "/carsharing-app/static/css/main.a2cc79c1.chunk.css.map",
-    "static/js/2.5c9dd5a9.chunk.js.LICENSE.txt": "/carsharing-app/static/js/2.5c9dd5a9.chunk.js.LICENSE.txt",
+    "static/css/main.3cb7c771.chunk.css.map": "/carsharing-app/static/css/main.3cb7c771.chunk.css.map",
+    "static/js/2.73590569.chunk.js.LICENSE.txt": "/carsharing-app/static/js/2.73590569.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/carsharing-app/static/media/roboto-regular.59d18e16.woff",
     "static/media/arrow.3f54b55d.svg": "/carsharing-app/static/media/arrow.3f54b55d.svg",
     "static/media/bell.4a73f89d.svg": "/carsharing-app/static/media/bell.4a73f89d.svg",
@@ -19,13 +19,13 @@
     "static/media/btn_prev.1752ae91.svg": "/carsharing-app/static/media/btn_prev.1752ae91.svg",
     "static/media/AdminCheckbox.scss": "/carsharing-app/static/media/check-admin.5f6c1f54.svg",
     "static/media/CheckboxGroup.scss": "/carsharing-app/static/media/check.599a4157.svg",
-    "static/media/Navbar.scss": "/carsharing-app/static/media/menu_btn.33a03786.svg",
+    "static/media/SucsessBlock.scss": "/carsharing-app/static/media/close.1d4598cc.svg",
     "static/media/edit-icon.357a7de3.svg": "/carsharing-app/static/media/edit-icon.357a7de3.svg",
-    "static/media/elantra.2a4b5c9c.jpg": "/carsharing-app/static/media/elantra.2a4b5c9c.jpg",
     "static/media/green-check.c0b2bf86.svg": "/carsharing-app/static/media/green-check.c0b2bf86.svg",
     "static/media/insurance.e1b2fc8e.jpg": "/carsharing-app/static/media/insurance.e1b2fc8e.jpg",
     "static/media/locality.480be180.svg": "/carsharing-app/static/media/locality.480be180.svg",
     "static/media/logo.02d5ddcf.svg": "/carsharing-app/static/media/logo.02d5ddcf.svg",
+    "static/media/Navbar.scss": "/carsharing-app/static/media/menu_btn.33a03786.svg",
     "static/media/SideBar.scss": "/carsharing-app/static/media/reset.01609553.svg",
     "static/media/Pagination.scss": "/carsharing-app/static/media/prev-adm.91d161bb.svg",
     "static/media/parking.64653039.jpg": "/carsharing-app/static/media/parking.64653039.jpg",
@@ -37,9 +37,9 @@
     "static/media/shape.c8b5b3af.svg": "/carsharing-app/static/media/shape.c8b5b3af.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.3b9ccead.js",
-    "static/js/2.5c9dd5a9.chunk.js",
-    "static/css/main.a2cc79c1.chunk.css",
-    "static/js/main.a06f2505.chunk.js"
+    "static/js/runtime-main.39e8b268.js",
+    "static/js/2.73590569.chunk.js",
+    "static/css/main.3cb7c771.chunk.css",
+    "static/js/main.893eb469.chunk.js"
   ]
 }
