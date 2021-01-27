@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import {
+  URL_TELEGRAM,
+  URL_FACEBOOK,
+  URL_INSTAGRAM,
+} from "../../constants/constants";
 import "./Navbar.scss";
 
 function Navbar() {
@@ -35,7 +40,7 @@ function Navbar() {
           <ul className="navbar__social-media-list">
             <li className="navbar__social-media">
               <a
-                href="https://www.telegram.org/"
+                href={URL_TELEGRAM}
                 rel="noreferrer"
                 target="_blank"
                 className="navbar__social-link"
@@ -58,7 +63,7 @@ function Navbar() {
             </li>
             <li className="navbar__social-media">
               <a
-                href="https://www.facebook.com/"
+                href={URL_FACEBOOK}
                 rel="noreferrer"
                 target="_blank"
                 className="navbar__social-link"
@@ -77,7 +82,7 @@ function Navbar() {
             </li>
             <li className="navbar__social-media">
               <a
-                href="https://www.instagram.com/"
+                href={URL_INSTAGRAM}
                 rel="noreferrer"
                 target="_blank"
                 className="navbar__social-link"

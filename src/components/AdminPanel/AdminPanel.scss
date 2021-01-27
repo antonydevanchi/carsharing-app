@@ -4,6 +4,8 @@
   display: flex;
   width: 100%;
   min-height: 100%;
+  font-family: "Helvetica", sans-serif;
+  font-weight: normal;
 }
 
 .admin-content {
@@ -23,15 +25,5 @@
   padding: 28px;
   @media screen and (max-width: $mobile) {
     padding: $extraSmall;
-  }
-}
-
-.content {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  align-items: flex-start;
-  @media screen and (max-width: $tablet) {
-    flex-direction: column;
   }
 }

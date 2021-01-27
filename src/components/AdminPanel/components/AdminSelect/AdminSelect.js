@@ -1,13 +1,21 @@
 import React from "react";
+import { createClassName } from "../../../../utils/createClassName";
 import "./AdminSelect.scss";
 
-function AdminSelect({ id, options }) {
+function AdminSelect({ name, options, handleChange }) {
+  const createCn = (element, modifier) =>
+    createClassName("admin-select", element, modifier);
+
   return (
-    <div className="admin-select">
-      <select className="admin-select__select" id={id}>
+    <div className={createCn()}>
+      <select
+        className={createCn("select")}
+        name={name}
+        onChange={handleChange}
+      >
         {options.map((item, i) => (
-          <option className="admin-select__option" key={i}>
-            {item}
+          <option className={createCn("option")} key={i}>
+            {item.name}
           </option>
         ))}
       </select>

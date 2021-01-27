@@ -8,8 +8,6 @@
   padding: 22px;
   width: 100%;
   z-index: 5;
-  font-family: "Helvetica", sans-serif;
-  font-weight: normal;
   font-size: 15px;
   line-height: 17px;
   letter-spacing: -0.471429;
@@ -40,7 +38,7 @@
     color: $blue;
     padding: 1px 5px 1px;
 
-    &_active {
+    &_type_active {
       color: #ffffff;
       border-radius: 50%;
       background-color: $blue;

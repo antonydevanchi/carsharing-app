@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { withNaming } from "@bem-react/classname";
 import AdminCheckbox from "../AdminCheckbox/AdminCheckbox";
+import { createClassName } from "../../../../utils/createClassName";
 import "./AdminInput.scss";
 
 function AdminInput({
@@ -16,8 +16,10 @@ function AdminInput({
   isError,
   options,
 }) {
-  const cn = withNaming({ n: "", e: "__", m: "_" });
   const [itemValues, setItemValues] = useState(options);
+
+  const createCn = (element, modifier) =>
+    createClassName("admin-input", element, modifier);
 
   function handleAddItem(e) {
     const input = e.target.previousSibling;
@@ -36,17 +38,16 @@ function AdminInput({
 
   return (
     <label
-      className={cn("admin-input")({ kind: kind, position: position })}
+      className={createCn("", { kind: kind, position: position })}
       htmlFor={id}
     >
       {label}
-      <div className="admin-input__container">
+      <div className={createCn("container")}>
         <input
-          className={
-            isError
-              ? cn("admin-input", "field")({ kind: kind, border: "red" })
-              : cn("admin-input", "field")({ kind: kind })
-          }
+          className={createCn("field", {
+            kind: kind,
+            border: isError ? "red" : "",
+          })}
           type={type}
           id={id}
           name={id}
@@ -58,14 +59,14 @@ function AdminInput({
         {addition && (
           <button
             type="button"
-            className="admin-input__button"
+            className={createCn("button")}
             onClick={handleAddItem}
           >
             +
           </button>
         )}
       </div>
-      {isError && <span className="admin-input__error">Ошибка</span>}
+      {isError && <span className={createCn("error")}>Ошибка</span>}
       {addition && (
         <AdminCheckbox
           values={itemValues}

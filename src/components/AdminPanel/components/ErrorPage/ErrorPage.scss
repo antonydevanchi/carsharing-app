@@ -4,14 +4,10 @@
   display: flex;
   flex-direction: column;
   width: auto;
-  font-family: "Helvetica", sans-serif;
-  font-weight: normal;
   align-items: center;
   margin: auto;
 
   &__error {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
     font-size: 75px;
     line-height: 88px;
     letter-spacing: -5.76923px;

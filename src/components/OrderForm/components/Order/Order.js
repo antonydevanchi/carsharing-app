@@ -103,7 +103,8 @@ function Order({
       location.pathname === "/order-form/additionally" &&
       (!isOrderDate ||
         totalPrice < orderModel.priceMin ||
-        totalPrice > orderModel.priceMax)
+        totalPrice > orderModel.priceMax ||
+        !totalPrice)
     ) {
       setIsDisabled(true);
       setIsActiveTotal(false);
@@ -199,7 +200,11 @@ function Order({
   }, [cards, search]);
 
   function getTotalPrice(price) {
-    setTotalPrice(price);
+    if (price) {
+      setTotalPrice(price);
+    } else if (!price) {
+      setTotalPrice(undefined);
+    }
   }
 
   useEffect(() => {
@@ -212,6 +217,11 @@ function Order({
          не менее ${makePriceWithGap(orderModel.priceMin)}руб
          и не более ${makePriceWithGap(orderModel.priceMax)}руб. 
          Сейчас расчетная цена = ${makePriceWithGap(totalPrice)}руб.`
+      );
+    } else if (!totalPrice && totalPrice !== "") {
+      alert(
+        `К сожалению, на данный момент выбранный тариф не может быть применен.
+         Выберите другой тариф и продолжите оформлять заказ`
       );
     }
   }, [totalPrice, orderModel]);
@@ -322,9 +332,8 @@ function Order({
           />
         )}
         {location.pathname !== "/order-form/model" &&
-          location.pathname !== "/order-form/location" && (
-            <PriceContainer price={makePriceWithGap(totalPrice)} />
-          )}
+          location.pathname !== "/order-form/location" &&
+          totalPrice && <PriceContainer price={makePriceWithGap(totalPrice)} />}
         <Button
           text={btnText}
           className={`button button_max button_order ${

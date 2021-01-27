@@ -1,31 +1,35 @@
 import React from "react";
 import "./AdminHeader.scss";
+import { createClassName } from "../../../../utils/createClassName";
 import shape from "../../../../images/shape.svg";
 import bell from "../../../../images/bell.svg";
 import avatar from "../../../../images/avatar.jpg";
 
 function AdminHeader() {
+  const createCn = (element, modifier) =>
+    createClassName("admin-header", element, modifier);
+
   return (
-    <header className="admin-header">
-      <div className="admin-header__search">
-        <img className="admin-header__search-icon" src={shape} alt="поиск" />
+    <header className={createCn()}>
+      <div className={createCn("search")}>
+        <img className={createCn("search-icon")} src={shape} alt="поиск" />
         <input
-          className="admin-header__search-input"
+          className={createCn("search-input")}
           type="text"
           placeholder="Поиск …"
         />
       </div>
-      <div className="admin-header__container">
-        <div className="admin-header__notifications">
-          <img className="admin-header__bell" src={bell} alt="уведомления" />
-          <div className="admin-header__counter">2</div>
+      <div className={createCn("container")}>
+        <div className={createCn("notifications")}>
+          <img className={createCn("bell")} src={bell} alt="уведомления" />
+          <div className={createCn("counter")}>2</div>
         </div>
-        <div className="admin-header__admin-info">
-          <img className="admin-header__avatar" src={avatar} alt="аватар" />
-          <select className="admin-header__admin-select">
-            <option className="admin-header__select-option">Admin</option>
-            <option className="admin-header__select-option">Admin 2</option>
-            <option className="admin-header__select-option">Admin 3</option>
+        <div className={createCn("admin-info")}>
+          <img className={createCn("avatar")} src={avatar} alt="аватар" />
+          <select className={createCn("admin-select")}>
+            <option className={createCn("select-option")}>Admin</option>
+            <option className={createCn("select-option")}>Admin 2</option>
+            <option className={createCn("select-option")}>Admin 3</option>
           </select>
         </div>
       </div>

@@ -1,12 +1,10 @@
-import { API_URL, API_ID, SECRET } from "./constants/constants";
+import { API_URL, API_ID, SECRET, SYMBOLS_STRING } from "./constants/constants";
 
 function createRandomHash(num) {
-  const symbolsString =
-    "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
   let randomHash = "";
   for (let i = 0; i < num; i++) {
-    var index = Math.floor(Math.random() * symbolsString.length);
-    randomHash += symbolsString[index];
+    var index = Math.floor(Math.random() * SYMBOLS_STRING.length);
+    randomHash += SYMBOLS_STRING[index];
   }
   return randomHash;
 }
@@ -77,7 +75,6 @@ export function refreshToken(token, key) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       if (data) {
         saveToken(data);
         return data;

@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import "./PostsIcon.scss";
 
-function PostsIcon() {
-  const location = useLocation();
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    location.pathname === "/admin/content/list"
-      ? setIsActive(true)
-      : setIsActive(false);
-  }, [location.pathname]);
-
+function PostsIcon({ isActive }) {
   return (
     <svg
       className={`posts-icon ${isActive ? "posts-icon_active" : ""}`}

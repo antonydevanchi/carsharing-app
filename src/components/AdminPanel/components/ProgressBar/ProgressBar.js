@@ -1,15 +1,19 @@
 import React from "react";
+import { createClassName } from "../../../../utils/createClassName";
 import "./ProgressBar.scss";
 
 function ProgressBar({ value }) {
+  const createCn = (element, modifier) =>
+    createClassName("progress-bar", element, modifier);
+
   return (
-    <div className="progress-bar">
-      <div className="progress-bar__container">
-        <p className="progress-bar__value">Заполнено</p>
-        <span className="progress-bar__value">{value}</span>
+    <div className={createCn()}>
+      <div className={createCn("container")}>
+        <p className={createCn("value")}>Заполнено</p>
+        <span className={createCn("value")}>{value}</span>
       </div>
-      <div className="progress-bar__scale">
-        <div className="progress-bar__color-value" style={{ width: value }} />
+      <div className={createCn("scale")}>
+        <div className={createCn("color-value")} style={{ width: value }} />
       </div>
     </div>
   );

@@ -1,19 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { createClassName } from "../../../../utils/createClassName";
 import "./AdminFooter.scss";
 
 function AdminFooter() {
+  const createCn = (element, modifier) =>
+    createClassName("admin-footer", element, modifier);
+
   return (
-    <footer className="admin-footer">
-      <div className="admin-footer__list">
-        <Link to="/carsharing-app" className="admin-footer__item">
+    <footer className={createCn()}>
+      <div className={createCn("list")}>
+        <Link to="/carsharing-app" className={createCn("item")}>
           Главная страница
         </Link>
-        <Link to="/order-form/location" className="admin-footer__item">
+        <Link to="/order-form/location" className={createCn("item")}>
           Страница заказа
         </Link>
       </div>
-      <p className="admin-footer__text">Copyright &copy; 2020 Simbirsoft</p>
+      <p className={createCn("text")}>Copyright &copy; 2020 Simbirsoft</p>
     </footer>
   );
 }

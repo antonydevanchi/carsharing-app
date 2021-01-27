@@ -143,13 +143,24 @@ function Additionally({
       otherValues,
       rates
     );
-    if (estimatedPrice && estimatedPrice > 0) {
+    if (
+      (estimatedPrice && estimatedPrice > 0) ||
+      estimatedPrice === undefined
+    ) {
       getTotalPrice(estimatedPrice);
     }
   }
 
   useEffect(() => {
-    getActualPrice(searchFromDate, searchToDate, rateValue, otherValues, rates);
+    if (searchFromDate && searchToDate && rateValue && rates) {
+      getActualPrice(
+        searchFromDate,
+        searchToDate,
+        rateValue,
+        otherValues,
+        rates
+      );
+    }
   }, [searchFromDate, searchToDate, rateValue, otherValues, rates]); // eslint-disable-line
 
   return (

@@ -1,6 +1,6 @@
 @import "../../../../scss/variables.scss";
 
-.order-card {
+.list {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,7 +10,6 @@
     0px 3.5px 35px rgba(90, 97, 105, 0.1);
   border-radius: 9px;
   margin-bottom: 28px;
-  font-family: "Helvetica", sans-serif;
   position: relative;
   overflow: auto;
   @media screen and (max-width: $mobile) {
@@ -21,20 +20,16 @@
   &__container {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 22px;
     align-items: flex-start;
-    padding: 16px 22px 22px;
-    box-shadow: 0px -0.5px 0px #e0e2e8, 0px 0.5px 0px #e0e2e8;
-
+    padding: 16px 22px 0;
     @media screen and (max-width: $mobile) {
       flex-direction: column;
       padding: $extraSmall;
     }
-
-    &_type_content {
+    &_type_digits {
+      flex-direction: column;
       justify-content: flex-start;
-      align-items: center;
-      margin-bottom: 10%;
-      box-shadow: none;
     }
   }
 
@@ -43,10 +38,63 @@
     flex-wrap: wrap;
   }
 
+  &__button-container {
+    display: flex;
+    @media screen and (max-width: $mobile) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__list {
+    list-style-type: none;
+    margin: 0;
+    padding: 11px 0 11px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px -0.5px 0px #e0e2e8, 0px 0.5px 0px #e0e2e8;
+    width: 100%;
+
+    &_type_order {
+      @media screen and (max-width: $mobile) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  &__item {
+    font-size: 12px;
+    line-height: 14px;
+    color: #818ea3;
+    letter-spacing: -0.377143px;
+    min-width: 100px;
+    width: 100px;
+    margin-right: 22px;
+
+    &:first-of-type {
+      color: $darkBlue;
+    }
+    &:last-of-type {
+      margin-right: 0;
+      min-width: 160px;
+      width: 160px;
+    }
+
+    &_type_title {
+      font-weight: bold;
+      color: $darkBlue;
+    }
+  }
+
   &__image {
     width: 138px;
     height: 63px;
     object-fit: cover;
+    margin-right: $small;
+  }
+
+  &__blank {
+    min-width: 138px;
+    min-height: 63px;
     margin-right: $small;
   }
 
@@ -63,22 +111,27 @@
 
   &__info {
     margin-right: $small;
-    @media screen and (max-width: 1240px) {
+    @media screen and (max-width: $mobile) {
       margin-top: $small;
+    }
 
-      &:first-of-type {
-        margin-top: 0;
+    &:first-of-type {
+      width: 286px;
+      @media screen and (max-width: 1240px) {
+        margin-top: $small;
+      }
+      @media screen and (max-width: $mobile) {
+        width: 100%;
       }
     }
   }
 
   &__text {
-    font-family: "Roboto", sans-serif;
-    font-size: normal;
     font-size: 13px;
     line-height: 15px;
     letter-spacing: -0.408571px;
     color: $mainBlack;
+    margin: 0 0 6px;
 
     &_type_thin {
       color: #889098;
@@ -86,12 +139,12 @@
   }
 
   &__price {
-    font-family: "Helvetica", sans-serif;
-    font-weight: normal;
     font-size: 24px;
     line-height: 28px;
     letter-spacing: -0.754286px;
     color: $mainBlack;
+    width: 132px;
+    text-align: center;
     @media screen and (max-width: 1240px) {
       margin-top: $small;
     }

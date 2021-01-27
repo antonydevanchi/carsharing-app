@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import "./PersonIcon.scss";
 
-function PersonIcon() {
-  const location = useLocation();
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    location.pathname === "/admin/content/menu6"
-      ? setIsActive(true)
-      : setIsActive(false);
-  }, [location.pathname]);
-
+function PersonIcon({ isActive }) {
   return (
     <svg
       className={`person-icon ${isActive ? "person-icon_active" : ""}`}

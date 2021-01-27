@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { createClassName } from "../../../../utils/createClassName";
 import "./AdminCard.scss";
 import elantra from "../../../../images/elantra.jpg";
 
 function AdminCard() {
   const [imageFile, setImageFile] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const createCn = (element, modifier) =>
+    createClassName("admin-card", element, modifier);
 
   function getImageSrc(event) {
     const file = event.target.files[0];
@@ -20,20 +23,20 @@ function AdminCard() {
   }
 
   return (
-    <div className="admin-card">
+    <div className={createCn()}>
       <img
-        className="admin-card__image"
+        className={createCn("image")}
         src={imageFile ? imageFile : elantra}
         alt="фото машины"
       />
-      <h3 className="admin-card__title">Hyndai, i30 N</h3>
-      <p className="admin-card__subtitle">Компакт-кар</p>
-      <form className="admin-card__form">
-        <div className="admin-card__input-container">
-          <div className="admin-card__castom-input">
+      <h3 className={createCn("title")}>Hyndai, i30 N</h3>
+      <p className={createCn("subtitle")}>Компакт-кар</p>
+      <form className={createCn("form")}>
+        <div className={createCn("input-container")}>
+          <div className={createCn("castom-input")}>
             {inputValue ? inputValue : "Выберите файл..."}
             <input
-              className="admin-card__input"
+              className={createCn("input")}
               type="file"
               id="file"
               name="file"
@@ -41,17 +44,17 @@ function AdminCard() {
               onChange={getImageSrc}
             />
           </div>
-          <label className="admin-card__label" htmlFor="file">
+          <label className={createCn("label")} htmlFor="file">
             Обзор
           </label>
         </div>
       </form>
       <ProgressBar value="74%" />
-      <form className="admin-card__form admin-card__form_description">
-        <label className="admin-card__description" htmlFor="description">
+      <form className={createCn("form", { type: "description" })}>
+        <label className={createCn("description")} htmlFor="description">
           Описание
           <textarea
-            className="admin-card__text"
+            className={createCn("text")}
             id="description"
             name="description"
             rows="6"

@@ -1,8 +1,6 @@
 @import "../../../../scss/variables.scss";
 
 .admin-input {
-  font-family: "Helvetica", sans-serif;
-  font-weight: normal;
   color: $mainBlack;
   font-size: 10.5px;
   line-height: 12px;
@@ -16,7 +14,9 @@
   }
 
   &_kind_top {
-    margin-top: $small;
+    @media screen and (max-width: 1700px) {
+      margin-top: $small;
+    }
   }
 
   &_position_left {
@@ -34,8 +34,6 @@
 
   &__field {
     color: $mainBlack;
-    font-family: "Helvetica", sans-serif;
-    font-weight: normal;
     font-size: 11px;
     line-height: 13px;
     letter-spacing: -0.192982px;

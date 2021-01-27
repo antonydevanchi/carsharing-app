@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import "./BlogIcon.scss";
 
-function BlogIcon() {
-  const location = useLocation();
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    location.pathname === "/admin/content/car"
-      ? setIsActive(true)
-      : setIsActive(false);
-  }, [location.pathname]);
-
+function BlogIcon({ isActive }) {
   return (
     <svg
       className={`blog-icon ${isActive ? "blog-icon_active" : ""}`}

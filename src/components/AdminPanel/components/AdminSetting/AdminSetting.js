@@ -1,16 +1,18 @@
 import React from "react";
 import AdminButton from "../AdminButton/AdminButton";
 import AdminInput from "../AdminInput/AdminInput";
+import { createClassName } from "../../../../utils/createClassName";
 import "./AdminSetting.scss";
 
-function AdminSetting() {
-  const colorValues = ["Красный", "Белый", "Чёрный"];
+function AdminSetting({ colors }) {
+  const createCn = (element, modifier) =>
+    createClassName("admin-setting", element, modifier);
 
   return (
-    <div className="admin-setting">
-      <div className="admin-setting__content">
-        <h3 className="admin-setting__title">Настройки автомобиля</h3>
-        <form className="admin-setting__form">
+    <div className={createCn()}>
+      <div className={createCn("content")}>
+        <h3 className={createCn("title")}>Настройки автомобиля</h3>
+        <form className={createCn("form")}>
           <AdminInput
             label="Модель автомобиля"
             id="carBrand"
@@ -23,6 +25,7 @@ function AdminSetting() {
             id="carType"
             type="text"
             placeholder="Введите тип автомобиля..."
+            position="left"
           />
           <AdminInput
             label="Доступные цвета"
@@ -32,12 +35,12 @@ function AdminSetting() {
             kind="top"
             position="left"
             addition="button"
-            options={colorValues}
+            options={colors}
           />
         </form>
       </div>
-      <div className="admin-setting__button-container">
-        <div className="admin-setting__button-group">
+      <div className={createCn("button-container")}>
+        <div className={createCn("button-group")}>
           <AdminButton text="Сохранить" type="button" position="left" />
           <AdminButton text="Отменить" type="button" disabled={true} />
         </div>

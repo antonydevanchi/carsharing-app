@@ -34,6 +34,7 @@ export const SLIDES = [
 export const API_URL =
   "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api";
 export const HEADERS = {
+  "Access-Control-Allow-Origin": "http://api-factory.simbirsoft1.com",
   "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b",
   Authorization: "Bearer 52efbe08228671240494f537f2486bc109a637b4",
 };
@@ -85,6 +86,10 @@ export const dateMask = [
   /\d/,
 ];
 
+export const URL_TELEGRAM = "https://www.telegram.org/";
+export const URL_FACEBOOK = "https://www.facebook.com/";
+export const URL_INSTAGRAM = "https://www.instagram.com/";
+
 export const ORDER_STATUS_NEW_ID = "5e26a191099b810b946c5d89";
 export const ORDER_STATUS_ISSUED_ID = "5e26a1d5099b810b946c5d8a";
 export const ORDER_STATUS_CONFIRMED_ID = "5e26a1f0099b810b946c5d8b";
@@ -92,84 +97,60 @@ export const ORDER_STATUS_CANCELLED_ID = "5e26a1f5099b810b946c5d8c";
 
 export const SECRET = ":4cbcea96de";
 
-export const CARS = [
+export const STATUSES = [{ name: "Все статусы" }];
+export const CITIES = [{ name: "Все города" }];
+
+const NOW_DATE = new Date();
+const CURRENT_DATE = new Date(
+  NOW_DATE.getFullYear(),
+  NOW_DATE.getMonth(),
+  NOW_DATE.getDate()
+);
+const LAST_WEEK = new Date(
+  NOW_DATE.getFullYear(),
+  NOW_DATE.getMonth(),
+  NOW_DATE.getDate() - 7
+);
+const CURRENT_MONTH = new Date(NOW_DATE.getFullYear(), NOW_DATE.getMonth());
+
+export const PERIODS = [
+  { name: "За все время" },
   {
-    name: "car 1",
-    id: "11111",
-    category: "11111",
-    price: "11111",
-    other: "11111",
+    name: "За месяц",
+    createdAt: `&createdAt[$gt]=${+CURRENT_MONTH}&createdAt[$lt]=${+NOW_DATE}`,
   },
   {
-    name: "car 2",
-    id: "11111",
-    category: "11111",
-    price: "11111",
-    other: "11111",
+    name: "За неделю",
+    createdAt: `&createdAt[$gt]=${+LAST_WEEK}&createdAt[$lt]=${+NOW_DATE}`,
   },
   {
-    name: "car 3",
-    id: "11111",
-    category: "11111",
-    price: "11111",
-    other: "11111",
-  },
-  {
-    name: "car 4",
-    id: "11111",
-    category: "11111",
-    price: "11111",
-    other: "11111",
-  },
-  {
-    name: "car 5",
-    id: "11111",
-    category: "11111",
-    price: "11111",
-    other: "11111",
-  },
-  {
-    name: "car 6",
-    id: "11111",
-    category: "11111",
-    price: "11111",
-    other: "11111",
+    name: "За день",
+    createdAt: `&createdAt[$gt]=${+CURRENT_DATE}&createdAt[$lt]=${+NOW_DATE}`,
   },
 ];
-export const ORDERS = [
-  {
-    name: "order 1",
-    id: "22222",
-    category: "22222",
-    price: "22222",
-    other: "22222",
-  },
-  {
-    name: "order 2",
-    id: "22222",
-    category: "22222",
-    price: "22222",
-    other: "22222",
-  },
-  {
-    name: "order 3",
-    id: "22222",
-    category: "22222",
-    price: "22222",
-    other: "22222",
-  },
-  {
-    name: "order 4",
-    id: "22222",
-    category: "22222",
-    price: "22222",
-    other: "22222",
-  },
-  {
-    name: "order 6",
-    id: "22222",
-    category: "22222",
-    price: "22222",
-    other: "22222",
-  },
+
+export const CARS = [{ name: "Все машины" }];
+
+export const POINT_HEADERS = ["Адрес пункта", "Город", "Название", "ID пункта"];
+export const CAR_HEADERS = [
+  "Модель",
+  "Номер",
+  "Категория",
+  "Цена min",
+  "Цена max",
+  "ID машины",
 ];
+export const CATEGORIES = [{ name: "Все категории" }];
+
+export const PRICE_TYPES = [
+  { name: "Без сортировки по цене" },
+  { name: "По возрастанию цены", priceMin: 1 },
+  { name: "По убыванию цены", priceMin: -1 },
+];
+
+export const ENTITY_NUMBER_TO_SHOW = 10;
+export const ORDERS_NUMBER_TO_SHOW = 5;
+
+export const COLOR_VALUES = ["Красный", "Белый", "Чёрный"]; //для примера, пока не реализовано редактирование сущностей
+export const SYMBOLS_STRING =
+  "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
