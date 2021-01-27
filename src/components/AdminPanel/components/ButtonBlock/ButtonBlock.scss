@@ -1,0 +1,17 @@
+@import "../../../../scss/variables.scss";
+
+.button-block {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @media screen and (max-width: $mobile) {
+    flex-direction: column;
+  }
+
+  &__button-group {
+    display: flex;
+    @media screen and (max-width: $mobile) {
+      flex-direction: column;
+    }
+  }
+}

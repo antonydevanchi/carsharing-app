@@ -8,27 +8,28 @@
   margin: 0 0 $small;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 550px) {
+    width: 100%;
+  }
 
   &_kind_login {
     color: #495057;
   }
 
-  &_kind_top {
-    @media screen and (max-width: 1700px) {
-      margin-top: $small;
-    }
-  }
-
   &_position_left {
     margin-right: $small;
+    @media screen and (max-width: 550px) {
+      margin-right: 0;
+      width: 100%;
+    }
   }
 
   &__container {
     display: flex;
     width: 320px;
     margin: $micro 0 0;
-    @media screen and (max-width: $mobile) {
-      width: auto;
+    @media screen and (max-width: 550px) {
+      width: 100%;
     }
   }
 
@@ -37,7 +38,6 @@
     font-size: 11px;
     line-height: 13px;
     letter-spacing: -0.192982px;
-
     outline: none;
     border: 1px solid #becad6;
     border-radius: 4px;

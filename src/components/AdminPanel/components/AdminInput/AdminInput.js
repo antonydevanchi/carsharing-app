@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+import MaskedInput from "react-text-mask";
 import AdminCheckbox from "../AdminCheckbox/AdminCheckbox";
+import { dateMask } from "../../../../constants/constants";
 import { createClassName } from "../../../../utils/createClassName";
 import "./AdminInput.scss";
 
@@ -10,52 +12,53 @@ function AdminInput({
   value,
   onChange,
   placeholder,
-  kind,
   position,
   addition,
   isError,
   options,
+  handleAddItem,
+  handleDeleteItem,
+  readOnly,
+  date,
 }) {
-  const [itemValues, setItemValues] = useState(options);
-
   const createCn = (element, modifier) =>
     createClassName("admin-input", element, modifier);
 
-  function handleAddItem(e) {
-    const input = e.target.previousSibling;
-    if (input.value) {
-      setItemValues([...itemValues, input.value]);
-    }
-    input.value = "";
-  }
-
-  function handleDeleteItem(e) {
-    const index = itemValues.indexOf(e.target.value);
-    const newItemValues = itemValues.slice();
-    newItemValues.splice(index, 1);
-    setItemValues(newItemValues);
-  }
-
   return (
-    <label
-      className={createCn("", { kind: kind, position: position })}
-      htmlFor={id}
-    >
+    <label className={createCn("", { position: position })} htmlFor={id}>
       {label}
       <div className={createCn("container")}>
-        <input
-          className={createCn("field", {
-            kind: kind,
-            border: isError ? "red" : "",
-          })}
-          type={type}
-          id={id}
-          name={id}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          autoComplete="off"
-        />
+        {!date && (
+          <input
+            className={createCn("field", {
+              border: isError ? "red" : "",
+            })}
+            type={type}
+            id={id}
+            name={id}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            autoComplete="off"
+            readOnly={readOnly}
+          />
+        )}
+        {date && (
+          <MaskedInput
+            mask={dateMask}
+            className={createCn("field", {
+              border: isError ? "red" : "",
+            })}
+            type={type}
+            id={id}
+            name={id}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            autoComplete="off"
+            readOnly={readOnly}
+          />
+        )}
         {addition && (
           <button
             type="button"
@@ -69,9 +72,9 @@ function AdminInput({
       {isError && <span className={createCn("error")}>Ошибка</span>}
       {addition && (
         <AdminCheckbox
-          values={itemValues}
+          values={options}
           onChange={handleDeleteItem}
-          checkedValues={itemValues}
+          checkedValues={options}
           type="input"
         />
       )}

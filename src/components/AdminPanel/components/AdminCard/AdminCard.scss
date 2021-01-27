@@ -17,12 +17,11 @@
   &__image {
     width: 244px;
     height: 110px;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
     margin: 34px 0 0;
     @media screen and (max-width: $mobile) {
       width: 100%;
-      object-fit: contain;
       margin-top: 0;
     }
   }
@@ -143,6 +142,8 @@
     font-size: 13px;
     line-height: 15px;
     letter-spacing: -0.408571px;
+    display: flex;
+    flex-direction: column;
   }
 
   &__text {
