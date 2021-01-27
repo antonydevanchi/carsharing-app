@@ -221,7 +221,6 @@ function OrderCard() {
       .catch((err) => {
         setIsSucsess(false);
         alert("Что-то пошло не так... Заказ не изменен");
-        console.log(err);
       });
   }
 
@@ -254,7 +253,6 @@ function OrderCard() {
       })
       .catch((err) => {
         alert("Что-то пошло не так... Заказ не удален");
-        console.log(err);
       });
   }
 

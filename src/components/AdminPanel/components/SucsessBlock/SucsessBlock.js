@@ -13,7 +13,7 @@ function SucsessBlock({ text }) {
   }
 
   if (!isBlockVisible) {
-    return <></>;
+    return null;
   }
 
   return (

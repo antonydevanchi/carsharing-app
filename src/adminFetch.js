@@ -32,7 +32,6 @@ export function createEntity(entity, options) {
       },
       body: JSON.stringify(options),
     }).then((res) => {
-      console.log(res);
       if (res.ok) {
         return res.json();
       }
@@ -51,7 +50,6 @@ export function deleteEntity(entity, entityId) {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log(res);
       if (res.ok) {
         return res.json();
       }
@@ -72,7 +70,6 @@ export function changeEntity(entity, entityId, options) {
       },
       body: JSON.stringify(options),
     }).then((res) => {
-      console.log(res);
       if (res.ok) {
         return res.json();
       }

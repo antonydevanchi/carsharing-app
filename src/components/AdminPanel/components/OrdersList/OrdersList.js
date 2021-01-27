@@ -199,24 +199,20 @@ function OrdersList() {
   function handleOrderConfirm(orderId) {
     changeEntity("order", orderId, { orderStatusId: ORDER_STATUS_CONFIRMED_ID })
       .then((res) => {
-        console.log(res);
-        console.log("Order Confirm !!!");
+        alert("Заказ успешно подтвержден");
       })
       .catch((err) => {
         alert("Что-то пошло не так... Заказ не подтвержден");
-        console.log(err);
       });
   }
 
   function handleOrderCancel(orderId) {
     changeEntity("order", orderId, { orderStatusId: ORDER_STATUS_CANCELLED_ID })
       .then((res) => {
-        console.log(res);
-        console.log("Order Cancel !!!");
+        alert("Заказ успешно отменен");
       })
       .catch((err) => {
         alert("Что-то пошло не так... Заказ не отменен");
-        console.log(err);
       });
   }
 

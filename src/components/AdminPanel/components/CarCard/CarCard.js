@@ -16,7 +16,7 @@ import "./CarCard.scss";
 
 function CarCard() {
   const [car, setCar] = useState({});
-  const [inputValues, setInputValues] = useState({
+  const emptyCard = {
     name: "",
     categoryId: { name: "", id: "" },
     priceMin: "",
@@ -24,7 +24,8 @@ function CarCard() {
     colors: [],
     thumbnail: {},
     description: "",
-  });
+  };
+  const [inputValues, setInputValues] = useState(emptyCard);
   const [inputColorValue, setInputColorValue] = useState("");
   const [progressValue, setProgressValue] = useState(0);
   const [isSucsess, setIsSucsess] = useState(false);
@@ -201,21 +202,12 @@ function CarCard() {
           setIsDeletionDisabled(true);
           setIsSavingDisabled(true);
           setIsResetDisabled(true);
-          setInputValues({
-            name: "",
-            categoryId: { name: "", id: "" },
-            priceMin: "",
-            priceMax: "",
-            colors: [],
-            thumbnail: {},
-            description: "",
-          });
+          setInputValues(emptyCard);
         })
         .catch((err) => {
           setIsSucsess(false);
           alert("Что-то пошло не так... Пункт не сохранен");
           handleReset();
-          console.log(err);
         });
     } else {
       changeEntity("car", car.id, changedValues)
@@ -225,21 +217,12 @@ function CarCard() {
           setIsSavingDisabled(true);
           setIsResetDisabled(true);
           setChangedValues({});
-          setInputValues({
-            name: "",
-            categoryId: { name: "", id: "" },
-            priceMin: "",
-            priceMax: "",
-            colors: [],
-            thumbnail: {},
-            description: "",
-          });
+          setInputValues(emptyCard);
         })
         .catch((err) => {
           setIsSucsess(false);
           alert("Что-то пошло не так... Пункт не сохранен");
           handleReset();
-          console.log(err);
         });
     }
   }
@@ -255,15 +238,7 @@ function CarCard() {
           thumbnail: { path: car.thumbnail.path },
           description: car.description,
         })
-      : setInputValues({
-          name: "",
-          categoryId: { name: "", id: "" },
-          priceMin: "",
-          priceMax: "",
-          colors: [],
-          thumbnail: {},
-          description: "",
-        });
+      : setInputValues(emptyCard);
     setIsResetDisabled(true);
     setIsInputError(false);
     setChangedValues({});
@@ -274,15 +249,7 @@ function CarCard() {
       .then((res) => {
         setIsDeletionDisabled(true);
         setIsResetDisabled(true);
-        setInputValues({
-          name: "",
-          categoryId: { name: "", id: "" },
-          priceMin: "",
-          priceMax: "",
-          colors: [],
-          thumbnail: {},
-          description: "",
-        });
+        setInputValues(emptyCard);
       })
       .catch((err) => {
         console.log(err);

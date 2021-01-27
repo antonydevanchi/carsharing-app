@@ -14,11 +14,12 @@ import "./PointCard.scss";
 
 function PointCard() {
   const [point, setPoint] = useState({});
-  const [inputValues, setInputValues] = useState({
+  const emptyCard = {
     name: "",
     cityId: { name: "", id: "" },
     address: "",
-  });
+  };
+  const [inputValues, setInputValues] = useState(emptyCard);
   const [isResetDisabled, setIsResetDisabled] = useState(true);
   const [isDeletionDisabled, setIsDeletionDisabled] = useState(true);
   const [isSavingDisabled, setIsSavingDisabled] = useState(true);
@@ -102,7 +103,6 @@ function PointCard() {
       setInputValues({ ...inputValues, [name]: value });
       setChangedValues({ ...changedValues, [name]: value });
       setIsResetDisabled(false);
-      console.log(`changedValues ${JSON.stringify(changedValues)}`);
     }
   }
 
@@ -115,17 +115,12 @@ function PointCard() {
           setIsDeletionDisabled(true);
           setIsSavingDisabled(true);
           setIsResetDisabled(true);
-          setInputValues({
-            name: "",
-            cityId: { name: "", id: "" },
-            address: "",
-          });
+          setInputValues(emptyCard);
         })
         .catch((err) => {
           setIsSucsess(false);
           alert("Что-то пошло не так... Пункт не сохранен");
           handleReset();
-          console.log(err);
         });
     } else {
       changeEntity("point", point.id, changedValues)
@@ -134,17 +129,12 @@ function PointCard() {
           setIsDeletionDisabled(true);
           setIsSavingDisabled(true);
           setIsResetDisabled(true);
-          setInputValues({
-            name: "",
-            cityId: { name: "", id: "" },
-            address: "",
-          });
+          setInputValues(emptyCard);
         })
         .catch((err) => {
           setIsSucsess(false);
           alert("Что-то пошло не так... Пункт не сохранен");
           handleReset();
-          console.log(err);
         });
     }
   }
@@ -156,11 +146,7 @@ function PointCard() {
           cityId: { name: point.cityId.name, id: point.cityId.id },
           address: point.address,
         })
-      : setInputValues({
-          name: "",
-          cityId: { name: "", id: "" },
-          address: "",
-        });
+      : setInputValues(emptyCard);
     setIsResetDisabled(true);
     setIsInputError(false);
     setChangedValues({});
@@ -171,11 +157,7 @@ function PointCard() {
       .then((res) => {
         setIsDeletionDisabled(true);
         setIsResetDisabled(true);
-        setInputValues({
-          name: "",
-          cityId: { name: "", id: "" },
-          address: "",
-        });
+        setInputValues(emptyCard);
       })
       .catch((err) => {
         console.log(err);
