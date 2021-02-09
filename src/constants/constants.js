@@ -32,7 +32,7 @@ export const SLIDES = [
 ];
 
 export const API_URL =
-  "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api";
+  "http://api-factory.simbirsoft1.com/api";
 export const HEADERS = {
   "Access-Control-Allow-Origin": "http://api-factory.simbirsoft1.com",
   "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b",
@@ -45,7 +45,7 @@ export const HEADERS_POST = {
 };
 export const API_ID = "5e25c641099b810b946c5d5b";
 export const URL_SIMBIRSOFT =
-  "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/";
+  "http://api-factory.simbirsoft1.com/";
 
 export const API_KEY_YANDEX_MAP = "434c60eb-7e25-434d-8607-ff46d664dc87";
 export const API_URL_YANDEX_MAP =
